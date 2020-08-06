@@ -1,0 +1,31 @@
+{
+  "root": true,
+  "project": {
+    "name": "Wing Luke Web Rebuild - Prototype 2"
+  },
+  "api": {
+    "projectId": "1jr4bwbd",
+    "dataset": "production"
+  },
+  "env": {
+    "development": {
+      "api": {
+        "dataset": "development"
+      },
+      "plugins": ["@sanity/vision"]
+    }
+  },
+  "plugins": [
+    "@sanity/base",
+    "@sanity/components",
+    "@sanity/default-layout",
+    "@sanity/default-login",
+    "@sanity/desk-tool"
+  ],
+  "parts": [
+    {
+      "name": "part:@sanity/base/schema",
+      "path": "./schemas/schema"
+    }
+  ]
+}
