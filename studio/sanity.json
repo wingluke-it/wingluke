@@ -12,7 +12,7 @@
       "api": {
         "dataset": "development"
       },
-      "plugins": ["@sanity/vision"]
+      "plugins": ["@sanity/vision", "minesweeper"]
     }
   },
   "plugins": [

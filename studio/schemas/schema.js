@@ -15,5 +15,58 @@ export default createSchema({
   types: schemaTypes.concat([
     /* Your types here! */
     test,
+    {
+      name: "person",
+      type: "document",
+      title: "Person",
+      fields: [
+        {
+          name: "name",
+          type: "string",
+          title: "Name",
+        },
+      ],
+    },
+    {
+      name: "book",
+      type: "document",
+      title: "Book",
+      fields: [
+        {
+          name: "title",
+          type: "string",
+          title: "Title",
+        },
+        {
+          name: "cover",
+          type: "image",
+          title: "Cover",
+        },
+        {
+          name: "publishDate",
+          type: "datetime",
+          title: "Publish Date",
+        },
+        {
+          name: "website",
+          type: "url",
+          title: "Website",
+        },
+        {
+          name: "authors",
+          title: "Authors",
+          type: "array",
+          of: [
+            {
+              type: "image",
+            },
+            {
+              type: "reference",
+              to: [{ type: "person" }, { type: "test" }],
+            },
+          ],
+        },
+      ],
+    },
   ]),
 });
