@@ -1,7 +1,7 @@
 {
   "root": true,
   "project": {
-    "name": "Wing Luke Web Rebuild - Prototype 2"
+    "name": "Wing Luke Museum"
   },
   "api": {
     "projectId": "1jr4bwbd",
@@ -12,7 +12,11 @@
       "api": {
         "dataset": "development"
       },
-      "plugins": ["@sanity/vision", "minesweeper"]
+      "plugins": [
+        "@sanity/vision",
+        "@sanity/dashboard",
+        "dashboard-widget-cats"
+      ]
     }
   },
   "plugins": [
@@ -26,6 +30,22 @@
     {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema"
+    },
+    {
+      "implements": "part:@sanity/dashboard/config",
+      "path": "./custom_config/dashboardConfig.js"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./custom_config/deskStructure.js"
+    },
+    {
+      "name": "part:@sanity/base/new-document-structure",
+      "path": "./custom_config/newDocumentStructure.js"
+    },
+    {
+      "implements": "part:@sanity/base/document-actions/resolver",
+      "path": "./custom_config/resolveDocumentActions.js"
     }
   ]
 }
