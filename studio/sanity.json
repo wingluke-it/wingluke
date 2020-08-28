@@ -15,7 +15,8 @@
       "plugins": [
         "@sanity/vision",
         "@sanity/dashboard",
-        "dashboard-widget-cats"
+        "dashboard-widget-cats",
+        "dark-theme-blue"
       ]
     }
   },
@@ -24,7 +25,9 @@
     "@sanity/components",
     "@sanity/default-layout",
     "@sanity/default-login",
-    "@sanity/desk-tool"
+    "@sanity/desk-tool",
+    "asset-source-unsplash",
+    "@sanity/google-maps-input"
   ],
   "parts": [
     {
@@ -33,19 +36,19 @@
     },
     {
       "implements": "part:@sanity/dashboard/config",
-      "path": "./custom_config/dashboardConfig.js"
+      "path": "./parts/dashboardConfig.js"
     },
     {
       "name": "part:@sanity/desk-tool/structure",
-      "path": "./custom_config/deskStructure.js"
+      "path": "./parts/deskStructure.js"
     },
     {
       "name": "part:@sanity/base/new-document-structure",
-      "path": "./custom_config/newDocumentStructure.js"
+      "path": "./parts/newDocumentStructure.js"
     },
     {
       "implements": "part:@sanity/base/document-actions/resolver",
-      "path": "./custom_config/resolveDocumentActions.js"
+      "path": "./parts/resolveDocumentActions.js"
     }
   ]
 }

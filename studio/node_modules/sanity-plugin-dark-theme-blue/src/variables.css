@@ -1,0 +1,57 @@
+/*
+  Learn more:
+  https://www.sanity.io/guides/how-to-brand-your-studio
+*/
+
+/* Custom fonts */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+:root {
+  /* Brand Colors */
+  --brand-primary: #37A0FF;
+  --brand-secondary: #FF6578;
+  --gray-base: #b2b2be;
+
+  /* Globals */
+  --body-bg: #191D21;
+  --body-text: #fff;
+  --component-bg: #242A2F;
+  --component-text-color: #fff;
+  --main-navigation-color: #15181B;
+
+  /* Typography */
+  --font-family-sans-serif: 'Inter', sans-serif;
+  --font-size-base: 16px;
+
+  /* Forms */
+  --default-button-color: var(--brand-primary);
+  --input-bg: #29333C;
+  --input-color: #fff;
+  --input-border-color: #404859;
+
+  /* Gray Colors */
+  --gray-darkest: color(var(--gray-base) lightness(- 5%));
+  --gray-darkest--transparent: color(var(--gray-base) lightness(- 5%) a(95%));
+  --gray-darker: color(var(--gray-base) lightness(+ 2%));
+  --gray-darker-transparent: color(var(--gray-base) lightness(+ 2%) a(88%));
+  --gray-dark: color(var(--gray-base));
+  --gray-dark--transparent: color(var(--gray-base) a(70%));
+  --gray: color(var(--gray-base));
+  --gray--transparent: color(var(--gray-base) a(60%));
+  --gray-light: color(var(--component-bg) lightness(+ 10%));
+  --gray-light--transparent: color(var(--component-bg) lightness(+ 10%) a(50%));
+  --gray-lighter: color(var(--component-bg) lightness(+ 15%));
+  --gray-lighter--transparent: color(var(--component-bg) lightness(+ 15%) a(25%));
+  --gray-lightest: color(var(--component-bg) lightness(+ 30%));
+  --gray-lightest--transparent: color(var(--component-bg) lightness(+ 30%) a(50%));
+
+  /* Override */
+  --selectable-item-base: var(--brand-primary);
+  --default-button-primary-color: var(--brand-primary);
+
+  /* Code */
+  --code-color: var(--brand-primary);
+  --code-bg: var(--gray-light);
+  --pre-bg: var(--gray-light);
+}
