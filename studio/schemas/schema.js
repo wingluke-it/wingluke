@@ -5,25 +5,27 @@ import createSchema from "part:@sanity/base/schema-creator";
 import schemaTypes from "all:part:@sanity/base/schema-type";
 
 // singleton documents
+import cacProcess from "./documents/singletons/cacProcess";
+import eventSpaceUsage from "./documents/singletons/eventSpaceUsage";
 import museumMeta from "./documents/singletons/museumMeta";
 import visitorGuide from "./documents/singletons/visitorGuide";
-import giveGuide from "./documents/singletons/giveGuide";
-import joinGuide from "./documents/singletons/joinGuide";
-import spaceRentalGuide from "./documents/singletons/spaceRentalGuide";
 
 // constituents
-import individual from "./documents/constituents/individual";
-import household from "./documents/constituents/household";
-import organization from "./documents/constituents/organization";
 
 // other documents
-import department from "./documents/department";
-import artifact from "./documents/artifact";
+import artist from "./documents/artist";
+import collectionsObject from "./documents/collectionsObject";
+import event from "./documents/event";
 import exhibit from "./documents/exhibit";
 import gallery from "./documents/gallery";
-import program from "./documents/program";
+import eventSpace from "./documents/eventSpace";
+import marketplaceProduct from "./documents/marketplaceProduct";
+import oralHistory from "./documents/oralHistory";
+import sponsor from "./documents/sponsor";
 import story from "./documents/story";
 import tour from "./documents/tour";
+import youthProgramSession from "./documents/youthProgramSession";
+import youthProgram from "./documents/youthProgram";
 
 // objects
 import localeString from "./objects/localeString";
@@ -41,25 +43,27 @@ export default createSchema({
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
     // singleton documents:
+    cacProcess,
+    eventSpaceUsage,
     museumMeta,
     visitorGuide,
-    giveGuide,
-    joinGuide,
-    spaceRentalGuide,
 
     // constituents
-    individual,
-    organization,
-    household,
 
     // documents
-    artifact,
-    department,
+    artist,
+    collectionsObject,
+    event,
+    eventSpace,
     exhibit,
     gallery,
-    program,
+    marketplaceProduct,
+    oralHistory,
+    sponsor,
     story,
     tour,
+    youthProgram,
+    youthProgramSession,
 
     // objects (non-documents):
     figure,

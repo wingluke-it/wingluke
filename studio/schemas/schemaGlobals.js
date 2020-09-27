@@ -2,6 +2,7 @@ const PHONE_REGEX = /^[2-9]\d{2}-\d{3}-\d{4}$/;
 
 export const ALT_TEXT_DESCRIPTION =
     "Give a short description of this image to be used by screen readers, web browsers (in case this image fails to load), and search engines.",
+  // TODO factor these out into their own objects
   EMAIL_FIELD = {
     name: "email",
     title: "Email",
@@ -26,12 +27,4 @@ export const ALT_TEXT_DESCRIPTION =
     { id: "en", title: "English", isDefault: true },
     { id: "es", title: "Spanish" },
     { id: "ja", title: "Japanese" },
-  ],
-  SINGLETON_TYPES = [
-    "museumMeta",
-    "visitorGuide",
-    "joinGuide",
-    "giveGuide",
-    "spaceRentalGuide",
-  ],
-  HIDDEN_TYPES = ["individual", "organization", "household"];
+  ];

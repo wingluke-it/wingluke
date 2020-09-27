@@ -15,14 +15,15 @@ export default {
   name: "portableText",
   type: "array",
   of: [
-    { type: "reference", to: [{ type: "artifact" }] },
+    { type: "reference", to: [{ type: "collectionsObject" }] },
+    // TODO add a schema type here for a button / CTA (which links to another page)
     {
       title: "Block",
       type: "block",
       /**
        * An array of inline content types that you can place in running text from the Insert menu.
        */
-      of: [{ type: "reference", to: [{ type: "artifact" }] }],
+      of: [{ type: "reference", to: [{ type: "collectionsObject" }] }],
       /**
        * Styles let you set what your user can mark up blocks with. These
        * corrensponds with HTML tags, but you can set any title or value
@@ -65,7 +66,7 @@ export default {
               {
                 name: "reference",
                 type: "reference",
-                to: [{ type: "individual" }, { type: "department" }], // TODO update this
+                to: [{ type: "sponsor" }, { type: "exhibit" }], // TODO update this
               },
             ],
           },

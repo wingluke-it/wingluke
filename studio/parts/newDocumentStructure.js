@@ -1,5 +1,5 @@
 import S from "@sanity/base/structure-builder";
-import { SINGLETON_TYPES } from "../schemas/schemaGlobals";
+import { SINGLETON_TYPES } from "../parts/deskStructure";
 
 export default [
   ...S.defaultInitialValueTemplateItems().filter(

@@ -3,7 +3,7 @@ import defaultResolve, {
   DuplicateAction,
   UnpublishAction,
 } from "part:@sanity/base/document-actions";
-import { SINGLETON_TYPES } from "../schemas/schemaGlobals";
+import { SINGLETON_TYPES } from "../parts/deskStructure";
 
 export default function resolveDocumentActions(props) {
   if (SINGLETON_TYPES.includes(props.type)) {

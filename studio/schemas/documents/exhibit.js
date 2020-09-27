@@ -37,6 +37,7 @@ export default {
         "Provide a short (3-5 sentence) description of this exhibit.",
       // TODO validation: required?
     },
+    // TODO rename to Online Preview
     {
       name: "teaser",
       title: "Teaser Content",
@@ -96,15 +97,33 @@ export default {
       name: "schedulingInfo",
       title: "Scheduling Info",
       type: "schedulingInfo",
+      options: {
+        collapsible: true,
+      },
       description:
         "Fill out these fields to specify which dates and times this exhibit will be open to the public.",
     },
     {
+      name: "createdBy",
+      title: "Created By",
+      type: "reference",
+      to: [{ type: "youthProgramSession" }],
+      description:
+        "Choose the corresponding youth program session or CAC that created this exhibit.",
+    },
+    {
+      name: "creationProcess",
+      title: "Creation Process",
+      type: "reference",
+      to: [{ type: "youthProgram" }],
+    },
+    // cac members can be inferred from the referenced program
+    /*     {
       name: "cacMembers",
       title: "CAC Members",
       type: "array",
       of: [{ type: "reference", to: [{ type: "individual" }] }],
-    },
+    }, */
     {
       name: "wingDonors",
       title: "The Wing Donors",
@@ -112,7 +131,7 @@ export default {
       of: [
         {
           type: "reference",
-          to: [{ type: "organization" }], // TODO and type: person?
+          to: [{ type: "sponsor" }], // TODO and type: person?
         },
       ],
       fieldset: "sponsors",
@@ -124,7 +143,7 @@ export default {
       of: [
         {
           type: "reference",
-          to: [{ type: "organization" }],
+          to: [{ type: "sponsor" }],
         },
       ],
       fieldset: "sponsors",
@@ -136,7 +155,7 @@ export default {
       of: [
         {
           type: "reference",
-          to: [{ type: "organization" }],
+          to: [{ type: "sponsor" }],
         },
       ],
       fieldset: "sponsors",
@@ -148,7 +167,7 @@ export default {
       of: [
         {
           type: "reference",
-          to: [{ type: "organization" }],
+          to: [{ type: "sponsor" }],
         },
       ],
       fieldset: "sponsors",
@@ -160,7 +179,7 @@ export default {
       of: [
         {
           type: "reference",
-          to: [{ type: "organization" }],
+          to: [{ type: "sponsor" }],
         },
       ],
       fieldset: "sponsors",
@@ -172,7 +191,7 @@ export default {
       of: [
         {
           type: "reference",
-          to: [{ type: "organization" }],
+          to: [{ type: "sponsor" }],
         },
       ],
       fieldset: "sponsors",
@@ -184,15 +203,20 @@ export default {
       of: [{ type: "reference", to: [{ type: "exhibit" }] }],
     },
     {
-      name: "relatedPrograms",
-      title: "Related Programs",
+      name: "exhibitOpening",
+      title: "Exhibit Opening",
+      type: "reference",
+      to: [{ type: "event" }],
+    },
+    {
+      name: "otherRelatedEvents",
+      title: "Other Related Events",
       type: "array",
-      of: [{ type: "reference", to: [{ type: "program" }] }],
+      of: [{ type: "reference", to: [{ type: "event" }] }],
     },
     // TODO related tours?
     // TODO related stories?
     // TODO array of artifact references?
-    // gallery (reference to Museum building gallery)
     // location (for traveling exhibits)
   ],
   fieldsets: [

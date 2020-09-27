@@ -1,4 +1,4 @@
-const MUSEUM_META_TITLE = "Museum Mission and Processes";
+const MUSEUM_META_TITLE = "Mission, Goals, and Values";
 
 export default {
   name: "museumMeta",
@@ -10,12 +10,6 @@ export default {
       title: "Wing Luke Museum Mission",
       type: "localeText",
       validation: (Rule) => Rule.required(),
-    },
-    {
-      name: "cacProcess",
-      title: "CAC (Community Advisory Committee) Process",
-      description: "Give an explanation of the CAC Process.",
-      type: "localePortableText",
     },
   ],
   preview: {
