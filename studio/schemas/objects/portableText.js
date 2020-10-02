@@ -16,6 +16,8 @@ export default {
   type: "array",
   of: [
     { type: "reference", to: [{ type: "collectionsObject" }] },
+    { type: "figure" },
+    { type: "image" },
     // TODO add a schema type here for a button / CTA (which links to another page)
     {
       title: "Block",

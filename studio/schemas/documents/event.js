@@ -23,6 +23,15 @@ export default {
       description: "Provide a banner image for this event",
     },
     {
+      name: "departments",
+      title: "Collaborating Departments",
+      description:
+        "Please provide all departments that were involved in the planning of this event.",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "department" }] }],
+      validation: (Rule) => Rule.unique(),
+    },
+    {
       name: "eventTypes",
       title: "Event Type(s)",
       type: "array",
@@ -78,6 +87,8 @@ export default {
       title: "Related Exhibits",
       type: "array",
       of: [{ type: "reference", to: [{ type: "exhibit" }] }],
+      description:
+        "If this event was planned in order to support a specific exhibit, please list it here.",
     },
   ],
   preview: {

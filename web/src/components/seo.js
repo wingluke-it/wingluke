@@ -9,8 +9,10 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
+import { imageUrlFor } from "../lib/image-url"
+import { buildImageObj } from "../lib/helpers"
 
-function SEO({ description, lang, meta, title }) {
+function SEO({ description, lang, meta, title, image }) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -26,6 +28,11 @@ function SEO({ description, lang, meta, title }) {
   )
 
   const metaDescription = description || site.siteMetadata.description
+  // TODO what if image is null?
+  const metaImage =
+    image && image.asset
+      ? imageUrlFor(buildImageObj(image)).width(1200).url()
+      : ""
 
   return (
     <Helmet
@@ -50,6 +57,10 @@ function SEO({ description, lang, meta, title }) {
         {
           property: `og:type`,
           content: `website`,
+        },
+        {
+          property: "og:image",
+          content: metaImage,
         },
         {
           name: `twitter:card`,

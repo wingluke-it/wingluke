@@ -1,8 +1,8 @@
 {
-  "name": "winglukewebrebuildprototype2",
+  "name": "wingluke-sanity-studio",
   "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "The Sanity Studio of the Wing Luke Museum's official website",
   "main": "package.json",
   "author": "Daniel Glauber <daniel_glauber@alumni.brown.edu>",
   "license": "UNLICENSED",

@@ -4,4 +4,46 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-// You can delete this file if you're not using it
+async function createExhibitPages(
+  pathPrefix = "/exhibit",
+  graphql,
+  actions,
+  reporter
+) {
+  const { createPage } = actions
+  const result = await graphql(`
+    {
+      allSanityExhibit(filter: { slug: { current: { ne: null } } }) {
+        edges {
+          node {
+            id
+            slug {
+              current
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  if (result.errors) throw result.errors
+
+  const exhibitEdges = (result.data.allSanityExhibit || {}).edges || []
+  exhibitEdges
+    // .filter(edge => !isFuture(edge.node.publishedAt))
+    .forEach(edge => {
+      const { id, slug } = edge.node
+      const path = `${pathPrefix}/${slug.current}/`
+      reporter.info(`Creating exhibit page: ${path}`)
+      createPage({
+        path,
+        component: require.resolve("./src/templates/exhibit-template.js"),
+        context: { id },
+      })
+    })
+}
+
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  //await createLandingPages("/", graphql, actions, reporter)
+  await createExhibitPages("/exhibit", graphql, actions, reporter)
+}

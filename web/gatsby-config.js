@@ -12,9 +12,9 @@ console.log(`Sanity token used: ${sanityToken}`)
 
 module.exports = {
   siteMetadata: {
-    title: `Wing Luke Museum`,
-    description: `This is the description for the wingluke.org rebuild's second prototype`,
-    author: `Dan Glauber`,
+    title: `Wing Luke Museum of the Asian Pacific American Experience`,
+    description: `The official website of the Wing Luke Museum of the Asian Pacific American Experience`,
+    author: `Wing Luke Museum of the Asian Pacific American Experience`,
   },
   plugins: [
     {
@@ -42,17 +42,17 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Wing Luke Museum of the Asian Pacific American Experience`,
+        short_name: `Wing Luke Museum`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#ffffff`,
+        theme_color: `#c20000`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/wingluke-icon.png`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-offline`,
   ],
 }

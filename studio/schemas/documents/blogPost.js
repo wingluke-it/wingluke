@@ -1,6 +1,6 @@
 export default {
-  name: "story",
-  title: "Story",
+  name: "blogPost",
+  title: "Blog Post",
   type: "document",
   fields: [
     {
@@ -10,4 +10,9 @@ export default {
       validation: (Rule) => Rule.required(),
     },
   ],
+  preview: {
+    select: {
+      title: "title.en",
+    },
+  },
 };
