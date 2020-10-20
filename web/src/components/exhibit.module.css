@@ -1,0 +1,5 @@
+.article p {
+  margin: 0 auto 1.5rem;
+  width: 36rem; /* max width will be maxFontSize * 1em (16px) * 36 */
+  max-width: 100%;
+}

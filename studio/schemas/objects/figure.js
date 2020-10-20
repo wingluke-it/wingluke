@@ -1,5 +1,3 @@
-import { ALT_TEXT_DESCRIPTION } from "../schemaGlobals";
-
 export default {
   name: "figure",
   title: "Figure",
@@ -16,7 +14,8 @@ export default {
         isHighlighted: true,
         collapsible: true,
       },
-      description: ALT_TEXT_DESCRIPTION,
+      description:
+        "Give a short description of this image to be used by screen readers, web browsers (in case this image fails to load), and search engines.",
     },
     {
       name: "caption",
@@ -32,7 +31,7 @@ export default {
   preview: {
     select: {
       imageUrl: "asset.url",
-      title: "caption",
+      title: "caption.en",
     },
   },
 };

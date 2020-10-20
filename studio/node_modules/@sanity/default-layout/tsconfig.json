@@ -2,9 +2,9 @@
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.test.ts", "src/**/*.test.tsx"],
   "exclude": ["src/**/*.test.ts"],
   "compilerOptions": {
-    "strict": false,
-    "jsx": "react",
     "outDir": "./lib",
+    "jsx": "react",
+    "esModuleInterop": true,
     "plugins": [
       {
         "name": "typescript-plugin-css-modules",
@@ -13,7 +13,10 @@
         }
       }
     ],
-    "esModuleInterop": true
-  },
-  "files": ["src/Root.tsx"],
+    "baseUrl": "./src",
+    "paths": {
+      "part:@sanity/default-layout/tool-switcher": ["./navbar/toolMenu/ToolMenu"],
+      "part:@sanity/default-layout/sidecar-datastore": ["./datastores/sidecar"]
+    }
+  }
 }

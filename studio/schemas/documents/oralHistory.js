@@ -5,6 +5,13 @@ export default {
   fields: [
     // TODO flesh out with more fields based on http://collections.wingluke.org/items/show/6
     {
+      name: "subject",
+      title: "Subject",
+      type: "localeString",
+      description:
+        "Please provide the subject of what was discussed during this interview.",
+    },
+    {
       name: "interviewer",
       title: "Interviewer",
       type: "localeString",
@@ -19,7 +26,7 @@ export default {
       title: "Date",
       type: "date",
       options: {
-        dateFormat: "MM-DD-YYYY",
+        dateFormat: "MM-DD-yyyy",
       },
     },
     {
@@ -33,7 +40,7 @@ export default {
     {
       name: "transcript",
       title: "Transcript File", // TODO make into an array of files? for multiple languages?
-      type: "file",
+      type: "file", // or have this be text?
       options: {
         accept: ".pdf", // TODO add .doc, .txt or other types here?
       },
@@ -49,7 +56,7 @@ export default {
       const { date, interviewer, interviewee } = selection;
       return {
         title: `${interviewer} interviewing ${interviewee}`,
-        subtitle: date, // TODO reformat from YYYY-MM-DD to MM-DD-YYYY
+        subtitle: date, // TODO reformat from yyyy-MM-DD to MM-DD-yyyy
       };
     },
   },

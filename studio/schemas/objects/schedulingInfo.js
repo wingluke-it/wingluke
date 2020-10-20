@@ -9,22 +9,37 @@ export default {
   fields: [
     {
       name: "startDateTime",
-      title: "First Occurrence Start Date and Time",
+      title: "First Occurrence Start Datetime",
       type: "datetime",
       options: {
-        dateFormat: "MM-DD-YYYY",
+        dateFormat: "MM-DD-yyyy",
       },
     },
     {
       name: "endDateTime",
-      title: "First Occurrence End Date and Time",
+      title: "First Occurrence End Datetime",
       type: "datetime",
       options: {
-        dateFormat: "MM-DD-YYYY",
+        dateFormat: "MM-DD-yyyy",
       },
       validation: (Rule) =>
         Rule.min(Rule.valueOfField("startDateTime")).error(
           "End date and time must be after start date and time."
+        ),
+    },
+    {
+      name: "endRepeatDate",
+      title: "End Repeat Date",
+      type: "date",
+      options: {
+        dateFormat: "MM-DD-yyyy",
+      },
+      description:
+        "Events will not repeat after this date. Leave blank if this event should repeat indefinitely.",
+      // fieldset: "recurrenceRange",
+      validation: (Rule) =>
+        Rule.min(Rule.valueOfField("startDateTime")).error(
+          "End recurrence date must be after start date."
         ),
     },
     /* {
@@ -56,78 +71,63 @@ export default {
       // TODO validate that end time isn't before start time
     }, */
     // TODO should there be an option for all day/multi-day events?
-    // {
-    //   name: "recurrenceType",
-    //   title: "Recurrence Type - Repeat:",
-    //   type: "string",
-    //   description:
-    //     "Please fill out the corresponding details of your selection below. E.g. if you select the 'Daily' option, scroll down and fill out the fields under 'Recurrence Type - Daily'.",
-    //   options: {
-    //     list: [
-    //       { title: "Do not repeat", value: "noRepeat" },
-    //       { title: "Daily (e.g. repeat every 2 days)", value: "daily" },
-    //       {
-    //         title:
-    //           "Weekly (e.g. repeat on Saturday and Sunday of every other week)",
-    //         value: "weekly",
-    //       },
-    //       {
-    //         title: "Absolute Monthly (e.g. repeat on the 15th of each month)",
-    //         value: "absMonthly",
-    //       },
-    //       {
-    //         title:
-    //           "Relative Monthly (e.g. repeat every first Thursday of each month)",
-    //         value: "relMonthly",
-    //       },
-    //       /*           {
-    //         title: "Absolute Yearly (e.g. repeat on April 15th of each year)",
-    //         value: "absYearly",
-    //       },
-    //       {
-    //         title:
-    //           "Relative Yearly (e.g. repeat on the fourth Thursday of November each year)",
-    //         value: "relYearly",
-    //       }, */
-    //     ],
-    //     layout: "radio",
-    //   },
-    // },
+    {
+      name: "recurrenceType",
+      title: "Recurrence Type - Repeat:",
+      type: "string",
+      description:
+        "Please fill out the corresponding details of your selection below. E.g. if you select the 'Daily' option, scroll down and fill out the fields under 'Daily Recurrence Details'.",
+      options: {
+        list: [
+          // { title: "Does not repeat", value: "noRepeat" },
+          { title: "Daily (e.g. repeat every 2 days)", value: "daily" },
+          {
+            title:
+              "Weekly (e.g. repeat on Saturday and Sunday of every other week)",
+            value: "weekly",
+          },
+          {
+            title: "Absolute Monthly (e.g. repeat on the 15th of each month)",
+            value: "absMonthly",
+          },
+          {
+            title:
+              "Relative Monthly (e.g. repeat every first Thursday of each month)",
+            value: "relMonthly",
+          },
+          /*           {
+            title: "Absolute Yearly (e.g. repeat on April 15th of each year)",
+            value: "absYearly",
+          },
+          {
+            title:
+              "Relative Yearly (e.g. repeat on the fourth Thursday of November each year)",
+            value: "relYearly",
+          }, */
+        ],
+        layout: "radio",
+      },
+    },
     /*     {
       // TODO set this based on the inputted start datetime?
       name: "startDate",
       title: "Start Date",
       type: "date",
       options: {
-        dateFormat: "MM-DD-YYYY",
+        dateFormat: "MM-DD-yyyy",
       },
       fieldset: "recurrenceRange",
     }, */
-    {
+    /*     {
       name: "doesNotRepeat",
       title: "Do not repeat (i.e. this event only occurs once).",
       type: "boolean",
-    },
-    {
-      name: "endRecurrenceDate",
-      title: "End Recurrence Date",
-      type: "date",
-      options: {
-        dateFormat: "MM-DD-YYYY",
-      },
-      description:
-        "Events will not recur after this date. Leave blank if this event either is not set to repeat or should repeat indefinitely.",
-      fieldset: "recurrenceRange",
-      validation: (Rule) =>
-        Rule.min(Rule.valueOfField("startDateTime")).error(
-          "End recurrence date must be after start date."
-        ),
-    },
-    {
+    }, */
+    /*     {
       name: "doesRepeatDaily",
       title: "Repeat Daily (e.g. repeat every 2 days)",
       type: "boolean",
-    },
+    }, */
     {
       name: "intervalDaily",
       title: "Interval",
@@ -137,12 +137,12 @@ export default {
         "Provide the number of days between each occurrence of this event. For an event that occurs every day, input '1'.",
       fieldset: "recurrenceTypeDaily",
     },
-    {
+    /*     {
       name: "doesRepeatWeekly",
       title:
         "Repeat Weekly (e.g. repeat on Saturday and Sunday of every other week)",
       type: "boolean",
-    },
+    }, */
     {
       name: "intervalWeekly",
       title: "Interval",
@@ -171,11 +171,11 @@ export default {
       description: "Select which days of the week this event occurs on.",
       fieldset: "recurrenceTypeWeekly",
     },
-    {
+    /*     {
       name: "doesRepeatAbsMonthly",
       title: "Repeat Monthly (Absolute: e.g. repeat on the 15th of each month)",
       type: "boolean",
-    },
+    }, */
     {
       name: "intervalAbsMonthly",
       title: "Interval",
@@ -194,12 +194,12 @@ export default {
       validation: (Rule) => Rule.integer().min(1).max(31),
       fieldset: "recurrenceTypeAbsoluteMonthly",
     }, */
-    {
+    /*     {
       name: "doesRepeatRelMonthly",
       title:
         "Repeat Monthly (Relative: e.g. repeat every first Thursday of each month)",
       type: "boolean",
-    },
+    }, */
     {
       name: "indexRelMonthly",
       title: "Week of the Month",
@@ -248,7 +248,7 @@ export default {
     },
   ],
   validation: (Rule) => [
-    Rule.custom((fields) => {
+    /*     Rule.custom((fields) => {
       if (
         fields &&
         fields.doesNotRepeat &&
@@ -261,9 +261,13 @@ export default {
       }
 
       return true;
-    }),
+    }), */
     Rule.custom((fields) => {
-      if (fields && fields.doesRepeatDaily && !fields.intervalDaily) {
+      if (
+        fields &&
+        fields.recurrenceType === "daily" &&
+        !fields.intervalDaily
+      ) {
         return "The 'Daily Recurrence Details' fieldset must be filled out because this event is set to repeat daily.";
       }
 
@@ -272,7 +276,7 @@ export default {
     Rule.custom((fields) => {
       if (
         fields &&
-        fields.doesRepeatWeekly &&
+        fields.recurrenceType === "weekly" &&
         (!fields.intervalWeekly ||
           fields.daysOfWeekWeekly === undefined ||
           fields.daysOfWeekWeekly.length === 0)
@@ -283,7 +287,11 @@ export default {
       return true;
     }),
     Rule.custom((fields) => {
-      if (fields && fields.doesRepeatAbsMonthly && !fields.intervalAbsMonthly) {
+      if (
+        fields &&
+        fields.recurrenceType === "absMonthly" &&
+        !fields.intervalAbsMonthly
+      ) {
         return "The 'Monthly Recurrence (Absolute) Details' fieldset must be filled out because this event is set to repeat monthly (absolute).";
       }
 
@@ -292,19 +300,18 @@ export default {
     Rule.custom((fields) => {
       if (
         fields &&
-        fields.doesRepeatRelMonthly &&
+        fields.recurrenceType === "relMonthly" &&
         (!fields.intervalRelMonthly ||
           fields.indexRelMonthly === undefined ||
           fields.indexRelMonthly.length === 0 ||
           fields.daysOfWeekRelMonthly === undefined ||
           fields.daysOfWeekRelMonthly.length === 0)
       ) {
-        return "The 'Monthly Recurrence (Recurrence) Details' fieldset must be filled out because this event is set to repeat monthly (relative).";
+        return "The 'Monthly Recurrence (Relative) Details' fieldset must be filled out because this event is set to repeat monthly (relative).";
       }
 
       return true;
     }),
-    // TODO rule for only at most one repeat option being set
   ],
   fieldsets: [
     {

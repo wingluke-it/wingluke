@@ -15,8 +15,7 @@
       "plugins": [
         "@sanity/vision",
         "@sanity/dashboard",
-        "dashboard-widget-cats",
-        "dark-theme-blue"
+        "dashboard-widget-cats"
       ]
     }
   },
@@ -49,6 +48,14 @@
     {
       "implements": "part:@sanity/base/document-actions/resolver",
       "path": "./parts/resolveDocumentActions.js"
+    },
+    {
+      "implements": "part:@sanity/base/brand-logo",
+      "path": "./components/wingLogo.js"
+    },
+    {
+      "implements": "part:@sanity/base/theme/variables/override-style",
+      "path": "./parts/variableOverrides.css"
     }
   ]
 }

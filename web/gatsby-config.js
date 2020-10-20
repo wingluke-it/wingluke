@@ -18,6 +18,22 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        // node-sass, the default implementation, is considered deprecated. It doesn't allow for use of @use at-rules.
+        implementation: require("sass"),
+      },
+    },
+    `gatsby-plugin-postcss`, // TODO add CSSnext plugin https://www.gatsbyjs.com/docs/post-css/
+    {
+      resolve: "gatsby-plugin-web-font-loader",
+      options: {
+        typekit: {
+          id: process.env.TYPEKIT_ID,
+        },
+      },
+    },
+    {
       resolve: `gatsby-source-sanity`,
       options: {
         projectId: `1jr4bwbd`,
@@ -45,12 +61,18 @@ module.exports = {
         name: `Wing Luke Museum of the Asian Pacific American Experience`,
         short_name: `Wing Luke Museum`,
         start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#c20000`,
+        background_color: `#f5f5f5`,
+        theme_color: `#7c2128`, // `#c20000`,
         display: `minimal-ui`,
-        icon: `src/images/wingluke-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/wingluke-icon2.png`, // This path is relative to the root of the site.
       },
     },
+    // {
+    //   resolve: `gatsby-plugin-typography`,
+    //   options: {
+    //     pathToConfigModule: `src/utils/typography`,
+    //   },
+    // },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,

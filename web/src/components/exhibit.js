@@ -1,26 +1,19 @@
 import React from "react"
-import { buildImageObj } from "../lib/helpers"
-import { imageUrlFor } from "../lib/image-url"
+import Figure from "./figure"
+import PortableText from "./portableText"
+import styles from "./exhibit.module.css"
 
-function Exhibit(props) {
-  const { title, banner } = props
+const Exhibit = props => {
+  const { title, banner, _rawOverview } = props
   return (
-    <div>
-      {banner && banner.asset && (
-        <div>
-          <img
-            src={imageUrlFor(buildImageObj(banner))
-              .width(1200)
-              .height(Math.floor((9 / 16) * 1200))
-              .fit("crop")
-              .auto("format")
-              .url()}
-            alt={banner.alt && banner.alt.en}
-          />
-        </div>
-      )}
+    <>
       <h1>{title && title.en}</h1>
-    </div>
+      <Figure figure={banner} dimensions={9 / 16} />
+      {_rawOverview && _rawOverview.en && (
+        <PortableText className={styles.article} blocks={_rawOverview.en} />
+      )}
+      {/* {overview && overview.en && <p>{overview.en}</p>} */}
+    </>
   )
 }
 

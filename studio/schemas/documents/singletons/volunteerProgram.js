@@ -9,8 +9,21 @@ export default {
       name: "applicationLink",
       title: "Application Link",
       type: "url",
+      validation: (Rule) =>
+        Rule.uri({
+          allowRelative: false,
+          scheme: ["https", "http"],
+        }),
       description:
         "Please provide the link to the volunteer application survey.",
+    },
+    {
+      name: "faqs",
+      title: "FAQs",
+      type: "array",
+      of: [{ type: "faq" }],
+      description:
+        "Please provide answers to frequently asked questions about volunteering at the museum.",
     },
   ],
   preview: {

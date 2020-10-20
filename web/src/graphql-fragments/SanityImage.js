@@ -5,6 +5,9 @@ export const SanityImage = graphql`
     alt {
       en
     }
+    caption {
+      en
+    }
     crop {
       _key
       _type
@@ -30,6 +33,9 @@ export const SanityImage = graphql`
           width
           height
         }
+      }
+      fluid(maxWidth: 700) {
+        ...GatsbySanityImageFluid
       }
     }
   }

@@ -19,7 +19,8 @@ import volunteerProgram from "./documents/singletons/volunteerProgram";
 // other documents
 import artist from "./documents/artist";
 import blogPost from "./documents/blogPost";
-import collectionsObject from "./documents/collectionsObject";
+import collection from "./documents/collection";
+import collectionItem from "./documents/collectionItem";
 import communityPartner from "./documents/communityPartner";
 import curriculumGuide from "./documents/curriculumGuide";
 import department from "./documents/department";
@@ -27,22 +28,31 @@ import educatorWorkshop from "./documents/educatorWorkshop";
 import event from "./documents/event";
 import exhibit from "./documents/exhibit";
 import gallery from "./documents/gallery";
-import historicSpace from "./documents/historicSpace";
+import historicSite from "./documents/historicSite";
 import eventSpace from "./documents/eventSpace";
 import marketplaceProduct from "./documents/marketplaceProduct";
 import oralHistory from "./documents/oralHistory";
 import sponsor from "./documents/sponsor";
+import sponsorCategory from "./documents/sponsorCategory";
+import staffMember from "./documents/staffMember";
 import tour from "./documents/tour";
 import youthProgramSession from "./documents/youthProgramSession";
 import youthProgram from "./documents/youthProgram";
 
 // objects
+import eventOccurrence from "./objects/eventOccurrence";
+import eventOccurrences from "./objects/eventOccurrences";
+import externalLink from "./objects/externalLink";
+import faq from "./objects/faq";
+import figure from "./objects/figure";
 import localeString from "./objects/localeString";
 import localeText from "./objects/localeText";
 import localePortableText from "./objects/localePortableText";
+import location from "./objects/location";
 import portableText from "./objects/portableText";
-import figure from "./objects/figure";
 import schedulingInfo from "./objects/schedulingInfo";
+import visitorGuideTicket from "./objects/visitorGuideTicket";
+import wayToGive from "./objects/wayToGive";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -66,7 +76,8 @@ export default createSchema({
     // documents
     artist,
     blogPost,
-    collectionsObject,
+    collection,
+    collectionItem,
     communityPartner,
     curriculumGuide,
     department,
@@ -75,20 +86,29 @@ export default createSchema({
     eventSpace,
     exhibit,
     gallery,
-    historicSpace,
+    historicSite,
     marketplaceProduct,
     oralHistory,
     sponsor,
+    sponsorCategory,
+    staffMember,
     tour,
     youthProgram,
     youthProgramSession,
 
     // objects (non-documents):
+    eventOccurrence,
+    eventOccurrences,
+    externalLink,
+    faq,
     figure,
     localeString,
     localeText,
     localePortableText,
+    location,
     portableText,
     schedulingInfo,
+    visitorGuideTicket,
+    wayToGive,
   ]),
 });

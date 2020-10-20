@@ -3,7 +3,7 @@ import { LANGUAGES_SUPPORTED } from "../schemaGlobals";
 export default {
   name: "localeText",
   type: "object",
-  title: "Localized Portable Text",
+  title: "Localized Text",
   fieldsets: [
     {
       title: "Translations",

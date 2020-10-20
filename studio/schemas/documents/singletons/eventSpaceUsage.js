@@ -24,6 +24,14 @@ export default {
       type: "file",
     },
     // TODO see https://www.wingluke.org/join-give/ for more needed fields
+    {
+      name: "faqs",
+      title: "FAQs",
+      type: "array",
+      of: [{ type: "faq" }],
+      description:
+        "Please provide answers to frequently asked questions about event space usage at the museum.",
+    },
   ],
   preview: {
     prepare() {

@@ -1,0 +1,96 @@
+.header {
+  background: #7c2128;
+  /* margin-bottom: 1.5rem; */
+  padding: 1rem 2rem;
+}
+
+.homeLink {
+  margin-right: auto;
+  text-decoration: none;
+}
+
+.nav {
+  max-width: 48rem;
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.homeLink > img {
+  width: 100%;
+  max-width: 300px;
+  margin: auto 0;
+}
+
+.dropdownLinkContainer {
+  margin-left: auto;
+}
+
+.dropdownLinkContainer > a {
+  color: white;
+  text-decoration: none;
+}
+
+.dropdownLinkContainer > a,
+.mobileDropdownToggle {
+  margin-left: 1.25rem;
+}
+
+.mobileDropdownToggle {
+  display: none;
+}
+
+/* arbitrary breakpoint, around the size of a tablet */
+@media (max-width: 768px) {
+  .dropdownLinkContainer {
+    /* our initial state */
+    opacity: 0; /* fade out */
+    transform: translateY(-100%); /* move out of view */
+    /* commenting this out for now because the animation plays whenever a user resizes their browser */
+    /* transition: transform 0.2s, opacity 0.2s; */ /* transition these smoothly */
+
+    /* first, make our dropdown cover the screen */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    /* fix nav height on mobile safari, where 100vh is a little off */
+    height: -webkit-fill-available;
+
+    /* then, arrange our links top to bottom */
+    display: flex;
+    flex-direction: column;
+    /* center links vertically, push to the right horizontally.
+       this means our links will line up with the rightward hamburger button */
+    justify-content: center;
+    align-items: flex-end;
+
+    /* add margins and padding to taste */
+    margin: 0;
+    padding: 0 2rem;
+
+    background: #7c2128;
+
+    z-index: 0; /* we're gonna avoid using -1 here, since it could position our navbar below other content on the page as well! */
+  }
+
+  .dropdownLinkContainer > a {
+    padding: 4rem 0;
+  }
+
+  .homeLink,
+  .mobileDropdownToggle {
+    z-index: 1;
+  }
+
+  .mobileDropdownToggle {
+    display: initial; /* override that display: none attribute from before */
+  }
+
+  nav.dropdownOpened > .dropdownLinkContainer {
+    opacity: 1; /* fade in */
+    transform: translateY(0); /* move into view */
+    /* disable scrolling?? TODO */
+  }
+}

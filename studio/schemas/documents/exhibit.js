@@ -24,7 +24,7 @@ export default {
     {
       name: "overview",
       title: "Overview",
-      type: "localeText",
+      type: "localePortableText",
       description: "Provide a short (3-5 sentence) overview of this exhibit.",
       // TODO validation: required?
     },
@@ -66,10 +66,10 @@ export default {
       of: [{ type: "reference", to: [{ type: "artist" }] }],
     },
     {
-      name: "featuredCollectionsObjects",
-      title: "Featured Collections Objects",
+      name: "featuredCollectionItems",
+      title: "Featured Collection Items",
       type: "array",
-      of: [{ type: "reference", to: [{ type: "collectionsObject" }] }],
+      of: [{ type: "reference", to: [{ type: "collectionItem" }] }],
     },
     {
       name: "featuredOralHistories",
@@ -85,32 +85,32 @@ export default {
         list: [
           // { value: "permanent", title: "Permanent" }, // interview said this label isn't necessary...?
           { value: "upcoming", title: "Upcoming" }, // should this be automatically inferred from the Opening Date?
-          { value: "currentlyRunning", title: "Currently Running" }, // should this be automatically inferred from the Opening and Closing Date?
+          { value: "current", title: "Current" }, // should this be automatically inferred from the Opening and Closing Date? ongoing exhibits might not have a closing date
+          { value: "past", title: "Past" }, // should this be automatically inferred from the Closing Date?
+          // { value: "archived", title: "Archived" },
           { value: "ongoing", title: "Ongoing" },
+          { value: "permanent", title: "Permanent" },
           { value: "temporary", title: "Temporary" },
           { value: "traveling", title: "Traveling" },
-          { value: "archived", title: "Archived" },
         ],
       },
       of: [{ type: "string" }],
     },
     {
-      // TODO delete? is this redundant with schedulingInfo's Start Date and Time and End Date and Time?
       name: "openingDate",
       title: "Opening Date",
       type: "date",
       options: {
-        dateFormat: "MM-DD-YYYY",
+        dateFormat: "MM-DD-yyyy",
       },
       validation: (Rule) => Rule.required(),
     },
     {
-      // TODO delete? is this redundant with schedulingInfo's Start Date and Time and End Date and Time?
       name: "closingDate",
       title: "Closing Date",
       type: "date",
       options: {
-        dateFormat: "MM-DD-YYYY",
+        dateFormat: "MM-DD-yyyy",
       },
       validation: (Rule) => Rule.required(),
     },
@@ -120,18 +120,17 @@ export default {
       type: "reference",
       to: [{ type: "gallery" }],
     },
-    // TODO these two fields could be a little more complex than just strings... maybe make an object for location title + website
     {
       name: "travelingLocation",
       title: "Current Location",
-      type: "string", //"geopoint",
+      type: "location", //"geopoint",
       fieldset: "traveling",
     },
     {
       name: "pastLocations",
       title: "Past Locations",
       type: "array",
-      of: [{ type: "string" }],
+      of: [{ type: "location" }],
       fieldset: "traveling",
     },
     {

@@ -17,7 +17,9 @@ interface Options {
 
 const id = <T>(arg: T): T => arg
 
-export function fromUrl(url: string, options: Options = {}) {
+export {BifurClient}
+
+export function fromUrl(url: string, options: Options = {}): BifurClient {
   return createClient(
     connect(url).pipe(
       options.timeout

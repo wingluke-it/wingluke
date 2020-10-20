@@ -1,4 +1,4 @@
-import { GoLink, GoLinkExternal } from "react-icons/go";
+import { GoLinkExternal } from "react-icons/go";
 
 /**
  * This is the schema definition for the rich text fields used for
@@ -15,9 +15,10 @@ export default {
   name: "portableText",
   type: "array",
   of: [
-    { type: "reference", to: [{ type: "collectionsObject" }] },
-    { type: "figure" },
-    { type: "image" },
+    // TODO add many more content types here so that users can easily add a CTA/button/custom components/etc. to their page
+    // { type: "reference", to: [{ type: "collectionItem" }] },
+    { type: "figure", title: "Image" },
+    // { type: "image" },
     // TODO add a schema type here for a button / CTA (which links to another page)
     {
       title: "Block",
@@ -25,7 +26,7 @@ export default {
       /**
        * An array of inline content types that you can place in running text from the Insert menu.
        */
-      of: [{ type: "reference", to: [{ type: "collectionsObject" }] }],
+      // of: [{ type: "reference", to: [{ type: "collectionItem" }] }],
       /**
        * Styles let you set what your user can mark up blocks with. These
        * corrensponds with HTML tags, but you can set any title or value
@@ -34,7 +35,7 @@ export default {
        */
       styles: [
         { title: "Normal", value: "normal" },
-        { title: "H1", value: "h1" },
+        // { title: "H1", value: "h1" }, // this should be reserved only for the lone page title
         { title: "H2", value: "h2" },
         { title: "H3", value: "h3" },
         { title: "H4", value: "h4" },
@@ -57,7 +58,8 @@ export default {
         /* Annotations can be any object structure – e.g. a link or a footnote. */
         annotations: [
           // TODO do these objects need to be hoisted? for GraphQL
-          {
+          // TODO should internal links be included?
+          /*           {
             title: "Internal link",
             name: "internalLink",
             type: "object",
@@ -71,32 +73,13 @@ export default {
                 to: [{ type: "sponsor" }, { type: "exhibit" }], // TODO update this
               },
             ],
-          },
+          }, */
           {
             title: "External Link",
-            name: "externalLink",
-            type: "object",
+            type: "externalLink",
             blockEditor: {
               icon: GoLinkExternal,
             },
-            fields: [
-              {
-                title: "URL",
-                name: "href",
-                type: "url",
-                validation: (Rule) =>
-                  Rule.uri({
-                    allowRelative: true,
-                    scheme: ["https", "http", "mailto", "tel"],
-                  }),
-              },
-              {
-                title: "Open in new tab",
-                name: "blank",
-                description: "Read https://css-tricks.com/use-target_blank/",
-                type: "boolean",
-              },
-            ],
           },
         ],
       },

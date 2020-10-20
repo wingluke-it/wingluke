@@ -1,0 +1,10 @@
+.footer {
+  padding: 2rem 2rem;
+  background: #7c2128;
+}
+
+.copyright {
+  max-width: 48rem;
+  margin: 0 auto;
+  color: white;
+}

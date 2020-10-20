@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Img from "gatsby-image"
 import Exhibit from "../components/exhibit"
 import GraphQLErrorList from "../components/graphql-error-list"
 import Layout from "../components/layout"
@@ -24,7 +23,6 @@ const ExhibitTemplate = props => {
       {errors && <GraphQLErrorList errors={errors} />}
 
       {exhibit && <Exhibit {...exhibit} />}
-      <Img fluid={exhibit.banner.asset.fluid} />
     </Layout>
   )
 }
@@ -36,15 +34,7 @@ export const query = graphql`
     exhibit: sanityExhibit(id: { eq: $id }) {
       id
       banner {
-        asset {
-          fluid(maxWidth: 700) {
-            ...GatsbySanityImageFluid
-          }
-        }
         ...SanityImage
-        alt {
-          en
-        }
       }
       title {
         en
@@ -52,6 +42,7 @@ export const query = graphql`
       slug {
         current
       }
+      _rawOverview
     }
   }
 `
