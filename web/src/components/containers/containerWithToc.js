@@ -5,124 +5,88 @@ import TocLink from "../tocLink"
 import ContainerWithSidebar from "./containerWithSidebar"
 import MainColumn from "./mainColumn"
 
-/*
- * The list of our ToC Titles (Sections) as keys, with their
- * Y-pixel position on the page as the values
- * 'Top' generically references the top of the page
- */
-const mi = {
-  // top: 0,
-  // overview: null,
-  // images: null,
-  // "featured-artists": null,
-  // "curation-process": null,
-  // thanks: null,
-}
+const ai = {}
 
 /* sections: an array of TocSections */
 const ContainerWithToc = ({ sidebarContent, sections, children }) => {
-  // for (const section of sections) {
-  //   mi[section.props.id] = null
-  // }
-
-  const [menuItems, setMenuItems] = useState(mi)
-  // for (const sec in sections) {
-  //   menuItems[sec.props.id] = null
-  // }
-
   /*
-   * Store the active tocItem in state to force update
+   * Store the active tocItems in state to force update
    * when changed
    */
-  const [activeItem, setActiveItem] = useState(null)
+  const [activeItems, setActiveItems] = useState({})
 
-  /*
-   * The MutationObserver allows us to watch for a few different
-   * events, including page resizing when new elements might be
-   * added to the page (potentially changing the location of our
-   * anchor points)
-   * We also listen to the scroll event in order to update based
-   * on our user's scroll depth
-   */
   useEffect(() => {
-    const observer = new MutationObserver(getAnchorPoints)
-    observer.observe(document.getElementById("root"), {
-      childList: true,
-      subtree: true,
+    const observer = new IntersectionObserver(entries => {
+      console.log("activeItems")
+      console.log(activeItems)
+      // ai = Object.assign({}, activeItems)
+      console.log("ai")
+      console.log(ai)
+      entries.forEach(entry => {
+        const id = entry.target.getAttribute("id")
+        /* if (entry.intersectionRatio > 0) {
+          if (!ais.includes(id)) {
+            ais.push(id)
+          } */
+        console.log(`${id} intersectionRatio: ${entry.intersectionRatio}`)
+        ai[id] = entry.intersectionRatio > 0 ? true : false
+        /* document
+            .querySelector(`nav li a[href="#${id}"]`)
+            .parentElement.classList.add("active") */
+        /* } else {
+          if (ais.includes(id)) {
+
+          }
+          ais[id] */
+        /* document
+            .querySelector(`nav li a[href="#${id}"]`)
+            .parentElement.classList.remove("active") */
+        // }
+      })
+      console.log("observed, ai:")
+      console.log(ai)
+      setActiveItems({ ...ai })
+      // updateActiveItems()
+      // console.log(ais)
     })
-    window.addEventListener("scroll", handleScroll)
+
+    document.querySelectorAll("section[id]").forEach(section => {
+      observer.observe(section)
+    })
   }, [])
-
-  /*
-   * Programmatically determine where to set AnchorPoints for our Menu
-   */
-  const getAnchorPoints = () => {
-    const curScroll = window.scrollY
-
-    // const viewPortHeight = Math.max(
-    //   document.documentElement.clientHeight,
-    //   window.innerHeight || 0
-    // )
-    for (const section of sections) {
-      const id = section.props.id
-      mi[id] =
-        document.getElementById(id).getBoundingClientRect().top + curScroll
-      setMenuItems(mi)
-    }
-    console.log(menuItems)
-    // const bottom = document.body.offsetHeight
-    handleScroll()
-  }
-
-  const handleScroll = () => {
-    const curPos = window.scrollY + 105
-    console.log(curPos)
-    let curId = menuItems[0]
-    /*
-     * Iterate through our sections object to find which section matches with
-     * the current scrollDepth of the user.
-     * NOTE: This code assumes that the sections object is built with an 'ordered'
-     * list of sections, with the lowest depth (top) section first and greatest
-     * depth (bottom) section last
-     * If your items are out-of-order, this code will not function correctly
-     */
-    for (const id in menuItems) {
-      if (curPos >= menuItems[id]) {
-        curId = id
-      } else {
-        break
-      }
-    }
-    if (curId !== activeItem) {
-      setActiveItem(curId)
-    }
-  }
 
   /*
    * Create the list of MenuItems based on the menuItems object we have defined above
    */
-  const menuList = sections.map((section, index) => (
-    <TocLink
-      id={section.props.id}
-      key={`menuitem_${index}`}
-      active={section.props.id === activeItem ? true : false}
-    >
-      {section.props.headingText}
-    </TocLink>
-  ))
+  const tocLinks = sections.map((section, index) => {
+    return (
+      <TocLink
+        id={section.props.id}
+        key={`menuitem_${index}`}
+        active={activeItems[section.props.id]}
+      >
+        {section.props.headingText}
+      </TocLink>
+    )
+  })
+  console.log("rerender!")
+  console.log(activeItems)
 
   return (
     <ContainerWithSidebar
       sidebarContent={
         // TOC
         <>
+          {/* {Object.keys(activeItems).map(key => (
+            <p key={key}>{key}</p>
+          ))} */}
           <ul>
             {/* {sections.map(section => (
               <TocLink key={section.props.id} id={section.props.id}>
-                {section.props.headingText}
+              {section.props.headingText}
               </TocLink>
             ))} */}
-            {menuList}
+            {tocLinks}
           </ul>
           {sidebarContent}
         </>

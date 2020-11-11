@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import classNames from "classnames"
 import styles from "./tocLink.module.scss"
 
@@ -16,11 +16,13 @@ const TocLink = ({ id, children, active }) => {
    */
   const [anchorTarget, setAnchorTarget] = useState(null)
 
+  const aElement = useRef(null)
   /*
    * When the component mounts and/or updates, set our AnchorTarget based
    * on the itemName
    */
   useEffect(() => {
+    // setAnchorTarget(aElement.current)
     setAnchorTarget(document.getElementById(id))
   }, [id])
 
@@ -30,7 +32,7 @@ const TocLink = ({ id, children, active }) => {
   const handleClick = event => {
     event.preventDefault()
     // would be nice for yOffset to be set based on sass variable, but this will do for now
-    const yOffset = -100
+    const yOffset = -50
     const y =
       anchorTarget.getBoundingClientRect().top + window.pageYOffset + yOffset
     window.scrollTo({ top: y, behavior: "smooth" })
@@ -39,11 +41,12 @@ const TocLink = ({ id, children, active }) => {
 
   /*
    * Return the TocLink as JSX
-   * Remember to set your ariaLabel for accessibility!
+   * Remember to set your aria-label for accessibility!
    */
   return (
     <li>
       <a
+        ref={aElement}
         href={`#${id}`}
         className={classNames({ [styles.active]: active })}
         onClick={handleClick}
