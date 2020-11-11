@@ -1,0 +1,33 @@
+@use "../styles/variables" as v;
+
+.header {
+  padding: 0 (v.$baseline / 2);
+  background-color: v.$light-gray-background-color;
+  overflow: auto; // so that h1's margin-top doesn't go past the top of the container
+
+  h1 {
+    margin-top: 0;
+  }
+
+  & > :last-child {
+    margin-bottom: v.$baseline * 2;
+  }
+
+  & > :first-child {
+    margin-top: v.$baseline;
+  }
+
+  p {
+    text-align: center;
+    color: v.$transparent-black;
+  }
+
+  .noBeforeText {
+    margin-top: v.$baseline * 2;
+  }
+}
+
+.subtitle {
+  margin-top: 0;
+  max-width: 100%;
+}

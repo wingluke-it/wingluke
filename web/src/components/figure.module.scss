@@ -1,0 +1,13 @@
+@use "../styles/variables" as v;
+
+.image {
+  margin: 0 auto;
+}
+
+.caption {
+  text-align: center;
+}
+
+.figure {
+  margin: v.$baseline auto 0;
+}

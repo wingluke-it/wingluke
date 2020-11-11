@@ -1,0 +1,40 @@
+@use "../../styles/variables/" as v;
+
+.root {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto;
+  grid-template-areas: "content" "sidebar";
+}
+
+.sidebar {
+  grid-area: sidebar;
+  position: static;
+  top: v.$header-height;
+  max-height: 100%;
+  overflow: auto;
+  // padding: 0 auto;
+  z-index: v.$sidebar-z-index; // this should be less than footer's z-index
+}
+
+.mainContent {
+  grid-area: content;
+}
+
+@media (min-width: v.$width-breakpoint-tablet) {
+  .root {
+    grid-template-columns: 13rem 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "sidebar content";
+  }
+
+  .sidebar {
+    grid-area: sidebar;
+    position: sticky;
+    top: v.$header-height;
+    max-height: calc(100vh - #{v.$header-height});
+    overflow: auto;
+    // padding: 0 auto;
+    // TODO add gradient shadow at the top and bottom, like sanity's docs
+  }
+}

@@ -1,0 +1,40 @@
+@use "../../styles/variables/" as v;
+
+.tocSection {
+  margin-top: v.$baseline;
+  overflow: auto;
+
+  // this is for jumping to the right place when an internal link sends the user to a heading with an id
+  /*   & h2::before {
+    $block-height: v.$header-height + v.$baseline;
+    display: block;
+    content: " ";
+    margin-top: $block-height * -1;
+    height: $block-height;
+    visibility: hidden;
+    pointer-events: none;
+  } */
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  // this selects all tocSections besides the first
+  & ~ .tocSection {
+    border-top: 3px solid v.$medium-gray;
+  }
+}
+
+@media (min-width: v.$width-breakpoint-tablet) {
+  .hiddenOnDesktop {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}

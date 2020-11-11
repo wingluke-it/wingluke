@@ -32,7 +32,7 @@ export default {
     {
       name: "audio",
       title: "Audio",
-      type: "file",
+      type: "fileWithMetadata",
       options: {
         accept: "audio/*",
       },
@@ -40,9 +40,9 @@ export default {
     {
       name: "transcript",
       title: "Transcript File", // TODO make into an array of files? for multiple languages?
-      type: "file", // or have this be text?
+      type: "fileWithMetadata", // or have this be text?
       options: {
-        accept: ".pdf", // TODO add .doc, .txt or other types here?
+        accept: ".pdf,.txt", // TODO add .doc, .txt or other types here?
       },
     },
   ],

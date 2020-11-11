@@ -2,12 +2,9 @@ import { graphql } from "gatsby"
 
 export const SanityImage = graphql`
   fragment SanityImage on SanityFigure {
-    alt {
-      en
-    }
-    caption {
-      en
-    }
+    _key
+    alt_en
+    caption_en
     crop {
       _key
       _type

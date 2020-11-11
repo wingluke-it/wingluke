@@ -1,0 +1,48 @@
+@use "../../styles/variables/" as v;
+
+$btnColor: v.$primary-brand-color;
+
+.buttonShared {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $btnColor;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+  padding: 0.25rem 0.75rem;
+  min-width: 10ch;
+  // based on ensuring the button is a large enough target on touch devices to meet the WCAG 2.1 success criteria for 2.5.5 - Target Size
+  min-height: 44px;
+  // min-height: v.$baseline;
+
+  text-align: center;
+  line-height: 1;
+
+  transition: 200ms all ease-in-out;
+
+  &:hover,
+  &:active {
+    background-color: scale-color($btnColor, $lightness: -20%);
+  }
+
+  &:focus {
+    outline-style: solid;
+    outline-color: transparent;
+    box-shadow: 0 0 0 4px scale-color($btnColor, $lightness: -40%);
+  }
+
+  // these last two selectors won't do anything unless .button--small is included as a classname
+  &--small {
+    font-size: 1.15rem;
+  }
+
+  &--block {
+    width: 100%;
+  }
+}
+
+.button {
+  text-decoration: none;
+  composes: buttonShared;
+}

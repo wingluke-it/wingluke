@@ -1,0 +1,31 @@
+@use "../styles/variables/" as v;
+
+.titleButtonContainer {
+  display: flex;
+  justify-content: space-around;
+  margin: v.$baseline auto 0;
+  max-width: v.$width-breakpoint-mobile-l;
+}
+
+.firstHeading {
+  margin-top: v.$baseline;
+}
+
+.halfTopMargin {
+  margin-top: v.$baseline / 4;
+}
+
+.artistGrid {
+  display: grid;
+  // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  /* This is better for small screens, once min() is better supported */
+  grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+  grid-gap: 1rem;
+  /* This is the standardized property now, but has slightly less support */
+  /* gap: 1rem */
+}
+
+.artistCard {
+  // display: grid;
+  // grid-template-rows: ;
+}

@@ -185,6 +185,12 @@ export default {
         "Provide details about accessibility concerns (e.g. wheelchair accessibility, visual/hearing impairment accessibility, dietary restrictions for food provided, etc.) for this event.",
     },
     {
+      name: "faqs",
+      title: "Frequently Asked Questions",
+      type: "array",
+      of: [{ type: "faq" }],
+    },
+    {
       name: "collabingPartners",
       title: "Collaborating Community Partners",
       type: "array",
@@ -196,8 +202,10 @@ export default {
     {
       name: "sponsors",
       title: "Sponsors",
-      type: "array",
-      of: [{ type: "reference", to: [{ type: "sponsor" }] }],
+      type: "sponsorList",
+      options: {
+        collapsible: true,
+      },
     },
     {
       name: "relatedEvents",

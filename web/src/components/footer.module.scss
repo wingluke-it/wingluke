@@ -1,0 +1,13 @@
+@use "../styles/variables" as v;
+
+.footer {
+  padding: 2rem 2rem;
+  background: v.$primary-brand-color;
+  z-index: v.$footer-z-index;
+}
+
+.copyright {
+  max-width: 48rem;
+  margin: 0 auto;
+  color: white;
+}

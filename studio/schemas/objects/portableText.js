@@ -17,7 +17,7 @@ export default {
   of: [
     // TODO add many more content types here so that users can easily add a CTA/button/custom components/etc. to their page
     // { type: "reference", to: [{ type: "collectionItem" }] },
-    { type: "figure", title: "Image" },
+    // { type: "figure", title: "Image" },
     // { type: "image" },
     // TODO add a schema type here for a button / CTA (which links to another page)
     {
@@ -36,7 +36,7 @@ export default {
       styles: [
         { title: "Normal", value: "normal" },
         // { title: "H1", value: "h1" }, // this should be reserved only for the lone page title
-        { title: "H2", value: "h2" },
+        // { title: "H2", value: "h2" },
         { title: "H3", value: "h3" },
         { title: "H4", value: "h4" },
         { title: "Quote", value: "blockquote" },

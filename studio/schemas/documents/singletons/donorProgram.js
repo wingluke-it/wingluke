@@ -7,6 +7,13 @@ export default {
   type: "document",
   fields: [
     {
+      // should this be here? or should there be a special category for development in the blog post document schema?
+      name: "blogPosts",
+      title: "Blog Posts",
+      type: "array",
+      of: [{ type: "blogPost" }],
+    },
+    {
       name: "donationLink",
       title: "Donation Link",
       type: "url",

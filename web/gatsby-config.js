@@ -22,9 +22,16 @@ module.exports = {
       options: {
         // node-sass, the default implementation, is considered deprecated. It doesn't allow for use of @use at-rules.
         implementation: require("sass"),
+        postCssPlugins: [
+          require(`postcss-preset-env`)({
+            stage: 2,
+            features: {
+              "nesting-rules": true,
+            },
+          }),
+        ],
       },
     },
-    `gatsby-plugin-postcss`, // TODO add CSSnext plugin https://www.gatsbyjs.com/docs/post-css/
     {
       resolve: "gatsby-plugin-web-font-loader",
       options: {
@@ -67,12 +74,6 @@ module.exports = {
         icon: `src/images/wingluke-icon2.png`, // This path is relative to the root of the site.
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-typography`,
-    //   options: {
-    //     pathToConfigModule: `src/utils/typography`,
-    //   },
-    // },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,

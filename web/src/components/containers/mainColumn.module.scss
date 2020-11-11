@@ -1,0 +1,8 @@
+@use "../../styles/variables" as v;
+
+.mainColumn {
+  margin: 0 auto;
+  padding: 0 (v.$baseline / 2) (v.$baseline);
+  max-width: v.$width-breakpoint-tablet;
+  overflow: auto;
+}

@@ -10,16 +10,46 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: "subtitle",
+      title: "Sub-Title",
+      type: "localeString",
+    },
+    {
       name: "slug",
       type: "slug",
       title: "Slug",
       description:
-        "A slug is the identifying part of the URL of this exhibit's web page",
+        "A slug is the identifying part of the URL of this exhibit's web page. Once this is set on a published, public page, do not change it.",
       options: {
         source: "title.en",
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "openingDate",
+      title: "Opening Date",
+      type: "date",
+      options: {
+        dateFormat: "MM-DD-yyyy",
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "closingDate",
+      title: "Closing Date",
+      type: "date",
+      description:
+        "Please provide the last day this exhibit will be open to visitors (not the first day that it is closed). Leave blank if this exhibit is always on view (permanent or ongoing)",
+      options: {
+        dateFormat: "MM-DD-yyyy",
+      },
+    },
+    {
+      name: "gallery",
+      title: "Gallery",
+      type: "reference",
+      to: [{ type: "gallery" }],
     },
     {
       name: "overview",
@@ -40,7 +70,8 @@ export default {
       name: "banner",
       title: "Banner",
       type: "figure",
-      description: "Provide a banner image for this exhibit",
+      description:
+        "Provide a banner image for this exhibit. The website will always present a 4:1 aspect ratio, so upload a panorama image and/or edit the crop and hotspot accordingly.",
     },
     // TODO what purpose does this serve beyond the Overview and image gallery? check in with Shaun if this field is necessary
     /*     {
@@ -77,48 +108,30 @@ export default {
       type: "array",
       of: [{ type: "reference", to: [{ type: "oralHistory" }] }],
     },
+    /*     {
+      name: "isTraveling",
+      title: "Is Traveling Exhibit",
+      type: "boolean",
+    }, */
     {
-      name: "exhibitTypes",
-      title: "Exhibit Type(s)",
+      name: "specialCategories",
+      title: "Special Categories",
+      description: "",
       type: "array",
       options: {
         list: [
-          // { value: "permanent", title: "Permanent" }, // interview said this label isn't necessary...?
-          { value: "upcoming", title: "Upcoming" }, // should this be automatically inferred from the Opening Date?
-          { value: "current", title: "Current" }, // should this be automatically inferred from the Opening and Closing Date? ongoing exhibits might not have a closing date
-          { value: "past", title: "Past" }, // should this be automatically inferred from the Closing Date?
+          // { value: "upcoming", title: "Upcoming" }, // should this be automatically inferred from the Opening Date?
+          // { value: "current", title: "Current" }, // should this be automatically inferred from the Opening and Closing Date? ongoing exhibits might not have a closing date
+          // { value: "past", title: "Past" }, // should this be automatically inferred from the Closing Date?
           // { value: "archived", title: "Archived" },
-          { value: "ongoing", title: "Ongoing" },
-          { value: "permanent", title: "Permanent" },
-          { value: "temporary", title: "Temporary" },
+          // { value: "ongoing", title: "Ongoing" }, // change to "always on view"?
+          // { value: "alwaysOnView", title: "Always On View" },
+          // { value: "permanent", title: "Permanent" }, // interview said this label isn't necessary...?
+          // { value: "temporary", title: "Temporary" },
           { value: "traveling", title: "Traveling" },
         ],
       },
       of: [{ type: "string" }],
-    },
-    {
-      name: "openingDate",
-      title: "Opening Date",
-      type: "date",
-      options: {
-        dateFormat: "MM-DD-yyyy",
-      },
-      validation: (Rule) => Rule.required(),
-    },
-    {
-      name: "closingDate",
-      title: "Closing Date",
-      type: "date",
-      options: {
-        dateFormat: "MM-DD-yyyy",
-      },
-      validation: (Rule) => Rule.required(),
-    },
-    {
-      name: "gallery",
-      title: "Gallery",
-      type: "reference",
-      to: [{ type: "gallery" }],
     },
     {
       name: "travelingLocation",
@@ -131,6 +144,18 @@ export default {
       title: "Past Locations",
       type: "array",
       of: [{ type: "location" }],
+      fieldset: "traveling",
+    },
+    {
+      name: "rentalPricing",
+      title: "Rental Pricing",
+      type: "localeText",
+      fieldset: "traveling",
+    },
+    {
+      name: "additionalRequirements",
+      title: "Additional Requirements",
+      type: "localeText",
       fieldset: "traveling",
     },
     {
@@ -186,127 +211,34 @@ export default {
       of: [{ type: "reference", to: [{ type: "artist" }] }],
       fieldset: "creditPanel",
     },
-    // TODO related tours?
-    // TODO related blog posts?
-
-    // TODO lots of duplicated code below...maybe factor these out into schemaGlobals and use SPONSOR_LEVELS.map() to generate
-    // the below fields. Or at the very least extract into a reusable sponsor panel object
-    // TODO find an easy way for Julie to add/change sponsor levels...maybe make a document type for sponsor level?
-    // maybe make an object sponsorGroup that has a sponsorLevel or string field and an array of reference to sponsors field
-    {
+    /*     {
       name: "wingDonors",
       title: "The Wing Donors",
       type: "array",
       of: [
         {
           type: "reference",
-          to: [{ type: "sponsor" }], // TODO and type: person?
+          to: [{ type: "person" }], // TODO and type: person?
         },
       ],
-      fieldset: "sponsors",
-    },
+      fieldset: "creditPanel",
+    }, */
     {
-      name: "presentingSeasonSponsors",
-      title: "Presenting Season Sponsors",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "sponsor" }],
-        },
-      ],
-      fieldset: "sponsors",
+      name: "sponsors",
+      title: "Sponsors",
+      type: "sponsorList",
+      options: {
+        collapsible: true,
+      },
     },
-    {
-      name: "seasonSponsors",
-      title: "Season Sponsors",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "sponsor" }],
-        },
-      ],
-      fieldset: "sponsors",
-    },
-    {
-      name: "leadSponsors",
-      title: "Lead Sponsors",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "sponsor" }],
-        },
-      ],
-      fieldset: "sponsors",
-    },
-    {
-      name: "primeSponsors",
-      title: "Prime Sponsors",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "sponsor" }],
-        },
-      ],
-      fieldset: "sponsors",
-    },
-    {
-      name: "majorSponsors",
-      title: "Major Sponsors",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "sponsor" }],
-        },
-      ],
-      fieldset: "sponsors",
-    },
-    {
-      name: "supportingSponsors",
-      title: "Supporting Sponsors",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "sponsor" }],
-        },
-      ],
-      fieldset: "sponsors",
-    },
-    {
-      name: "partnerSponsors",
-      title: "Partner Sponsors",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "sponsor" }],
-        },
-      ],
-      fieldset: "sponsors",
-    },
-    {
-      name: "friendSponsors",
-      title: "Friend Sponsors",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "sponsor" }],
-        },
-      ],
-      fieldset: "sponsors",
-    },
-    {
+    // TODO related tours?
+    // TODO related blog posts?
+    /*     {
       name: "relatedExhibits",
       title: "Related Exhibits",
       type: "array",
       of: [{ type: "reference", to: [{ type: "exhibit" }] }],
-    },
+    }, */
   ],
   fieldsets: [
     {
@@ -331,6 +263,19 @@ export default {
       },
     },
   ],
+  validation: (Rule) =>
+    Rule.custom((fields) => {
+      if (
+        fields &&
+        fields.openingDate &&
+        fields.closingDate &&
+        new Date(fields.closingDate) < new Date(fields.openingDate)
+      ) {
+        return "Opening Date must be earlier than Closing Date";
+      }
+
+      return true;
+    }),
   preview: {
     select: {
       title: "title.en",

@@ -4,12 +4,7 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-async function createExhibitPages(
-  pathPrefix = "/exhibit",
-  graphql,
-  actions,
-  reporter
-) {
+async function createExhibitPages(pathPrefix, graphql, actions, reporter) {
   const { createPage } = actions
   const result = await graphql(`
     {
@@ -37,7 +32,7 @@ async function createExhibitPages(
       reporter.info(`Creating exhibit page: ${path}`)
       createPage({
         path,
-        component: require.resolve("./src/templates/exhibit-template.js"),
+        component: require.resolve("./src/templates/exhibit.js"),
         context: { id },
       })
     })
@@ -45,5 +40,5 @@ async function createExhibitPages(
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   //await createLandingPages("/", graphql, actions, reporter)
-  await createExhibitPages("/exhibit", graphql, actions, reporter)
+  await createExhibitPages("/exhibits", graphql, actions, reporter)
 }

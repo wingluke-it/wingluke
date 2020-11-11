@@ -1,0 +1,64 @@
+@use "../styles/variables" as v;
+@use "../styles/typography";
+
+/* GENERIC/GLOBAL STYLES */
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+* {
+  /* this gives items with a lack of (or transparent) background color a background color */
+  background-color: inherit;
+}
+
+/* Some older browsers — you know which ones — don’t support hidden, so remember to put the following in your CSS. It fixes the problem because display: none has the same affect of hiding the menu from assistive technologies and removing the links from focus order. */
+[hidden] {
+  display: none;
+}
+
+body {
+  margin: 0;
+  background-color: v.$light-gray-background-color;
+}
+
+main {
+  margin: v.$header-height 0 0;
+  padding: 0;
+  flex: 1 0 auto;
+  width: 100%;
+
+  & > :first-child {
+    margin-top: 0;
+  }
+
+  & > :last-child {
+    // margin-bottom: v.$baseline;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: v.$baseline;
+  /* line height is being applied to your logo because img’s are inline elements */
+  display: block;
+  // max-height: v.$max-image-height;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0)
+  );
+}

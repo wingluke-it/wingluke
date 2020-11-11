@@ -12,6 +12,17 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: "slug",
+      type: "slug",
+      title: "Slug",
+      description:
+        "To give this artist a dedicated page on wingluke.org, please set the slug. Otherwise, leave blank. A slug is the identifying part of the URL of this exhibit's web page. Once this is set on a published, public page, do not change it.",
+      options: {
+        source: "name.en",
+        maxLength: 96,
+      },
+    },
+    {
       name: "biography",
       title: "Biography",
       type: "localeText",

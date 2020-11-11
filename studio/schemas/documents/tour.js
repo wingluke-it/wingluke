@@ -242,15 +242,18 @@ export default {
       description: "Please provide pricing details for this tour.",
     },
     {
+      name: "faqs",
+      title: "Frequently Asked Questions",
+      type: "array",
+      of: [{ type: "faq" }],
+    },
+    {
       name: "sponsors",
       title: "Sponsors",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "sponsor" }],
-        },
-      ],
+      type: "sponsorList",
+      options: {
+        collapsible: true,
+      },
     },
     {
       name: "specialTourResources",

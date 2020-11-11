@@ -21,7 +21,7 @@ export default {
     {
       name: "venueDetailsFile",
       title: "Venue Details File",
-      type: "file",
+      type: "fileWithMetadata",
     },
     // TODO see https://www.wingluke.org/join-give/ for more needed fields
     {

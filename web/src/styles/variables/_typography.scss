@@ -1,0 +1,16 @@
+@use "./breakpoints";
+
+// FLUID TYPOGRAPHY
+
+// vertical rhythm
+$baseline: 1.5rem;
+
+// fluid font sizes
+$min-font-size: 16px;
+$max-font-size: 20px;
+$lower-font-range: breakpoints.$width-breakpoint-mobile-s;
+$upper-font-range: breakpoints.$width-breakpoint-laptop-s;
+
+// modular scale for headings
+$mod-1: 1.1; // mobile
+$mod-2: 1.5; // desktop

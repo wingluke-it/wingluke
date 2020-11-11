@@ -42,27 +42,8 @@ export default {
     {
       name: "form",
       title: "Form",
-      /* type: "array",
-      of: [
-        { */
-      type: "file",
-      options: {
-        accept: ".pdf,.doc,.docx",
-      },
-      fields: [
-        {
-          name: "title",
-          title: "Title",
-          type: "localeString",
-        },
-        {
-          name: "description",
-          title: "Description",
-          type: "localeText",
-        },
-        /* ],
-        }, */
-      ],
+      type: "array",
+      of: [{ type: "fileWithMetadata" }],
     },
   ],
   preview: {

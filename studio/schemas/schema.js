@@ -14,8 +14,6 @@ import museumMeta from "./documents/singletons/museumMeta";
 import visitorGuide from "./documents/singletons/visitorGuide";
 import volunteerProgram from "./documents/singletons/volunteerProgram";
 
-// constituents
-
 // other documents
 import artist from "./documents/artist";
 import blogPost from "./documents/blogPost";
@@ -33,7 +31,6 @@ import eventSpace from "./documents/eventSpace";
 import marketplaceProduct from "./documents/marketplaceProduct";
 import oralHistory from "./documents/oralHistory";
 import sponsor from "./documents/sponsor";
-import sponsorCategory from "./documents/sponsorCategory";
 import staffMember from "./documents/staffMember";
 import tour from "./documents/tour";
 import youthProgramSession from "./documents/youthProgramSession";
@@ -45,12 +42,17 @@ import eventOccurrences from "./objects/eventOccurrences";
 import externalLink from "./objects/externalLink";
 import faq from "./objects/faq";
 import figure from "./objects/figure";
+import fileWithMetadata from "./objects/fileWithMetadata";
 import localeString from "./objects/localeString";
+import localeStringArray from "./objects/localeStringArray";
 import localeText from "./objects/localeText";
 import localePortableText from "./objects/localePortableText";
 import location from "./objects/location";
+import membershipLevel from "./objects/membershipLevel";
+import person from "./objects/person";
 import portableText from "./objects/portableText";
 import schedulingInfo from "./objects/schedulingInfo";
+import sponsorList from "./objects/sponsorList";
 import visitorGuideTicket from "./objects/visitorGuideTicket";
 import wayToGive from "./objects/wayToGive";
 
@@ -71,8 +73,6 @@ export default createSchema({
     visitorGuide,
     volunteerProgram,
 
-    // constituents
-
     // documents
     artist,
     blogPost,
@@ -90,7 +90,6 @@ export default createSchema({
     marketplaceProduct,
     oralHistory,
     sponsor,
-    sponsorCategory,
     staffMember,
     tour,
     youthProgram,
@@ -102,12 +101,17 @@ export default createSchema({
     externalLink,
     faq,
     figure,
+    fileWithMetadata,
     localeString,
+    localeStringArray,
     localeText,
     localePortableText,
     location,
+    membershipLevel,
+    person,
     portableText,
     schedulingInfo,
+    sponsorList,
     visitorGuideTicket,
     wayToGive,
   ]),

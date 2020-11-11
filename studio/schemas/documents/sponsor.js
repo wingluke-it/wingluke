@@ -10,16 +10,30 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
-      name: "bio",
-      title: "Biography",
-      type: "localeText",
-      description:
-        "Give a short (3 to 5 sentence) biography of this sponsor organization (optional).",
-    },
-    {
       name: "logo",
       title: "Logo",
       type: "figure",
+    },
+    {
+      name: "tier",
+      title: "Tier",
+      description:
+        "This will determine how this sponsor is categorized on the main sponsors page.",
+      type: "string",
+      options: {
+        list: [
+          "Presenting Season",
+          "Season",
+          "Lead",
+          "Prime",
+          "Major",
+          "Supporting ",
+          "Partner",
+          "Friend",
+          "Media",
+        ],
+        layout: "radio",
+      },
     },
     {
       name: "website",
@@ -32,35 +46,17 @@ export default {
         }),
     },
     {
-      name: "categories",
-      title: "Categories",
-      type: "array",
-      of: [{ type: "reference", to: [{ type: "sponsorCategory" }] }],
+      name: "bio",
+      title: "Biography",
+      type: "localeText",
       description:
-        "If this sponsor belongs to a special category, please reference it here.",
-    },
-    {
-      name: "donationAmount",
-      title: "Amount Donated",
-      type: "string",
-      options: {
-        list: [
-          "Up to $999",
-          "$1,000 to $2,499",
-          "$2,500 to $4,999",
-          "$5,000 to $9,999",
-          "$10,000 to $14,999",
-          "$15,000 to $24,999",
-          "$25,000 to $49,999",
-          "$50,000 to $99,999",
-          "$100,000 and Above",
-        ],
-        layout: "radio",
-      },
+        "Give a short (3 to 5 sentence) biography of this sponsor organization (optional).",
     },
     {
       name: "isFormerSponsor",
       title: "Organization is no longer is a Sponsor of The Wing",
+      description:
+        "Because past exhibits may reference former sponsors, for historical pursposes, it is better to turn on this toggle than it is to delete former sponsors.",
       type: "boolean",
     },
   ],

@@ -8,7 +8,7 @@ export default {
     {
       name: "catalog",
       title: "Catalog",
-      type: "file",
+      type: "fileWithMetadata",
       description:
         "Please upload the current PDF catalog for the brick and mortar marketplace.",
       options: {

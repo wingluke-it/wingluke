@@ -1,22 +1,55 @@
 import React from "react"
 import { Link } from "gatsby"
+import { mapEdgesToNodes } from "../lib/helpers"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div /* style={{ maxWidth: `300px`, marginBottom: `1.45rem` }} */>
+const IndexPage = props => {
+  const exhibitNodes = mapEdgesToNodes(props.data.allSanityExhibit)
+  return (
+    <Layout>
+      <SEO
+        title="Home"
+        description="The Official Website of the Wing Luke Museum of the Asian Pacific American Experience"
+        // TODO what if banner.asset is null?
+        // image={banner}
+      />
+      <h1>WLM Home</h1>
+      {/* TODO: make this a component, shared with the exhibits page */}
+      {exhibitNodes.map(exhibit => (
+        <div>
+          <Link to={`/exhibits/${exhibit.slug.current}`}>
+            {exhibit.title && exhibit.title.en}
+          </Link>
+        </div>
+      ))}
       <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+      <Link to="/exhibits/">Check out all exhibits</Link>
+    </Layout>
+  )
+}
 
 export default IndexPage
+
+export const query = graphql`
+  {
+    allSanityExhibit {
+      edges {
+        node {
+          title {
+            en
+          }
+          slug {
+            current
+          }
+          banner {
+            ...SanityImage
+          }
+        }
+      }
+    }
+  }
+`

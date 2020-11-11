@@ -1,0 +1,84 @@
+@use "variables" as v;
+
+// Fluid Typography based on:
+//     https://css-tricks.com/snippets/css/fluid-typography/
+// which was based on:
+//     https://www.smashingmagazine.com/author/michaelriethmuller/
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@mixin vertical-rhythm(
+  $font-lower-range,
+  $font-upper-range,
+  $min-font-size,
+  $max-font-size
+) {
+  $u1: unit($font-lower-range);
+  $u2: unit($font-upper-range);
+  $u3: unit($min-font-size);
+  $u4: unit($max-font-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+      line-height: $min-font-size;
+      margin-top: calc(
+        (#{v.$baseline} - #{$min-font-size}) + #{v.$baseline} * 2
+      );
+
+      @media screen and (min-width: $font-lower-range) {
+        $font-size: calc(
+          #{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} *
+            (
+              (100vw - #{$font-lower-range}) / #{strip-unit(
+                  $font-upper-range - $font-lower-range
+                )}
+            )
+        );
+        line-height: $font-size;
+        margin-top: calc((#{v.$baseline} - #{$font-size}) + #{v.$baseline} * 2);
+      }
+
+      @media screen and (min-width: $font-upper-range) {
+        line-height: $max-font-size;
+        margin-top: calc(
+          (#{v.$baseline} - #{$max-font-size}) + #{v.$baseline} * 2
+        );
+      }
+    }
+  }
+}
+
+@mixin fluid-type(
+  $font-lower-range,
+  $font-upper-range,
+  $min-font-size,
+  $max-font-size
+) {
+  $u1: unit($font-lower-range);
+  $u2: unit($font-upper-range);
+  $u3: unit($min-font-size);
+  $u4: unit($max-font-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+      font-size: $min-font-size;
+
+      @media screen and (min-width: $font-lower-range) {
+        font-size: calc(
+          #{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} *
+            (
+              (100vw - #{$font-lower-range}) / #{strip-unit(
+                  $font-upper-range - $font-lower-range
+                )}
+            )
+        );
+      }
+
+      @media screen and (min-width: $font-upper-range) {
+        font-size: $max-font-size;
+      }
+    }
+  }
+}

@@ -10,6 +10,18 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: "slug",
+      type: "slug",
+      title: "Slug",
+      description:
+        "A slug is the identifying part of the URL of this exhibit's web page. Once this is set on a published, public page, do not change it.",
+      options: {
+        source: "name.en",
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: "description",
       title: "Description",
       type: "localeText",
@@ -22,16 +34,15 @@ export default {
       type: "figure",
       description: "Provide a banner image for this gallery.",
     },
-    {
+    /*     this can be inferred from the gallery field of the exhibit document
+{
       name: "exhibits",
       title: "Exhibits Shown",
       type: "array",
       of: [{ type: "reference", to: [{ type: "exhibit" }] }],
       description:
         "Please provide all exhibits (past, present, and future) that have been shown in this gallery.",
-    },
-    // TODO should this be broken down into three separate exhibits fields (pastExhibits, currentExhibit, futureExhibits)?
-    // currently I'm assuming the current exhibit can be inferred by its opening and closing dates, but what if those aren't present?
+    }, */
   ],
   preview: {
     select: {

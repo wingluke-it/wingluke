@@ -1,0 +1,135 @@
+@use "fluid-typography" as ft;
+@use "variables" as v;
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+html {
+  font-family: proxima-nova, sans-serif; /* let the browser pick a similar font in the generic sans-serif family, if no other fonts are available */
+  @include ft.fluid-type(
+    v.$lower-font-range,
+    v.$upper-font-range,
+    v.$min-font-size,
+    v.$max-font-size
+  );
+}
+
+p {
+  letter-spacing: 0px;
+  font-weight: 300;
+  font-style: normal;
+  margin: v.$baseline auto 0;
+  line-height: v.$baseline;
+  max-width: 30rem; // about 55 characters wide
+}
+
+h2,
+h3,
+h4,
+.h2,
+.h3,
+.h4 {
+  margin-bottom: 0;
+  text-align: center;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-weight: 500;
+  font-style: italic;
+}
+
+h1,
+.h1 {
+  margin-bottom: 0;
+  text-align: center;
+  font-weight: 800;
+  font-style: normal;
+  text-transform: uppercase;
+  $min-font-size: v.$mod-1 * v.$mod-1 * v.$mod-1 * v.$mod-1 * v.$min-font-size;
+  $max-font-size: v.$mod-2 * v.$mod-2 * v.$mod-2 * v.$mod-2 * v.$min-font-size;
+  $font-lower-range: v.$lower-font-range;
+  $font-upper-range: v.$upper-font-range;
+  @include ft.fluid-type(
+    $font-lower-range,
+    $font-upper-range,
+    $min-font-size,
+    $max-font-size
+  );
+
+  & {
+    line-height: $min-font-size;
+    margin-top: v.$baseline;
+    // margin-top: calc((#{v.$baseline} - #{$min-font-size}) + #{v.$baseline} * 2);
+
+    @media screen and (min-width: $font-lower-range) {
+      $font-size: calc(
+        #{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} *
+          (
+            (100vw - #{$font-lower-range}) / #{strip-unit(
+                $font-upper-range - $font-lower-range
+              )}
+          )
+      );
+      line-height: $font-size;
+      // margin-top: calc((#{v.$baseline} - #{$font-size}) + #{v.$baseline} * 2);
+    }
+
+    @media screen and (min-width: $font-upper-range) {
+      line-height: $max-font-size;
+      // margin-top: calc(
+      //   (#{v.$baseline} - #{$max-font-size}) + #{v.$baseline} * 3
+      // );
+    }
+  }
+}
+
+h2,
+.h2 {
+  text-transform: uppercase;
+  @include ft.fluid-type(
+    v.$lower-font-range,
+    v.$upper-font-range,
+    v.$mod-1 * v.$mod-1 * v.$mod-1 * v.$min-font-size,
+    v.$mod-2 * v.$mod-2 * v.$mod-2 * v.$min-font-size
+  );
+  @include ft.vertical-rhythm(
+    v.$lower-font-range,
+    v.$upper-font-range,
+    v.$mod-1 * v.$mod-1 * v.$mod-1 * v.$min-font-size,
+    v.$mod-2 * v.$mod-2 * v.$mod-2 * v.$min-font-size
+  );
+}
+
+h3,
+.h3 {
+  @include ft.fluid-type(
+    v.$lower-font-range,
+    v.$upper-font-range,
+    v.$mod-1 * v.$mod-1 * v.$min-font-size,
+    v.$mod-2 * v.$mod-2 * v.$min-font-size
+  );
+  @include ft.vertical-rhythm(
+    v.$lower-font-range,
+    v.$upper-font-range,
+    v.$mod-1 * v.$mod-1 * v.$min-font-size,
+    v.$mod-2 * v.$mod-2 * v.$min-font-size
+  );
+}
+
+h4,
+.h4 {
+  @include ft.fluid-type(
+    v.$lower-font-range,
+    v.$upper-font-range,
+    v.$mod-1 * v.$min-font-size,
+    v.$mod-2 * v.$min-font-size
+  );
+  @include ft.vertical-rhythm(
+    v.$lower-font-range,
+    v.$upper-font-range,
+    v.$mod-1 * v.$min-font-size,
+    v.$mod-2 * v.$min-font-size
+  );
+}

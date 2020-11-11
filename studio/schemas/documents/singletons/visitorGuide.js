@@ -162,9 +162,7 @@ export default {
       type: "array",
       of: [
         {
-          type: "file",
-          fields: [{ name: "name", title: "Name", type: "string" }],
-          options: { accept: ".pdf,.doc,.docx" },
+          type: "fileWithMetadata",
         },
       ],
     },

@@ -1,0 +1,17 @@
+@forward "./colors";
+@forward "./typography";
+@forward "./breakpoints";
+@use "./typography";
+
+// GLOBAL VARIABLES
+
+// IMAGES
+// $max-image-height: 50vh;
+
+// Z-INDICES
+$sidebar-z-index: 0;
+$header-z-index: $sidebar-z-index + 1;
+$footer-z-index: $header-z-index + 1;
+
+// SIZING
+$header-height: typography.$baseline * 2;
