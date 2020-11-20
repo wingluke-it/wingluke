@@ -1,0 +1,64 @@
+@use "../../styles/variables/" as v;
+
+$sidebar-min-width: 13rem;
+
+.button {
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "main";
+}
+
+.main {
+  grid-area: main;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  display: none;
+  padding-right: v.$baseline / 2;
+}
+
+/* a reminder:
+$width-breakpoint-mobile-s: 320px;
+$width-breakpoint-mobile-l: 425px;
+$width-breakpoint-tablet: 768px;
+$width-breakpoint-laptop-s: 1024px;
+$width-breakpoint-laptop-l: 1440px; */
+
+@media (min-width: v.$width-breakpoint-tablet) {
+  .grid {
+    grid-template-columns: $sidebar-min-width 1fr;
+    grid-template-areas: "sidebar main";
+  }
+
+  .main {
+  }
+
+  .sidebar {
+    display: block;
+    align-self: start;
+    position: sticky;
+    top: var(--header-room);
+    // max-height: 100vh;
+    transition: all 0.2s ease-in-out;
+    max-height: calc(100vh - var(--header-room));
+    // height: auto;
+    overflow: auto;
+  }
+}
+
+/* @media (min-width: v.$width-breakpoint-laptop-s) {
+  .grid {
+    grid-template-columns: ;
+    grid-template-areas: ;
+  }
+
+  .main {
+  }
+
+  .sidebar {
+  }
+} */

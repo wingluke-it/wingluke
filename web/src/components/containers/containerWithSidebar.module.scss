@@ -1,40 +1,52 @@
 @use "../../styles/variables/" as v;
 
+$sidebar-min-width: 13rem;
+
 .root {
-  display: grid;
-  grid-template-rows: auto auto;
-  grid-template-columns: auto;
-  grid-template-areas: "content" "sidebar";
+  display: block;
 }
 
-.sidebar {
-  grid-area: sidebar;
+.sidebarright,
+.sidebarleft {
   position: static;
-  top: v.$header-height;
-  max-height: 100%;
-  overflow: auto;
-  // padding: 0 auto;
-  z-index: v.$sidebar-z-index; // this should be less than footer's z-index
+  max-height: none;
+  padding-left: calc((100vw - #{$sidebar-min-width}) / 2);
 }
 
 .mainContent {
-  grid-area: content;
+  h2 {
+    margin-top: v.$baseline;
+  }
 }
 
 @media (min-width: v.$width-breakpoint-tablet) {
   .root {
-    grid-template-columns: 13rem 1fr;
+    display: grid;
+    grid-template-columns: $sidebar-min-width 1fr $sidebar-min-width;
     grid-template-rows: auto;
-    grid-template-areas: "sidebar content";
+    grid-template-areas: "sidebarleft content sidebarright";
   }
 
-  .sidebar {
-    grid-area: sidebar;
+  .sidebarleft {
+    grid-area: sidebarleft;
+  }
+
+  .sidebarright {
+    grid-area: sidebarright;
+  }
+
+  .sidebarright,
+  .sidebarleft {
+    padding-left: 0;
     position: sticky;
-    top: v.$header-height;
-    max-height: calc(100vh - #{v.$header-height});
+    top: var(--header-room);
+    max-height: calc(100vh - var(--header-room));
     overflow: auto;
     // padding: 0 auto;
     // TODO add gradient shadow at the top and bottom, like sanity's docs
+  }
+
+  .mainContent {
+    grid-area: content;
   }
 }

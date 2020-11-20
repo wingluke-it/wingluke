@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react"
-// import styles from "./containerWithToc.module.scss"
+import styles from "./containerWithToc.module.scss"
+
+import classNames from "classnames"
 
 import TocLink from "../tocLink"
 import ContainerWithSidebar from "./containerWithSidebar"
 import MainColumn from "./mainColumn"
 
-const ai = {}
-
 /* sections: an array of TocSections */
-const ContainerWithToc = ({ sidebarContent, sections, children }) => {
+const ContainerWithToc = ({
+  sidebarContentRight,
+  sidebarContentLeft,
+  sections,
+  children,
+}) => {
   /*
    * Store the active tocItems in state to force update
    * when changed
@@ -16,39 +21,21 @@ const ContainerWithToc = ({ sidebarContent, sections, children }) => {
   const [activeItems, setActiveItems] = useState({})
 
   useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      console.log("activeItems")
-      console.log(activeItems)
-      // ai = Object.assign({}, activeItems)
-      console.log("ai")
-      console.log(ai)
-      entries.forEach(entry => {
-        const id = entry.target.getAttribute("id")
-        /* if (entry.intersectionRatio > 0) {
-          if (!ais.includes(id)) {
-            ais.push(id)
-          } */
-        console.log(`${id} intersectionRatio: ${entry.intersectionRatio}`)
-        ai[id] = entry.intersectionRatio > 0 ? true : false
-        /* document
-            .querySelector(`nav li a[href="#${id}"]`)
-            .parentElement.classList.add("active") */
-        /* } else {
-          if (ais.includes(id)) {
-
-          }
-          ais[id] */
-        /* document
-            .querySelector(`nav li a[href="#${id}"]`)
-            .parentElement.classList.remove("active") */
-        // }
-      })
-      console.log("observed, ai:")
-      console.log(ai)
-      setActiveItems({ ...ai })
-      // updateActiveItems()
-      // console.log(ais)
-    })
+    const ai = {}
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          const id = entry.target.getAttribute("id")
+          ai[id] = entry.intersectionRatio
+        })
+        setActiveItems({ ...ai })
+      },
+      {
+        rootMargin: "-24px 0px 0px 0px", // = header height = 2 * baseline = 2 * 1.5 * ~16px
+        // not sure whether this list is exhaustive or handles all edge cases (for really tall sections, e.g.)
+        threshold: [0, 0.05, 0.1, 0.45, 0.5, 0.55, 0.9, 0.95, 1],
+      }
+    )
 
     document.querySelectorAll("section[id]").forEach(section => {
       observer.observe(section)
@@ -58,39 +45,43 @@ const ContainerWithToc = ({ sidebarContent, sections, children }) => {
   /*
    * Create the list of MenuItems based on the menuItems object we have defined above
    */
+  let activeItem = sections[0].props.id
+  for (const id in activeItems) {
+    if (activeItems[id] > activeItems[activeItem]) {
+      activeItem = id
+    }
+  }
+
   const tocLinks = sections.map((section, index) => {
     return (
       <TocLink
         id={section.props.id}
         key={`menuitem_${index}`}
-        active={activeItems[section.props.id]}
+        active={section.props.id === activeItem}
       >
         {section.props.headingText}
       </TocLink>
     )
   })
-  console.log("rerender!")
-  console.log(activeItems)
 
   return (
     <ContainerWithSidebar
-      sidebarContent={
+      sidebarContentLeft={
         // TOC
         <>
-          {/* {Object.keys(activeItems).map(key => (
+          <nav className={styles.tocNav}>
+            {/* {Object.keys(activeItems).map(key => (
             <p key={key}>{key}</p>
           ))} */}
-          <ul>
-            {/* {sections.map(section => (
-              <TocLink key={section.props.id} id={section.props.id}>
-              {section.props.headingText}
-              </TocLink>
-            ))} */}
-            {tocLinks}
-          </ul>
-          {sidebarContent}
+            <h2 className={classNames("h4", styles.sidebarHeader)}>
+              On This Page
+            </h2>
+            <ul className={styles.toc}>{tocLinks}</ul>
+          </nav>
+          {sidebarContentLeft}
         </>
       }
+      sidebarContentRight={sidebarContentRight}
     >
       <MainColumn>
         {sections}

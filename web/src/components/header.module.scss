@@ -2,12 +2,11 @@
 
 .header {
   background: v.$primary-brand-color;
-  /* margin-bottom: 1.5rem; */
   padding: (v.$baseline / 2) v.$baseline;
-  position: fixed;
+  // position: fixed;
   width: 100vw;
   z-index: v.$header-z-index;
-  height: v.$header-height;
+  // height: var(--header-room);
 }
 
 .homeLink {
@@ -23,10 +22,15 @@
   letter-spacing: 0.5px;
 }
 
-.homeLink > img {
-  width: 100%;
-  max-width: 300px;
-  margin: auto 0;
+.homeLink {
+  background-color: transparent;
+  border-bottom: none;
+
+  & > img {
+    width: 100%;
+    max-width: 300px;
+    margin: auto 0;
+  }
 }
 
 .dropdownLinkContainer {
@@ -35,6 +39,8 @@
 
 .dropdownLinkContainer > a {
   color: white;
+  background-color: transparent;
+  border-bottom: none;
   text-decoration: none;
 }
 

@@ -1,11 +1,64 @@
-.button {
+@use "../../styles/variables/" as v;
+
+@mixin remove-default-button-styles {
   border: none;
-  // background-color: transparent;
   font-family: inherit;
   padding: 0;
   cursor: pointer;
   font-size: 1rem;
-  composes: buttonShared from "./buttonStyled.module.scss";
+}
+
+@mixin button-style($btnColor, $textColor, $lightnessScale) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $btnColor;
+  color: $textColor;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+  padding: 0.25rem 0.75rem;
+  min-width: 10ch;
+  // based on ensuring the button is a large enough target on touch devices to meet the WCAG 2.1 success criteria for 2.5.5 - Target Size
+  min-height: 44px;
+  // min-height: v.$baseline;
+
+  text-align: center;
+  line-height: 1;
+
+  transition: 175ms all ease-in-out;
+
+  &:hover,
+  &:active {
+    background-color: scale-color($btnColor, $lightness: $lightnessScale);
+  }
+
+  &:focus {
+    outline-style: solid;
+    outline-color: transparent;
+    box-shadow: 0 0 0 4px
+      scale-color($btnColor, $lightness: $lightnessScale * 2);
+  }
+
+  // these last two selectors won't do anything unless .button--small is included as a classname
+  &--small {
+    font-size: 1.15rem;
+  }
+
+  &--block {
+    width: 100%;
+  }
+}
+
+$btnColor: v.$primary-brand-color;
+
+.buttonStyled {
+  text-decoration: none;
+  @include button-style($btnColor, white, -20%);
+}
+
+.button {
+  @include remove-default-button-styles();
+  @include button-style($btnColor, white, -20%);
 
   // a solution to ensure a perceivable button border for users with Windows High Contrast mode enabled
   // MDN says this is deprecated, but I don't think it hurts to have in here

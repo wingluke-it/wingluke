@@ -4,7 +4,6 @@ import { mapEdgesToNodes } from "../lib/helpers"
 import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 
 const IndexPage = props => {
@@ -26,7 +25,6 @@ const IndexPage = props => {
           </Link>
         </div>
       ))}
-      <Image />
       <Link to="/exhibits/">Check out all exhibits</Link>
     </Layout>
   )

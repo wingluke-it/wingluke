@@ -1,3 +1,23 @@
-.active {
-  color: green;
+@use "../styles/variables/" as v;
+
+.li {
+  transition: all 200ms ease-in-out;
+  padding: v.$baseline / 4;
+  border-left: 4px solid v.$light-gray-background-color;
+  margin: 0;
+
+  a {
+    color: v.$transparent-black-darker;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &:hover {
+    border-left: 4px solid rgba(v.$primary-brand-color, 0.3); //v.$medium-gray;
+  }
+
+  &.active {
+    border-left: 4px solid v.$primary-brand-color; //v.$transparent-black-lighter;
+  }
 }

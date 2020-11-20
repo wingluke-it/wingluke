@@ -1,0 +1,52 @@
+@use "../styles/variables/" as v;
+
+.nav {
+  padding-bottom: v.$baseline;
+}
+
+@mixin nav-list-a {
+  a {
+    color: v.$dark-gray;
+    line-height: 1.5;
+    // display: block;
+
+    &:hover {
+      color: v.$transparent-black-darker;
+    }
+
+    transition: all 200ms ease-in-out;
+
+    &.activeLink {
+      color: v.$primary-brand-color;
+      border-bottom: 2px solid v.$transparent-black-darker;
+    }
+  }
+}
+
+.header {
+  @include nav-list-a();
+  text-align: left;
+  margin-left: 0;
+  margin-top: v.$baseline;
+  font-weight: 400;
+}
+
+.list {
+  @include nav-list-a();
+
+  list-style: none;
+  list-style-position: inside;
+  margin-top: v.$baseline;
+  padding-inline-start: 1rem;
+
+  li {
+    padding: v.$baseline / 2 0 0 v.$baseline / 2;
+    border-left: 4px solid v.$light-gray-background-color;
+    margin: 0;
+  }
+
+  ul {
+    list-style-position: inside;
+    list-style: none;
+  }
+}

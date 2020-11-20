@@ -1,10 +1,27 @@
+@use "../styles/variables/" as v;
 .layoutContainer {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
+  --header-room: 0px; // //0px;
+  --header-height: #{v.$header-height};
+  --header-position: fixed;
 }
 
 .layoutContainer > header,
 .layoutContainer > footer {
   flex: 0 0 auto;
+}
+
+.scrolledPastHeaderHeight {
+  --header-position: fixed;
+  --header-top: 0px;
+}
+
+.headerIsOpen {
+}
+
+.headerIsShown {
+  --header-room: #{v.$header-height}; //0px;
 }

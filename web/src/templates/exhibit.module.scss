@@ -19,7 +19,7 @@
   display: grid;
   // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   /* This is better for small screens, once min() is better supported */
-  grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));
   grid-gap: 1rem;
   /* This is the standardized property now, but has slightly less support */
   /* gap: 1rem */
@@ -28,4 +28,8 @@
 .artistCard {
   // display: grid;
   // grid-template-rows: ;
+  & a figure,
+  & a h3 {
+    background-color: transparent;
+  }
 }

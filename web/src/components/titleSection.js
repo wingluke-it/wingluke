@@ -14,7 +14,7 @@ const TitleSection = ({ title, subtitle, beforeText, after }) => (
       )}
       {after}
     </header>
-    <hr />
+    {/* <hr /> */}
   </>
 )
 

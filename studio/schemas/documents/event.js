@@ -11,6 +11,23 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: "subtitle",
+      title: "Sub-Title",
+      type: "localeString",
+    },
+    {
+      name: "slug",
+      type: "slug",
+      title: "Slug",
+      description:
+        "A slug is the identifying part of the URL of this event's web page. Once this is set on a published, public page, do not change it.",
+      options: {
+        source: "title.en",
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: "description",
       title: "Description",
       type: "localePortableText",

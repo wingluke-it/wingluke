@@ -1,10 +1,11 @@
 @use "../styles/variables" as v;
+@use "../styles/variables/css-vars";
 @use "../styles/typography";
 
 /* GENERIC/GLOBAL STYLES */
 html {
   box-sizing: border-box;
-  scroll-behavior: smooth;
+  // scroll-behavior: smooth;
 }
 
 *,
@@ -29,6 +30,7 @@ body {
 }
 
 main {
+  transition: all 0.2s ease-in-out;
   margin: v.$header-height 0 0;
   padding: 0;
   flex: 1 0 auto;
@@ -46,7 +48,7 @@ main {
 img {
   max-width: 100%;
   height: auto;
-  margin-bottom: v.$baseline;
+  margin: v.$baseline auto v.$baseline;
   /* line height is being applied to your logo because img’s are inline elements */
   display: block;
   // max-height: v.$max-image-height;

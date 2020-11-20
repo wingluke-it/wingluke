@@ -1,18 +1,18 @@
 import React from "react"
-import styles from "./buttonStyled.module.scss"
+import styles from "./button.module.scss"
 
 const ButtonStyledA = ({ text, href, newtab = true }) =>
   newtab ? (
     <a
       href={href}
-      className={styles.button}
+      className={styles.buttonStyled}
       target="_blank"
       rel="noopener noreferrer"
     >
       {text}
     </a>
   ) : (
-    <a className={styles.button} href={href}>
+    <a className={styles.buttonStyled} href={href}>
       {text}
     </a>
   )

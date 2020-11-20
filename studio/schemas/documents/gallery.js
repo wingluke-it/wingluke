@@ -22,6 +22,12 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: "floor",
+      type: "number",
+      title: "Floor",
+      validation: (Rule) => Rule.positive().integer(),
+    },
+    {
       name: "description",
       title: "Description",
       type: "localeText",

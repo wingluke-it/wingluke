@@ -6,7 +6,7 @@
 
   // this is for jumping to the right place when an internal link sends the user to a heading with an id
   /*   & h2::before {
-    $block-height: v.$header-height + v.$baseline;
+    $block-height: var(--header-room) + v.$baseline;
     display: block;
     content: " ";
     margin-top: $block-height * -1;

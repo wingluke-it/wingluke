@@ -15,13 +15,60 @@ html {
   );
 }
 
+a {
+  text-decoration: none;
+}
+
+p a {
+  text-decoration: none;
+  border-bottom: 1px solid v.$a-underline-color;
+  background-color: v.$a-background-color;
+  color: black;
+  transition: 175ms all ease-in-out;
+
+  &:visited {
+  }
+
+  &:hover {
+    background-color: v.$a-hover-background-color;
+    border-bottom-color: black;
+  }
+
+  &:active {
+  }
+
+  &:focus {
+    // TODO important for accessibility
+  }
+}
+
+$p-width: 30rem; // about 55 characters wide
+
 p {
   letter-spacing: 0px;
   font-weight: 300;
   font-style: normal;
   margin: v.$baseline auto 0;
   line-height: v.$baseline;
-  max-width: 30rem; // about 55 characters wide
+  // word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // overflow: hidden;
+  max-width: min(100vw, #{$p-width});
+}
+
+li {
+  line-height: v.$baseline;
+  max-width: min(100vw, #{$p-width});
+  word-break: break-word;
+}
+
+ul,
+ol {
+  margin: v.$baseline auto 0;
+  line-height: v.$baseline;
+  // overflow-wrap: break-word;
+  max-width: min(100vw, #{$p-width});
 }
 
 h2,
@@ -30,9 +77,13 @@ h4,
 .h2,
 .h3,
 .h4 {
-  margin-bottom: 0;
+  max-width: v.$width-breakpoint-laptop-s;
+  margin: v.$baseline auto 0;
+  word-break: break-word;
+  text-decoration: none;
   text-align: center;
   font-weight: 700;
+  color: v.$transparent-black-darker;
 }
 
 .subtitle {
@@ -42,7 +93,10 @@ h4,
 
 h1,
 .h1 {
-  margin-bottom: 0;
+  max-width: v.$width-breakpoint-laptop-s;
+  margin: v.$baseline auto 0;
+  word-break: break-word;
+  color: v.$transparent-black-darker;
   text-align: center;
   font-weight: 800;
   font-style: normal;
@@ -120,6 +174,7 @@ h3,
 
 h4,
 .h4 {
+  text-transform: none;
   @include ft.fluid-type(
     v.$lower-font-range,
     v.$upper-font-range,

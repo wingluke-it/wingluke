@@ -36,7 +36,11 @@ const ImageGallery = ({ imageGallery }) => {
 
   return (
     <div className={styles.gallery}>
-      <Gallery photos={images} onClick={openLightbox} />
+      <Gallery
+        photos={images}
+        sizes={"(min-width: 320px) 100vw, 100vw"}
+        onClick={openLightbox}
+      />
       {viewerIsOpen && (
         <Lightbox
           mainSrc={images[currentImageIndex].src}

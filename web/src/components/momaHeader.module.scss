@@ -1,0 +1,85 @@
+@use "../styles/variables/" as v;
+@use "../components/base_elements/button.module.scss";
+
+.header {
+  position: var(--header-position);
+  top: calc(#{v.$header-height} * -1 + var(--header-room));
+  z-index: v.$header-z-index;
+  width: 100vw;
+  background: v.$primary-brand-color;
+  // maybe use transform: scaleY(1) so height doesn't have to be explicitly defined? can be defined as auto instead
+  // https://css-tricks.com/using-css-transitions-auto-dimensions/
+  height: v.$header-height;
+  // height: auto;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out 0s;
+}
+
+.topBar {
+  // padding: (v.$baseline / 2) v.$baseline;
+  // height: $top-bar-height;
+  height: v.$header-height;
+  display: grid;
+  grid-template-columns: auto 3fr 1fr;
+  grid-template-rows: 100%;
+  grid-template-areas: "homeLink primaryItems ctas";
+  align-items: center;
+  justify-items: center;
+}
+
+.homeLink {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  grid-area: homeLink;
+  color: white;
+  font-size: v.$baseline;
+  font-weight: 300;
+  white-space: nowrap;
+  padding: 0 v.$baseline / 2;
+
+  img {
+    width: 100%;
+    max-width: 13rem;
+    // margin: auto 0;
+  }
+}
+
+.primaryItems {
+  grid-area: primaryItems;
+  button {
+    @include button.remove-default-button-styles();
+    color: white;
+  }
+}
+
+.ctas {
+  grid-area: ctas;
+
+  a {
+    // text-decoration: none;
+    @include button.button-style(
+      v.$light-gray,
+      v.$transparent-black-darker,
+      30%
+    );
+  }
+}
+
+.nav {
+  height: 100%;
+}
+
+.expandingContainter {
+}
+
+.headerHidden {
+}
+
+// good for this to go last so that it overrides earlier default (header closed) styling
+.headerOpened {
+  height: 100vh;
+  overflow: auto;
+
+  .topBarButtons {
+  }
+}

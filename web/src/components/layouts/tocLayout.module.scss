@@ -1,0 +1,120 @@
+@use "../../styles/variables/" as v;
+
+.tocSection {
+  margin-top: v.$baseline;
+  overflow: auto;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  // this selects all tocSections besides the first
+  & ~ .tocSection {
+    border-top: 3px solid v.$medium-gray;
+  }
+
+  h2 {
+    margin-top: v.$baseline;
+  }
+  // this is for jumping to the right place when an internal link sends the user to a heading with an id
+  //  & h2::before {
+  // $block-height: var(--header-room) + v.$baseline;
+  /*     padding-top: $block-height;
+    margin-top: $block-height * -1;
+    -webkit-background-clip: content-box;
+    background-clip: content-box; */
+  /* display: block;
+    content: " ";
+    margin: $block-height * -1 0 0;
+    height: $block-height;
+    visibility: hidden;
+    pointer-events: none; */
+  // }
+}
+
+.tocHeader {
+  text-align: left;
+  margin-left: 1rem;
+  margin-top: v.$baseline;
+  font-weight: 400;
+}
+
+@media (min-width: v.$width-breakpoint-laptop-s) {
+  .hiddenOnDesktop {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+$sidebar-min-width: 13rem;
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "main";
+}
+
+.main {
+  grid-area: main;
+  padding: 0 v.$baseline / 2 v.$baseline;
+}
+
+.toc {
+  grid-area: toc;
+  display: none;
+  padding-left: v.$baseline / 2;
+
+  ul {
+    list-style: none;
+    margin-top: v.$baseline / 2;
+  }
+
+  li {
+    transition: all 200ms ease-in-out;
+    padding: v.$baseline / 4;
+    border-left: 4px solid v.$light-gray-background-color;
+    margin: 0;
+
+    a {
+      color: v.$transparent-black-darker;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    &:hover {
+      border-left: 4px solid rgba(v.$primary-brand-color, 0.3); //v.$medium-gray;
+    }
+
+    &.activeLink {
+      border-left: 4px solid v.$primary-brand-color; //v.$transparent-black-lighter;
+    }
+  }
+}
+
+@media (min-width: v.$width-breakpoint-laptop-s) {
+  .grid {
+    grid-template-columns: 1fr $sidebar-min-width;
+    grid-template-areas: "main toc";
+  }
+
+  .main {
+  }
+
+  .toc {
+    display: block;
+    align-self: start;
+    position: sticky;
+    top: var(--header-room);
+    transition: all 0.2s ease-in-out;
+    max-height: calc(100vh - var(--header-room));
+    overflow: auto;
+  }
+}

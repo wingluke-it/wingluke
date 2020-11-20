@@ -1,9 +1,9 @@
 import React from "react"
 import { Link } from "gatsby"
-import styles from "./buttonStyled.module.scss"
+import styles from "./button.module.scss"
 
 const ButtonStyledLink = ({ text, to }) => (
-  <Link className={styles.button} to={to}>
+  <Link className={styles.buttonStyled} to={to}>
     {text}
   </Link>
 )

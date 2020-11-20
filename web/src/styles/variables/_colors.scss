@@ -1,7 +1,13 @@
 // COLORS
 $primary-brand-color: #7c2128;
 $secondary-brand-color: #eaaf0f;
-$medium-gray: hsl(0, 0%, 80%);
 $light-gray-background-color: hsl(0, 0%, 95%); // gray(95)
+$light-gray: hsl(0, 0%, 95%); // gray(95)
+$medium-gray: hsl(0, 0%, 80%);
+$dark-gray: hsl(0, 0%, 40%);
 $transparent-white: hsla(0, 0%, 100%, 0.66);
-$transparent-black: hsla(0, 0%, 0%, 0.76);
+$transparent-black-lighter: hsla(0, 0%, 0%, 0.76);
+$transparent-black-darker: hsla(0, 0%, 0%, 0.86);
+$a-background-color: rgba($primary-brand-color, 0.2);
+$a-hover-background-color: rgba($primary-brand-color, 0.4);
+$a-underline-color: hsl(0, 0%, 50);

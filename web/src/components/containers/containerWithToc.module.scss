@@ -1,0 +1,18 @@
+@use "../../styles/variables/" as v;
+
+.toc,
+.toc ul {
+  list-style: none;
+  margin-top: v.$baseline / 2;
+}
+
+.sidebarHeader {
+  text-align: left;
+  margin-left: 1rem;
+  margin-top: v.$baseline;
+  font-weight: 400;
+}
+
+.tocNav {
+  // text-align: center;
+}

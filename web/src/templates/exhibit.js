@@ -1,12 +1,16 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
 import { toPlainText } from "../lib/helpers"
+import { useExhibits } from "../hooks/useExhibits"
+import { useTicketPurchaseLink } from "../hooks/useTicketPurchaseLink"
 import { isAfter, isBefore, parse, isSameDay, format } from "date-fns"
+import classNames from "classnames"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 import ContainerWithToc from "../components/containers/containerWithToc"
+import TocSection from "../components/containers/tocSection"
 
 import ButtonStyledA from "../components/base_elements/buttonStyledA"
 import ButtonStyledLink from "../components/base_elements/buttonStyledLink"
@@ -16,9 +20,10 @@ import Figure from "../components/figure"
 import ImageGallery from "../components/imageGallery"
 import PortableText from "../components/portableText"
 import TitleSection from "../components/titleSection"
+import NavList from "../components/navList"
 
 import styles from "./exhibit.module.scss"
-import TocSection from "../components/containers/tocSection"
+import navListStyles from "../components/navList.module.scss"
 
 const ExhibitTemplate = props => {
   const {
@@ -33,7 +38,8 @@ const ExhibitTemplate = props => {
     featuredArtists,
     curatedBy,
   } = props.data && props.data.exhibit
-  const { ticketPurchaseLink } = props.data && props.data.sanityVisitorGuide
+  const exhibitEdges = useExhibits()
+  const ticketPurchaseLink = useTicketPurchaseLink()
 
   const statuses = {
     noStatus: "EXHIBIT",
@@ -81,11 +87,9 @@ const ExhibitTemplate = props => {
         description={
           _rawOverview && _rawOverview.en && toPlainText(_rawOverview.en)
         }
-        // TODO what if banner.asset is null?
         image={banner}
       />
       <article>
-        <Banner figure={banner} />
         <TitleSection
           title={title && title.en}
           subtitle={subtitle && subtitle.en}
@@ -97,10 +101,14 @@ const ExhibitTemplate = props => {
                 <p className={styles.halfTopMargin}>
                   {_rawGallery.slug ? (
                     <Link to={`/galleries/${_rawGallery.slug.current}/`}>
-                      {_rawGallery.name.en}
+                      {`${_rawGallery.name.en}${
+                        _rawGallery.floor && ` (Floor ${_rawGallery.floor})`
+                      }`}
                     </Link>
                   ) : (
-                    _rawGallery.name.en
+                    `${_rawGallery.name.en}${
+                      _rawGallery.floor && ` (Floor ${_rawGallery.floor})`
+                    }`
                   )}
                 </p>
               )}
@@ -118,44 +126,79 @@ const ExhibitTemplate = props => {
             </>
           }
         />
+        <Banner figure={banner} />
         <ContainerWithToc
-          sidebarContent={
+          sidebarContentRight={
+            // TODO refactor this into a reusable sidebarNav component
+            // TODO factor out useExhibits hook into a custom, reusable hook https://www.gatsbyjs.com/docs/use-static-query/#composing-custom-usestaticquery-hooks
             <aside>
-              <nav>
-                <ul>
-                  <li>All Exhibits</li>
-                  <ul>
-                    <li>Other exhibit</li>
-                    {[...Array(40).keys()].map(x => (
-                      <li key={x}>Another exhibit</li>
-                    ))}
-                  </ul>
+              <NavList
+                listItems={[
+                  <h2
+                    key="all-exhibits"
+                    className={classNames("h4", navListStyles.header)}
+                  >
+                    <Link to={"/exhibits/"}>All Exhibits</Link>
+                  </h2>,
+                  exhibitEdges.map(({ node }, index) => (
+                    // TODO filter out past exhibits
+                    // TODO categorize by current and upcoming
+                    // TODO alphabetize? include opening/closing dates?
+                    <li key={`other-exhibit-${index}`}>
+                      <Link
+                        activeClassName={navListStyles.activeLink}
+                        to={`/exhibits/${node.slug && node.slug.current}`}
+                      >
+                        {node.title && node.title.en}
+                      </Link>
+                    </li>
+                  )),
+                ]}
+              />
+              {/* <nav>
+                <h2 className={classNames("h4", styles.sidebarHeader)}>
+                  <Link to="/exhibits/">All Exhibits</Link>
+                </h2>
+                <ul className={styles.sidebarList}>
+                  {exhibitEdges.map(({ node }, index) => (
+                    // TODO filter out past exhibits
+                    // TODO categorize by current and upcoming
+                    // TODO alphabetize? include opening/closing dates?
+                    <li key={`other-exhibit-${index}`}>
+                      <Link
+                        activeClassName={styles.activeExhibitLink}
+                        to={`/exhibits/${node.slug && node.slug.current}`}
+                      >
+                        {node.title && node.title.en}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
-              </nav>
+              </nav> */}
             </aside>
           }
           sections={[
-            <TocSection id="overview" key="overview" headingText={"Overview"}>
-              {_rawOverview && _rawOverview.en && (
+            _rawOverview && _rawOverview.en && (
+              <TocSection id="overview" key="overview" headingText={"Overview"}>
                 <PortableText
                   className={styles.article}
                   blocks={_rawOverview.en}
                 />
-              )}
-            </TocSection>,
-            <TocSection id="images" key="images" headingText="Images">
-              {imageGallery && imageGallery.length > 0 && (
+              </TocSection>
+            ),
+            imageGallery && imageGallery.length > 0 && (
+              <TocSection id="images" key="images" headingText="Images">
                 <ImageGallery imageGallery={imageGallery} />
-              )}
-            </TocSection>,
-            <TocSection
-              id="featured-artists"
-              key="featured-artists"
-              headingText="Featured Artists"
-            >
-              <div className={styles.artistGrid}>
-                {featuredArtists &&
-                  featuredArtists.map(
+              </TocSection>
+            ),
+            featuredArtists && featuredArtists.length > 0 && (
+              <TocSection
+                id="featured-artists"
+                key="featured-artists"
+                headingText="Featured Artists"
+              >
+                <div className={styles.artistGrid}>
+                  {featuredArtists.map(
                     ({
                       name,
                       biography,
@@ -195,7 +238,7 @@ const ExhibitTemplate = props => {
                               to={slug && `/artists/${slug.current}`}
                             />
                           )}
-                          {website && (
+                          {/* {website && (
                             <p>
                               <a
                                 href={website}
@@ -212,70 +255,104 @@ const ExhibitTemplate = props => {
                                 rel="noopener noreferrer"
                               >{`${name.en}'s Instagram`}</a>
                             </p>
-                          )}
+                          )} */}
                         </div>
                       )
                     }
                   )}
-              </div>
-            </TocSection>,
-            <TocSection
-              id="curation-process"
-              key="curation-process"
-              headingText="Curation Process"
-            >
-              {/* TODO update links to cac process and youth programs */}
-              {curatedBy && curatedBy._type === "youthProgramSession" && (
+                </div>
+              </TocSection>
+            ),
+            curatedBy && (
+              <TocSection
+                id="curation-process"
+                key="curation-process"
+                headingText="Curation Process"
+              >
+                {/* TODO update links to cac process and youth programs */}
+                {/* TODO include list of CAC participant or youth participant names */}
+                {curatedBy._type === "youthProgramSession" && (
+                  <p>
+                    This exhibit was curated by{" "}
+                    <Link
+                      to={`/youth-program-sessions/${
+                        curatedBy.slug ? curatedBy.slug.current : ""
+                      }`}
+                    >
+                      {curatedBy.name && curatedBy.name.en}
+                    </Link>
+                    {curatedBy.type && (
+                      <>
+                        , a session of the{" "}
+                        <Link
+                          to={`/youth-programs/${
+                            curatedBy.type.slug
+                              ? curatedBy.type.slug.current
+                              : ""
+                          }`}
+                        >
+                          {curatedBy.type.name && curatedBy.type.name.en} youth
+                          program
+                        </Link>
+                      </>
+                    )}
+                    .
+                  </p>
+                )}
+                {curatedBy._type === "cacProcess" && (
+                  <p>
+                    This exhibit was curated through the{" "}
+                    <Link to="/cac-process">
+                      Community Advisory Committee (CAC) Process
+                    </Link>
+                    . Through the stories of our community, The Wing is able to
+                    create and develop exhibits with authentic voices from real
+                    people.
+                  </p>
+                )}
                 <p>
-                  This exhibit was curated by{" "}
-                  <Link
-                    to={`/youth-program-sessions/${
-                      curatedBy.slug ? curatedBy.slug.current : ""
-                    }`}
-                  >
-                    {curatedBy.name && curatedBy.name.en}
-                  </Link>
-                  {curatedBy.type && (
-                    <>
-                      , a session of the{" "}
-                      <Link
-                        to={`/youth-programs/${
-                          curatedBy.type.slug ? curatedBy.type.slug.current : ""
-                        }`}
-                      >
-                        {curatedBy.type.name && curatedBy.type.name.en} youth
-                        program
-                      </Link>
-                    </>
-                  )}
-                  .
+                  Learn more about how exhibits are curated at Wing Luke Museum
+                  by reading more about the{" "}
+                  <Link to="/cac-process/">
+                    Community Advisory Committee Process
+                  </Link>{" "}
+                  and Wing Luke Museum's{" "}
+                  <Link to="/youth-programs/">Youth Programs.</Link>
                 </p>
-              )}
-              {curatedBy && curatedBy._type === "cacProcess" && (
-                <p>
-                  This exhibit was curated through the{" "}
-                  <Link to="/cac-process">
-                    Community Advisory Committee (CAC) Process
-                  </Link>
-                  . Through the stories of our community, The Wing is able to
-                  create and develop exhibits with authentic voices from real
-                  people.
-                </p>
-              )}
-              <p>
-                Learn more about how exhibits are curated at Wing Luke Museum by
-                reading more about the{" "}
-                <Link to="/cac-process/">
-                  Community Advisory Committee Process
-                </Link>{" "}
-                and Wing Luke Museum's{" "}
-                <Link to="/youth-programs/">Youth Programs.</Link>
-              </p>
-            </TocSection>,
+              </TocSection>
+            ),
             <TocSection id="thanks" key="thanks" headingText="Thanks">
               <p>thanks to: THE WING DONORS (link to individual giving page)</p>
+              <p>
+                Phasellus viverra nulla ut metus varius laoreet. Curabitur
+                turpis. Pellentesque habitant morbi tristique senectus et netus
+                et malesuada fames ac turpis egestas. Phasellus ullamcorper
+                ipsum rutrum nunc. Integer tincidunt. Quisque ut nisi. Donec mi
+                odio, faucibus at, scelerisque quis, convallis in, nisi. Vivamus
+                euismod mauris. Fusce pharetra convallis urna. Sed aliquam
+                ultrices mauris. Nulla porta dolor. Etiam rhoncus.Fusce egestas
+                elit eget lorem. Nulla sit amet est. Ut id nisl quis enim
+                dignissim sagittis. Donec sodales sagittis magna. Ut id nisl
+                quis enim dignissim sagittis. Nam at tortor in tellus interdum
+                sagittis. Duis arcu tortor, suscipit eget, imperdiet nec,
+                imperdiet iaculis, ipsum. Nulla neque dolor, sagittis eget,
+                iaculis quis, molestie non, velit. Mauris turpis nunc, blandit
+                et, volutpat molestie, porta ut, ligula. Quisque id odio. Nam
+                quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
+                Donec id justo. Phasellus ullamcorper ipsum rutrum nunc.
+                Suspendisse potenti. Vivamus laoreet. Nam eget dui. Praesent nec
+                nisl a purus blandit viverra. Praesent congue erat at massa.
+                Nulla neque dolor, sagittis eget, iaculis quis, molestie non,
+                velit. Donec pede justo, fringilla vel, aliquet nec, vulputate
+                eget, arcu. Curabitur ligula sapien, tincidunt non, euismod
+                vitae, posuere imperdiet, leo. In turpis. Vestibulum rutrum, mi
+                nec elementum vehicula, eros quam gravida nisl, id fringilla
+                neque ante vel mi. In consectetuer turpis ut velit. Pellentesque
+                egestas, neque sit amet convallis pulvinar, justo nulla eleifend
+                augue, ac auctor orci leo non est.
+              </p>
             </TocSection>,
-          ]}
+          ].filter(Boolean)} // .filter(Boolean) is necessary to filter out null values
         ></ContainerWithToc>
       </article>
     </Layout>
@@ -287,7 +364,6 @@ export default ExhibitTemplate
 export const query = graphql`
   query ExhibitTemplateQuery($id: String!) {
     exhibit: sanityExhibit(id: { eq: $id }) {
-      id
       banner {
         ...SanityImage
       }
@@ -296,9 +372,6 @@ export const query = graphql`
       }
       subtitle {
         en
-      }
-      slug {
-        current
       }
       openingDate
       closingDate
@@ -345,9 +418,6 @@ export const query = graphql`
           _type
         }
       }
-    }
-    sanityVisitorGuide {
-      ticketPurchaseLink
     }
   }
 `

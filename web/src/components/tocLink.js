@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect /*, useRef */ } from "react"
 import classNames from "classnames"
 import styles from "./tocLink.module.scss"
 
@@ -16,13 +16,13 @@ const TocLink = ({ id, children, active }) => {
    */
   const [anchorTarget, setAnchorTarget] = useState(null)
 
-  const aElement = useRef(null)
+  // const aElement = useRef(null)
   /*
    * When the component mounts and/or updates, set our AnchorTarget based
    * on the itemName
    */
   useEffect(() => {
-    // setAnchorTarget(aElement.current)
+    // setAnchorTarget(aElement)
     setAnchorTarget(document.getElementById(id))
   }, [id])
 
@@ -44,11 +44,10 @@ const TocLink = ({ id, children, active }) => {
    * Remember to set your aria-label for accessibility!
    */
   return (
-    <li>
+    <li className={classNames({ [styles.active]: active }, styles.li)}>
       <a
-        ref={aElement}
+        // ref={aElement}
         href={`#${id}`}
-        className={classNames({ [styles.active]: active })}
         onClick={handleClick}
         aria-label={`Scroll to ${id}`}
       >
