@@ -1,3 +1,5 @@
+import { referenceDescription } from "../schemaGlobals";
+
 export default {
   name: "tour",
   title: "Tour",
@@ -207,7 +209,8 @@ export default {
       type: "array",
       of: [{ type: "reference", to: [{ type: "historicSite" }] }],
       description:
-        "Please provide 1-3 featured sites that this tour will visit.",
+        "Please provide 1-3 featured sites that this tour will visit. " +
+        referenceDescription("historic site"),
     },
     {
       name: "duration",
@@ -237,7 +240,8 @@ export default {
       type: "array",
       of: [{ type: "reference", to: [{ type: "staffMember" }] }],
       description:
-        "Please provide all staff members that may act as education guide for this tour.",
+        "Please provide all staff members that may act as education guide for this tour. " +
+        referenceDescription("staff member"),
     },
     {
       name: "pricingDetails",

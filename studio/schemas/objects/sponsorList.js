@@ -1,3 +1,8 @@
+import { referenceDescription } from "../schemaGlobals";
+
+const refDescription =
+  "Don't see the sponsor you need? Please follow the directions under the Presenting Season Sponsors field above.";
+
 export default {
   name: "sponsorList",
   title: "Sponsor List",
@@ -15,6 +20,7 @@ export default {
           to: [{ type: "sponsor" }],
         },
       ],
+      description: referenceDescription("sponsor"),
     },
     {
       name: "seasonSponsors",
@@ -26,6 +32,7 @@ export default {
           to: [{ type: "sponsor" }],
         },
       ],
+      description: refDescription,
     },
     {
       name: "leadSponsors",
@@ -37,6 +44,7 @@ export default {
           to: [{ type: "sponsor" }],
         },
       ],
+      description: refDescription,
     },
     {
       name: "primeSponsors",
@@ -48,6 +56,7 @@ export default {
           to: [{ type: "sponsor" }],
         },
       ],
+      description: refDescription,
     },
     {
       name: "majorSponsors",
@@ -59,6 +68,7 @@ export default {
           to: [{ type: "sponsor" }],
         },
       ],
+      description: refDescription,
     },
     {
       name: "supportingSponsors",
@@ -70,6 +80,7 @@ export default {
           to: [{ type: "sponsor" }],
         },
       ],
+      description: refDescription,
     },
     {
       name: "partnerSponsors",
@@ -81,6 +92,7 @@ export default {
           to: [{ type: "sponsor" }],
         },
       ],
+      description: refDescription,
     },
     {
       name: "friendSponsors",
@@ -92,6 +104,7 @@ export default {
           to: [{ type: "sponsor" }],
         },
       ],
+      description: refDescription,
     },
     {
       name: "mediaSponsors",
@@ -103,6 +116,7 @@ export default {
           to: [{ type: "sponsor" }],
         },
       ],
+      description: refDescription,
     },
   ],
 };

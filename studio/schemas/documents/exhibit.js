@@ -1,3 +1,5 @@
+import { referenceDescription } from "../schemaGlobals";
+
 export default {
   name: "exhibit",
   title: "Exhibit",
@@ -50,6 +52,7 @@ export default {
       title: "Gallery",
       type: "reference",
       to: [{ type: "gallery" }],
+      description: referenceDescription("gallery"),
     },
     {
       name: "overview",
@@ -95,18 +98,21 @@ export default {
       title: "Featured Artists",
       type: "array",
       of: [{ type: "reference", to: [{ type: "artist" }] }],
+      description: referenceDescription("artist"),
     },
     {
       name: "featuredCollectionItems",
       title: "Featured Collection Items",
       type: "array",
       of: [{ type: "reference", to: [{ type: "collectionItem" }] }],
+      description: referenceDescription("collection item"),
     },
     {
       name: "featuredOralHistories",
       title: "Featured Oral Histories",
       type: "array",
       of: [{ type: "reference", to: [{ type: "oralHistory" }] }],
+      description: referenceDescription("oral history"),
     },
     /*     {
       name: "isTraveling",
@@ -164,7 +170,8 @@ export default {
       type: "reference",
       to: [{ type: "event" }],
       description:
-        "Please select the Event that is the opening reception for this exhibit. If one does not yet exist in Sanity, please create one.",
+        "Please select the Event that is the opening reception for this exhibit. " +
+        referenceDescription("event"),
     },
     // events (not including exhibit opening) relationship is represented in event document schema under Related Exhibits fields
     /* {
@@ -179,7 +186,8 @@ export default {
       type: "reference",
       to: [{ type: "youthProgramSession" }, { type: "cacProcess" }],
       description:
-        'Choose either "CAC Process" or the corresponding youth program session that curated this exhibit.',
+        'Choose either "CAC Process" or the corresponding youth program session that curated this exhibit. ' +
+        referenceDescription("youth program session"),
     },
     // Youth Program Participants can be inferred from the youth program session referenced in the curatedBy field
     {
@@ -203,6 +211,7 @@ export default {
       type: "array",
       of: [{ type: "reference", to: [{ type: "artist" }] }],
       fieldset: "creditPanel",
+      description: referenceDescription("artist"),
     },
     {
       name: "exhibitDesigners",
@@ -210,6 +219,7 @@ export default {
       type: "array",
       of: [{ type: "reference", to: [{ type: "artist" }] }],
       fieldset: "creditPanel",
+      description: referenceDescription("artist"),
     },
     /*     {
       name: "wingDonors",

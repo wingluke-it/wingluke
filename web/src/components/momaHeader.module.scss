@@ -78,7 +78,33 @@
   height: 100%;
 }
 
-.expandingContainter {
+a {
+  border: 4px solid transparent;
+}
+
+.expandingContainer {
+  text-align: center;
+  max-width: 33vw;
+  margin: 0 auto;
+  // margin-left: 30vw;
+
+  a {
+    &:first-child {
+      margin-top: v.$baseline;
+    }
+    font-size: 3rem;
+    color: white;
+    display: block;
+
+    &:hover {
+      border: 4px solid white;
+    }
+  }
+}
+
+.activeLink {
+  border: 4px solid white;
+  cursor: default;
 }
 
 .headerHidden {

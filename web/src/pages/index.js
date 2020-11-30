@@ -1,12 +1,12 @@
 import Layout from "../components/layout"
-import { Link } from "gatsby"
+// import { Link } from "gatsby"
 import React from "react"
 import SEO from "../components/seo"
 import { graphql } from "gatsby"
-import { mapEdgesToNodes } from "../lib/helpers"
+// import { mapEdgesToNodes } from "../lib/helpers"
 
 const IndexPage = props => {
-  const exhibitNodes = mapEdgesToNodes(props.data.allSanityExhibit)
+  // const exhibitNodes = mapEdgesToNodes(props.data.allSanityExhibit)
   return (
     <Layout>
       <SEO
@@ -16,15 +16,16 @@ const IndexPage = props => {
         // image={banner}
       />
       <h1>WLM Home</h1>
+      <h2>Under Construction!</h2>
       {/* TODO: make this a component, shared with the exhibits page */}
-      {exhibitNodes.map(exhibit => (
+      {/* {exhibitNodes.map(exhibit => (
         <div>
           <Link to={`/exhibits/${exhibit.slug.current}`}>
             {exhibit.title && exhibit.title.en}
           </Link>
         </div>
       ))}
-      <Link to="/exhibits/">Check out all exhibits</Link>
+      <Link to="/exhibits/">Check out all exhibits</Link> */}
     </Layout>
   )
 }

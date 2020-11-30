@@ -1,9 +1,6 @@
 import { Link, graphql } from "gatsby"
 import { compareAsc, compareDesc, format, parse } from "date-fns"
-import {
-  getExhibitStatus,
-  mapEdgesToNodes,
-} from "../lib/helpers"
+import { getExhibitStatus, mapEdgesToNodes } from "../lib/helpers"
 
 import Figure from "../components/figure"
 import Layout from "../components/layout"
@@ -50,9 +47,9 @@ const ExhibitsPage = props => {
         break
       default:
         console.log(
-          `Exhibit ${
+          `[WARNING] Exhibit ${
             exhibit.title && exhibit.title.en
-          } will not be displayed on /exhibits/ page.`
+          } will not be displayed on /exhibits/ page. Please give it an opening date or mark it with a special exhibit category.`
         )
     }
   })

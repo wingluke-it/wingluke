@@ -1,3 +1,5 @@
+import { referenceDescription } from "../schemaGlobals";
+
 export default {
   name: "youthProgramSession",
   title: "Youth Program Session",
@@ -128,12 +130,14 @@ export default {
       title: "Teaching Artists",
       type: "array",
       of: [{ type: "reference", to: [{ type: "artist" }] }],
+      description: referenceDescription("artist"),
     },
     {
       name: "communityPartners",
       title: "Community Partners",
       type: "array",
       of: [{ type: "reference", to: [{ type: "communityPartner" }] }],
+      description: referenceDescription("community partner"),
     },
     {
       name: "participants",
@@ -151,6 +155,9 @@ export default {
         { type: "reference", to: [{ type: "staffMember" }] },
         { type: "person" },
       ],
+      description:
+        referenceDescription("staff member") +
+        ' Alternatively, if this session is staffed by a non-staff member, select "+Person" and fill in the relevent details.',
     },
     // TODO add password-protection for blog?
     {
@@ -193,7 +200,9 @@ export default {
       title: "Exhibit Created",
       type: "reference",
       to: [{ type: "exhibit" }],
-      description: "(Optional) Provide the exhibit that this program created.",
+      description:
+        "(Optional) Provide the exhibit that this program created. " +
+        referenceDescription("exhibit"),
     },
     {
       name: "sponsors",

@@ -1,8 +1,8 @@
-import React from "react"
 import { Link } from "gatsby"
-import styles from "./momaHeader.module.scss"
-import classNames from "classnames"
 import Logo from "../images/white-logo.png"
+import React from "react"
+import classNames from "classnames"
+import styles from "./momaHeader.module.scss"
 
 const MomaHeader = ({ headerIsOpen, toggleHeader, headerIsHidden }) => {
   return (
@@ -31,7 +31,20 @@ const MomaHeader = ({ headerIsOpen, toggleHeader, headerIsHidden }) => {
         </div>
         {/* {headerIsOpen && ( */}
         <div className={styles.expandingContainer}>
-          <a href="#top">click me?</a>
+          <Link
+            activeClassName={styles.activeLink}
+            partiallyActive={true}
+            to="/exhibits/"
+          >
+            Exhibits
+          </Link>
+          <Link
+            activeClassName={styles.activeLink}
+            partiallyActive={true}
+            to="/events/"
+          >
+            Events
+          </Link>
         </div>
         {/* )} */}
       </nav>

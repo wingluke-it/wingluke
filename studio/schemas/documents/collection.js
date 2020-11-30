@@ -1,3 +1,5 @@
+import { referenceDescription } from "../schemaGlobals";
+
 export default {
   name: "collection",
   type: "document",
@@ -21,6 +23,7 @@ export default {
         {
           type: "reference",
           to: [{ type: "collectionItem" }, { type: "oralHistory" }],
+          description: referenceDescription("collection item or oral history"),
         },
         /*         {
           name: "Oral History",

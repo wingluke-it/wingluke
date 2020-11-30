@@ -1,4 +1,8 @@
-import { EMAIL_REGEX, PHONE_REGEX } from "../schemaGlobals";
+import {
+  EMAIL_REGEX,
+  PHONE_REGEX,
+  referenceDescription,
+} from "../schemaGlobals";
 
 export default {
   name: "staffMember",
@@ -71,7 +75,8 @@ export default {
       ],
       validation: (Rule) => Rule.unique(),
       description:
-        "Please provide a list of all departments this staff member works under.",
+        "Please provide a list of all departments this staff member works under. " +
+        referenceDescription("department"),
     },
     {
       name: "dateJoined",

@@ -1,4 +1,5 @@
 import moment from "moment";
+import { referenceDescription } from "../schemaGlobals";
 
 export default {
   name: "blogPost",
@@ -20,6 +21,9 @@ export default {
         { type: "person" },
         { type: "reference", to: [{ type: "staffMember" }] },
       ],
+      description:
+        referenceDescription("staff member") +
+        ' Alternatively, if this blog post is authored by a non-staff member, select "+Person" and fill in the relevent details.',
     },
     // TODO category field?
     {

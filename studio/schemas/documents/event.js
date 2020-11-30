@@ -1,3 +1,5 @@
+import { referenceDescription } from "../schemaGlobals";
+
 // hopefully this won't be a problem that this is called event.js given that event is a special word in JS
 export default {
   name: "event",
@@ -121,12 +123,14 @@ export default {
       title: "Featured Artists",
       type: "array",
       of: [{ type: "reference", to: [{ type: "artist" }] }],
+      description: referenceDescription("artist"),
     },
     {
       name: "departments",
       title: "Collaborating Departments",
       description:
-        "Please provide all departments that were involved in the planning of this event.",
+        "Please provide all departments that were involved in the planning of this event. " +
+        referenceDescription("department"),
       type: "array",
       of: [{ type: "reference", to: [{ type: "department" }] }],
       validation: (Rule) => Rule.unique(),
@@ -213,7 +217,8 @@ export default {
       type: "array",
       of: [{ type: "reference", to: [{ type: "communityPartner" }] }],
       description:
-        "Please provide all community partners that helped to plan and/or run this event.",
+        "Please provide all community partners that helped to plan and/or run this event. " +
+        referenceDescription("community partner"),
     },
     // TODO should there be another array field for volunteering community partners?
     {
@@ -229,6 +234,7 @@ export default {
       title: "Related Events",
       type: "array",
       of: [{ type: "reference", to: [{ type: "event" }] }],
+      description: referenceDescription("event"),
     },
     {
       name: "relatedExhibits",
@@ -236,7 +242,8 @@ export default {
       type: "array",
       of: [{ type: "reference", to: [{ type: "exhibit" }] }],
       description:
-        "If this event was planned in order to support a specific exhibit, please list it here.",
+        "If this event was planned in order to support a specific exhibit, please list it here. " +
+        referenceDescription("exhibit"),
     },
   ],
   fieldsets: [
