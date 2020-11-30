@@ -240,7 +240,7 @@ const ExhibitTemplate = props => {
         <TitleSection
           title={title && title.en}
           subtitle={subtitle && subtitle.en}
-          beforeText={`EXHIBIT | ${exhibitStatus}`}
+          beforeText={`EXHIBIT${exhibitStatus && ` | ${exhibitStatus}`}`}
           after={
             <>
               {secondaryStatus && (
