@@ -34,6 +34,7 @@
     "react-image-lightbox": "^5.1.1",
     "react-photo-gallery": "^8.0.0",
     "react-typography": "^0.16.19",
+    "sass": "^1.27.0",
     "sass-lint": "^1.13.1",
     "typography": "^0.16.19",
     "typography-theme-de-young": "^0.16.19",
@@ -42,8 +43,7 @@
   "devDependencies": {
     "eslint": "^7.11.0",
     "eslint-plugin-react": "^7.21.4",
-    "prettier": "2.0.5",
-    "sass": "^1.27.0"
+    "prettier": "2.0.5"
   },
   "keywords": [
     "gatsby"
