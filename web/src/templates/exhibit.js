@@ -168,31 +168,6 @@ const ExhibitTemplate = props => {
   sectionTitlesAndContent["Thanks"] = (
     <>
       <p>thanks to: THE WING DONORS (link to individual giving page)</p>
-      <p>
-        Phasellus viverra nulla ut metus varius laoreet. Curabitur turpis.
-        Pellentesque habitant morbi tristique senectus et netus et malesuada
-        fames ac turpis egestas. Phasellus ullamcorper ipsum rutrum nunc.
-        Integer tincidunt. Quisque ut nisi. Donec mi odio, faucibus at,
-        scelerisque quis, convallis in, nisi. Vivamus euismod mauris. Fusce
-        pharetra convallis urna. Sed aliquam ultrices mauris. Nulla porta dolor.
-        Etiam rhoncus.Fusce egestas elit eget lorem. Nulla sit amet est. Ut id
-        nisl quis enim dignissim sagittis. Donec sodales sagittis magna. Ut id
-        nisl quis enim dignissim sagittis. Nam at tortor in tellus interdum
-        sagittis. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet
-        iaculis, ipsum. Nulla neque dolor, sagittis eget, iaculis quis, molestie
-        non, velit. Mauris turpis nunc, blandit et, volutpat molestie, porta ut,
-        ligula. Quisque id odio. Nam quam nunc, blandit vel, luctus pulvinar,
-        hendrerit id, lorem. Donec id justo. Phasellus ullamcorper ipsum rutrum
-        nunc. Suspendisse potenti. Vivamus laoreet. Nam eget dui. Praesent nec
-        nisl a purus blandit viverra. Praesent congue erat at massa. Nulla neque
-        dolor, sagittis eget, iaculis quis, molestie non, velit. Donec pede
-        justo, fringilla vel, aliquet nec, vulputate eget, arcu. Curabitur
-        ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. In
-        turpis. Vestibulum rutrum, mi nec elementum vehicula, eros quam gravida
-        nisl, id fringilla neque ante vel mi. In consectetuer turpis ut velit.
-        Pellentesque egestas, neque sit amet convallis pulvinar, justo nulla
-        eleifend augue, ac auctor orci leo non est.
-      </p>
     </>
   )
 
