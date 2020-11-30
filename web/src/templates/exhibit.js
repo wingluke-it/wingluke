@@ -1,27 +1,24 @@
-import React from "react"
-import { graphql, Link } from "gatsby"
-import { toPlainText, getExhibitStatus } from "../lib/helpers"
-import { useExhibits } from "../hooks/useExhibits"
-import { useTicketPurchaseLink } from "../hooks/useTicketPurchaseLink"
+import { Link, graphql } from "gatsby"
+import { getExhibitStatus, toPlainText } from "../lib/helpers"
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-
-import TocLayout from "../components/layouts/tocLayout"
-import DocsLayout from "../components/layouts/docsLayout"
-
+import Banner from "../components/banner"
 import ButtonStyledA from "../components/base_elements/buttonStyledA"
 import ButtonStyledLink from "../components/base_elements/buttonStyledLink"
-import Banner from "../components/banner"
+import DocsLayout from "../components/layouts/docsLayout"
 import ExcerptWithLink from "../components/excerptWithLink"
 import Figure from "../components/figure"
 import ImageGallery from "../components/imageGallery"
-import PortableText from "../components/portableText"
-import TitleSection from "../components/titleSection"
+import Layout from "../components/layout"
 import NavList from "../components/navList"
-
-import styles from "./exhibit.module.scss"
+import PortableText from "../components/portableText"
+import React from "react"
+import SEO from "../components/seo"
+import TitleSection from "../components/titleSection"
+import TocLayout from "../components/layouts/tocLayout"
 import navListStyles from "../components/navList.module.scss"
+import styles from "./exhibit.module.scss"
+import { useExhibits } from "../hooks/useExhibits"
+import { useTicketPurchaseLink } from "../hooks/useTicketPurchaseLink"
 
 const ExhibitTemplate = props => {
   const {

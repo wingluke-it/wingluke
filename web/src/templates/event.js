@@ -1,19 +1,18 @@
-import React from "react"
-import { graphql, Link } from "gatsby"
-import { toPlainText } from "../lib/helpers"
-import { useEvents } from "../hooks/useEvents"
+import { Link, graphql } from "gatsby"
 
-// import styles from "./event.module.scss"
-import navListStyles from "../components/navList.module.scss"
-
-import Layout from "../components/layout"
-import TitleSection from "../components/titleSection"
-import SEO from "../components/seo"
 import Banner from "../components/banner"
-import TocLayout from "../components/layouts/tocLayout"
+import DocsLayout from "../components/layouts/docsLayout"
+import Layout from "../components/layout"
 import NavList from "../components/navList"
 import PortableText from "../components/portableText"
-import DocsLayout from "../components/layouts/docsLayout"
+import React from "react"
+import SEO from "../components/seo"
+import TitleSection from "../components/titleSection"
+import TocLayout from "../components/layouts/tocLayout"
+// import styles from "./event.module.scss"
+import navListStyles from "../components/navList.module.scss"
+import { toPlainText } from "../lib/helpers"
+import { useEvents } from "../hooks/useEvents"
 
 const Event = props => {
   const { title, subtitle, banner, _rawDescription, _rawPricingDetails } =

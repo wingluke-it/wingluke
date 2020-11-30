@@ -1,14 +1,13 @@
-import React from "react"
-import { graphql } from "gatsby"
-import { toPlainText } from "../lib/helpers"
-
-import Layout from "../components/layout"
-import TitleSection from "../components/titleSection"
-import SEO from "../components/seo"
 import Banner from "../components/banner"
 import DocsLayout from "../components/layouts/docsLayout"
-import TocLayout from "../components/layouts/tocLayout"
+import Layout from "../components/layout"
 import PortableText from "../components/portableText"
+import React from "react"
+import SEO from "../components/seo"
+import TitleSection from "../components/titleSection"
+import TocLayout from "../components/layouts/tocLayout"
+import { graphql } from "gatsby"
+import { toPlainText } from "../lib/helpers"
 
 const Tour = ({ data }) => {
   const { title, subtitle, _rawOverview, banner } = data.tour

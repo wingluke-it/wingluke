@@ -1,19 +1,18 @@
-import React from "react"
 import { Link, graphql } from "gatsby"
+import { compareAsc, compareDesc, format, parse } from "date-fns"
 import {
+  getExhibitStatus,
   mapEdgesToNodes,
-  getExhibitStatus /* toPlainText */,
 } from "../lib/helpers"
-import { parse, compareDesc, format, compareAsc } from "date-fns"
-import classNames from "classnames"
-
-import styles from "./exhibits.module.scss"
 
 import Figure from "../components/figure"
 import Layout from "../components/layout"
+import React from "react"
 import SEO from "../components/seo"
 import TitleSection from "../components/titleSection"
 import TocLayout from "../components/layouts/tocLayout"
+import classNames from "classnames"
+import styles from "./exhibits.module.scss"
 
 const ExhibitsPage = props => {
   const exhibitNodes = mapEdgesToNodes(props.data.allSanityExhibit)

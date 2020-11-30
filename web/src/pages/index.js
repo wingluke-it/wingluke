@@ -1,10 +1,9 @@
-import React from "react"
-import { Link } from "gatsby"
-import { mapEdgesToNodes } from "../lib/helpers"
-import { graphql } from "gatsby"
-
 import Layout from "../components/layout"
+import { Link } from "gatsby"
+import React from "react"
 import SEO from "../components/seo"
+import { graphql } from "gatsby"
+import { mapEdgesToNodes } from "../lib/helpers"
 
 const IndexPage = props => {
   const exhibitNodes = mapEdgesToNodes(props.data.allSanityExhibit)
