@@ -32,6 +32,7 @@ const MomaHeader = ({ headerIsOpen, toggleHeader, headerIsHidden }) => {
         {/* {headerIsOpen && ( */}
         <div className={styles.expandingContainer}>
           <Link
+            onClick={toggleHeader}
             activeClassName={styles.activeLink}
             partiallyActive={true}
             to="/exhibits/"
@@ -39,6 +40,7 @@ const MomaHeader = ({ headerIsOpen, toggleHeader, headerIsHidden }) => {
             Exhibits
           </Link>
           <Link
+            onClick={toggleHeader}
             activeClassName={styles.activeLink}
             partiallyActive={true}
             to="/events/"

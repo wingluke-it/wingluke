@@ -1,6 +1,5 @@
 import Banner from "../components/banner"
 import DocsLayout from "../components/layouts/docsLayout"
-import Layout from "../components/layout"
 import PortableText from "../components/portableText"
 import React from "react"
 import SEO from "../components/seo"
@@ -19,7 +18,7 @@ const Tour = ({ data }) => {
   }
 
   return (
-    <Layout>
+    <>
       <SEO
         title={(title && title.en) || "Untitled"}
         description={
@@ -37,7 +36,7 @@ const Tour = ({ data }) => {
           main={<TocLayout sectionTitlesAndContent={sectionTitlesAndContent} />}
         />
       </article>
-    </Layout>
+    </>
   )
 }
 

@@ -3,7 +3,6 @@ import { compareAsc, compareDesc, format, parse } from "date-fns"
 import { getExhibitStatus, mapEdgesToNodes } from "../lib/helpers"
 
 import Figure from "../components/figure"
-import Layout from "../components/layout"
 import React from "react"
 import SEO from "../components/seo"
 import TitleSection from "../components/titleSection"
@@ -266,7 +265,7 @@ const ExhibitsPage = props => {
   }
 
   return (
-    <Layout>
+    <>
       <SEO
         title="Exhibits"
         description="The Official Website of the Wing Luke Museum of the Asian Pacific American Experience"
@@ -281,7 +280,7 @@ const ExhibitsPage = props => {
         tocTitle={""}
         breakpoint={"tablet"}
       />
-    </Layout>
+    </>
   )
 }
 

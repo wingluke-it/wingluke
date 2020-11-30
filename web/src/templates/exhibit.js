@@ -8,7 +8,6 @@ import DocsLayout from "../components/layouts/docsLayout"
 import ExcerptWithLink from "../components/excerptWithLink"
 import Figure from "../components/figure"
 import ImageGallery from "../components/imageGallery"
-import Layout from "../components/layout"
 import NavList from "../components/navList"
 import PortableText from "../components/portableText"
 import React from "react"
@@ -162,7 +161,7 @@ const ExhibitTemplate = props => {
       </>
     )
   }
-  sectionTitlesAndContent["Thanks"] = (
+  sectionTitlesAndContent["Donors and Sponsors"] = (
     <>
       <p>thanks to: THE WING DONORS (link to individual giving page)</p>
     </>
@@ -225,7 +224,7 @@ const ExhibitTemplate = props => {
   )
 
   return (
-    <Layout>
+    <>
       <SEO
         title={(title && title.en) || "Untitled"}
         description={
@@ -287,7 +286,7 @@ const ExhibitTemplate = props => {
           }
         />
       </article>
-    </Layout>
+    </>
   )
 }
 

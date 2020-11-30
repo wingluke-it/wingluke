@@ -1,4 +1,3 @@
-import Layout from "../components/layout"
 // import { Link } from "gatsby"
 import React from "react"
 import SEO from "../components/seo"
@@ -8,7 +7,7 @@ import { graphql } from "gatsby"
 const IndexPage = props => {
   // const exhibitNodes = mapEdgesToNodes(props.data.allSanityExhibit)
   return (
-    <Layout>
+    <>
       <SEO
         title="Home"
         description="The Official Website of the Wing Luke Museum of the Asian Pacific American Experience"
@@ -26,7 +25,7 @@ const IndexPage = props => {
         </div>
       ))}
       <Link to="/exhibits/">Check out all exhibits</Link> */}
-    </Layout>
+    </>
   )
 }
 

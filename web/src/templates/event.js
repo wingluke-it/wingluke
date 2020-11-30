@@ -2,7 +2,6 @@ import { Link, graphql } from "gatsby"
 
 import Banner from "../components/banner"
 import DocsLayout from "../components/layouts/docsLayout"
-import Layout from "../components/layout"
 import NavList from "../components/navList"
 import PortableText from "../components/portableText"
 import React from "react"
@@ -31,7 +30,7 @@ const Event = props => {
   }
 
   return (
-    <Layout>
+    <>
       <SEO
         title={(title && title.en) || "Untitled"}
         description={
@@ -77,7 +76,7 @@ const Event = props => {
           }
         />
       </article>
-    </Layout>
+    </>
   )
 }
 

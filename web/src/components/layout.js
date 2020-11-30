@@ -5,17 +5,19 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { useState, useEffect, useRef } from "react"
-import PropTypes from "prop-types"
-import classNames from "classnames"
-// import { useStaticQuery, graphql } from "gatsby"
-
-import MomaHeader from "./momaHeader"
-import Footer from "./footer"
-import styles from "./layout.module.scss"
-
 // GLOBAL STYLES
 import "../styles/global.scss"
+
+import React, { useEffect, useRef, useState } from "react"
+
+import Footer from "./footer"
+import MomaHeader from "./momaHeader"
+import PropTypes from "prop-types"
+import classNames from "classnames"
+import styles from "./layout.module.scss"
+// import { useStaticQuery, graphql } from "gatsby"
+
+
 
 let lastKnownScrollPosition = 0
 let previousScrollPos = 0
@@ -115,19 +117,12 @@ const Layout = ({ children }) => {
       })}
     >
       {/* TODO <a href="#main-content">Jump to Main Content</a> */}
-      {/* <Header
-        siteTitle="WING LUKE MUSEUM"
-      /> */}
       <MomaHeader headerIsOpen={headerIsOpen} toggleHeader={toggleHeader} />
-      {/* {!headerIsOpen && ( */}
-      {/* <> */}
       <main>
         {/* TODO <a id="main-content"></a> */}
         {children}
       </main>
       <Footer />
-      {/* </> */}
-      {/* )} */}
     </div>
   )
 }
