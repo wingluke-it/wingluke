@@ -2,7 +2,7 @@
 
 .tocSection {
   margin-top: v.$baseline;
-  overflow: auto;
+  // overflow: auto;
 
   &:first-child {
     margin-top: 0;
@@ -32,28 +32,17 @@
   // }
 }
 
+.sidebar {
+  grid-area: sidebar;
+  display: none;
+}
+
 .tocHeader {
   text-align: left;
   margin-left: 1rem;
   margin-top: v.$baseline;
   font-weight: 400;
 }
-
-@media (min-width: v.$width-breakpoint-laptop-s) {
-  .hiddenOnDesktop {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-}
-
-$sidebar-min-width: 13rem;
 
 .grid {
   display: grid;
@@ -68,8 +57,10 @@ $sidebar-min-width: 13rem;
 
 .toc {
   grid-area: toc;
-  display: none;
   padding-left: v.$baseline / 2;
+  padding-bottom: v.$baseline / 2;
+  overflow: auto;
+  max-height: calc(100vh - var(--header-room));
 
   ul {
     list-style: none;
@@ -99,22 +90,77 @@ $sidebar-min-width: 13rem;
   }
 }
 
-@media (min-width: v.$width-breakpoint-laptop-s) {
-  .grid {
-    grid-template-columns: 1fr $sidebar-min-width;
-    grid-template-areas: "main toc";
+.afterToc {
+  grid-area: afterToc;
+  overflow: auto;
+  border-top: 3px solid v.$medium-gray;
+
+  .gradient {
+    pointer-events: none;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%; // TODO this needs fixing. currently it will only display at the very top and bottom of the screen. We want it to start displaying just after the toc section.
+    background: linear-gradient(
+      v.$light-gray-background-color,
+      hsla(0, 0%, 100%, 0) 4%,
+      hsla(0, 0%, 100%, 0) 96%,
+      v.$light-gray-background-color
+    );
   }
+}
+
+.noTocTitle ul {
+  padding-inline-start: 0px;
+}
+
+$sidebar-min-width: 13rem;
+
+@mixin toc-shown {
+  grid-template-columns: 1fr $sidebar-min-width;
+  grid-template-areas: "main sidebar";
 
   .main {
   }
 
-  .toc {
-    display: block;
+  .sidebar {
+    display: grid;
+    grid-template-areas: "toc" "afterToc";
+    // flex-direction: column;
+    grid-template-rows: auto 1fr;
     align-self: start;
     position: sticky;
     top: var(--header-room);
     transition: all 0.2s ease-in-out;
-    max-height: calc(100vh - var(--header-room));
-    overflow: auto;
+    height: calc(100vh - var(--header-room));
+    // overflow: auto;
+  }
+
+  .hiddenAtBreakpoint {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    margin-top: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@media (min-width: v.$width-breakpoint-tablet) {
+  .gridBreakpointTablet {
+    @include toc-shown();
+  }
+}
+
+@media (min-width: v.$width-breakpoint-laptop-s) {
+  .gridBreakpointLaptop {
+    @include toc-shown();
   }
 }

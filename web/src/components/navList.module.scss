@@ -1,8 +1,5 @@
 @use "../styles/variables/" as v;
-
-.nav {
-  padding-bottom: v.$baseline;
-}
+@use "../styles/typography.scss";
 
 @mixin nav-list-a {
   a {
@@ -23,12 +20,20 @@
   }
 }
 
-.header {
-  @include nav-list-a();
-  text-align: left;
-  margin-left: 0;
-  margin-top: v.$baseline;
-  font-weight: 400;
+.nav {
+  padding-bottom: v.$baseline;
+  padding-right: v.$baseline / 2;
+
+  h2,
+  h3,
+  h4,
+  h5 {
+    @include nav-list-a();
+    text-align: left;
+    margin-left: 0;
+    margin-top: v.$baseline / 2;
+    font-weight: 400;
+  }
 }
 
 .list {
@@ -36,13 +41,15 @@
 
   list-style: none;
   list-style-position: inside;
-  margin-top: v.$baseline;
+  margin-top: v.$baseline / 2;
   padding-inline-start: 1rem;
 
   li {
-    padding: v.$baseline / 2 0 0 v.$baseline / 2;
+    padding: v.$baseline * 0.1 0 0 v.$baseline / 2;
+    letter-spacing: 0.5px;
     border-left: 4px solid v.$light-gray-background-color;
-    margin: 0;
+    margin-top: v.$baseline / 4;
+    @include typography.small-font();
   }
 
   ul {

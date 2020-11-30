@@ -1,6 +1,12 @@
 @use "fluid-typography" as ft;
 @use "variables" as v;
 
+@mixin small-font() {
+  font-size: 0.75rem;
+  line-height: 0.75 * v.$baseline;
+  letter-spacing: 0.3px;
+}
+
 @function strip-unit($value) {
   @return $value / ($value * 0 + 1);
 }

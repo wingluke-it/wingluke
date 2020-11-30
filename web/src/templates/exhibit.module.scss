@@ -1,4 +1,5 @@
 @use "../styles/variables/" as v;
+@use "../styles/typography.scss";
 
 .titleButtonContainer {
   display: flex;
@@ -12,7 +13,7 @@
 }
 
 .halfTopMargin {
-  margin-top: v.$baseline / 4;
+  margin-top: v.$baseline / 2;
 }
 
 .artistGrid {
@@ -26,10 +27,17 @@
 }
 
 .artistCard {
+  & h3 {
+    margin-top: v.$baseline;
+  }
   // display: grid;
   // grid-template-rows: ;
   & a figure,
   & a h3 {
     background-color: transparent;
   }
+}
+
+.excerpt {
+  @include typography.small-font();
 }

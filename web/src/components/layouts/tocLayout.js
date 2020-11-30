@@ -4,7 +4,15 @@ import classNames from "classnames"
 import styles from "./tocLayout.module.scss"
 
 /* sectionTitlesAndContent: { sectionTitle: <jsx element> } */
-const TocLayout = ({ sectionTitlesAndContent }) => {
+/* breakpoint: "laptop" or "tablet" */
+const TocLayout = ({
+  sectionTitlesAndContent,
+  headersHiddenAtBreakpoint = true,
+  tocTitle = "On This Page",
+  breakpoint = "laptop",
+  tocSize = "large",
+  afterToc,
+}) => {
   const titles = Object.keys(sectionTitlesAndContent)
   const ids = titles.map(title => title.replace(/\W/g, "-").toLowerCase())
   const tocLinks = ids.map((id, index) => (
@@ -20,7 +28,11 @@ const TocLayout = ({ sectionTitlesAndContent }) => {
       className={styles.tocSection}
       id={ids[index]}
     >
-      <h2 className={classNames("h3", { [styles.hiddenOnDesktop]: true })}>
+      <h2
+        className={classNames("h3", {
+          [styles.hiddenAtBreakpoint]: headersHiddenAtBreakpoint,
+        })}
+      >
         {title}
       </h2>
       {sectionTitlesAndContent[title]}
@@ -64,22 +76,37 @@ const TocLayout = ({ sectionTitlesAndContent }) => {
   }
 
   return (
-    <div className={styles.grid}>
-      <nav className={styles.toc}>
-        <h2 className={classNames("h4", styles.tocHeader)}>On This Page</h2>
-        <ul>
-          {tocLinks.map(tocLink => (
-            <li
-              key={tocLink.key}
-              className={classNames({
-                [styles.activeLink]: tocLink.key === activeItem,
-              })}
-            >
-              {tocLink}
-            </li>
-          ))}
-        </ul>
-      </nav>
+    <div
+      className={classNames(
+        styles.grid,
+        breakpoint === "laptop"
+          ? styles.gridBreakpointLaptop
+          : styles.gridBreakpointTablet
+      )}
+    >
+      <div className={styles.sidebar}>
+        <nav className={classNames(styles.toc, !tocTitle && styles.noTocTitle)}>
+          {tocTitle && (
+            <h2 className={classNames("h4", styles.tocHeader)}>{tocTitle}</h2>
+          )}
+          <ul>
+            {tocLinks.map(tocLink => (
+              <li
+                key={tocLink.key}
+                className={classNames({
+                  [styles.activeLink]: tocLink.key === activeItem,
+                })}
+              >
+                {tocLink}
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className={styles.afterToc}>
+          {afterToc}
+          <div className={styles.gradient}></div>
+        </div>
+      </div>
       <div className={styles.main}>{sections}</div>
     </div>
   )

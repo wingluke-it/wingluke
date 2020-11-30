@@ -1,20 +1,19 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
 import { toPlainText } from "../lib/helpers"
-import classNames from "classnames"
 import { useEvents } from "../hooks/useEvents"
 
-import styles from "./event.module.scss"
+// import styles from "./event.module.scss"
 import navListStyles from "../components/navList.module.scss"
 
 import Layout from "../components/layout"
+import TitleSection from "../components/titleSection"
+import SEO from "../components/seo"
+import Banner from "../components/banner"
 import TocLayout from "../components/layouts/tocLayout"
 import NavList from "../components/navList"
 import PortableText from "../components/portableText"
-import SEO from "../components/seo"
 import DocsLayout from "../components/layouts/docsLayout"
-import Banner from "../components/banner"
-import TitleSection from "../components/titleSection"
 
 const Event = props => {
   const { title, subtitle, banner, _rawDescription, _rawPricingDetails } =
@@ -43,47 +42,42 @@ const Event = props => {
         }
         image={banner}
       />
-      <TitleSection
-        title={title && title.en}
-        subtitle={subtitle && subtitle.en}
-      />
-      <Banner figure={banner} />
-      <DocsLayout
-        sidebar={
-          <NavList
-            listItems={[
-              <h2
-                key="all-events"
-                className={classNames("h4", navListStyles.header)}
-              >
-                <Link to={"/events/"}>All Events</Link>
-              </h2>,
-              eventEdges.map(({ node }, index) => (
-                // TODO filter out past events
-                // TODO categorize by current and upcoming
-                // TODO alphabetize? include opening/closing dates?
-                <li key={`other-event-${index}`}>
-                  <Link
-                    activeClassName={navListStyles.activeLink}
-                    partiallyActive={true}
-                    to={`/events/${node.slug && node.slug.current}`}
-                  >
-                    {node.title && node.title.en}
-                  </Link>
-                </li>
-              )),
-            ]}
-          />
-        }
-        main={
-          <article>
-            <TocLayout sectionTitlesAndContent={sectionTitlesAndContent} />
-          </article>
-        }
-      />
-      {/* <article>
-        <h1>{title && title.en}</h1>
-      </article> */}
+      <article>
+        <TitleSection
+          title={title && title.en}
+          subtitle={subtitle && subtitle.en}
+          beforeText={"EVENT"}
+        />
+        <Banner figure={banner} />
+        <DocsLayout
+          main={<TocLayout sectionTitlesAndContent={sectionTitlesAndContent} />}
+          sidebar={
+            <aside>
+              <NavList
+                listItems={[
+                  <h2 key="all-events" className={"h4"}>
+                    <Link to={"/events/"}>All Events</Link>
+                  </h2>,
+                  eventEdges.map(({ node }, index) => (
+                    // TODO filter out past events
+                    // TODO categorize by current and upcoming
+                    // TODO alphabetize? include opening/closing dates?
+                    <li key={`other-event-${index}`}>
+                      <Link
+                        activeClassName={navListStyles.activeLink}
+                        partiallyActive={true}
+                        to={`/events/${node.slug && node.slug.current}`}
+                      >
+                        {node.title && node.title.en}
+                      </Link>
+                    </li>
+                  )),
+                ]}
+              />
+            </aside>
+          }
+        />
+      </article>
     </Layout>
   )
 }

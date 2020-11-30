@@ -49,6 +49,15 @@
   button {
     @include button.remove-default-button-styles();
     color: white;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      text-decoration: underline;
+      // border-bottom: 1px solid white;
+    }
   }
 }
 

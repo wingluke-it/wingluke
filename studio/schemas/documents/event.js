@@ -12,7 +12,7 @@ export default {
     },
     {
       name: "subtitle",
-      title: "Sub-Title",
+      title: "Subtitle",
       type: "localeString",
     },
     {
@@ -252,7 +252,7 @@ export default {
   preview: {
     select: {
       title: "title.en",
-      subtitle: "description.en",
+      subtitle: "subtitle.en",
       media: "banner",
     },
   },

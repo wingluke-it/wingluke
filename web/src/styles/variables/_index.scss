@@ -10,8 +10,8 @@
 
 // Z-INDICES
 $sidebar-z-index: 0;
-$header-z-index: $sidebar-z-index + 1;
-$footer-z-index: $header-z-index + 1;
+$footer-z-index: $sidebar-z-index + 1;
+$header-z-index: $footer-z-index + 1;
 
 // SIZING
 $header-height: typography.$baseline * 2.5;

@@ -1,20 +1,15 @@
 import React from "react"
-import { Link } from "gatsby"
-import { mapEdgesToNodes } from "../lib/helpers"
+import { Link, graphql } from "gatsby"
 import {
-  isAfter,
-  isBefore,
-  parse,
-  isSameDay,
-  compareDesc,
-  format,
-  compareAsc,
-} from "date-fns"
+  mapEdgesToNodes,
+  getExhibitStatus /* toPlainText */,
+} from "../lib/helpers"
+import { parse, compareDesc, format, compareAsc } from "date-fns"
 import classNames from "classnames"
-import { graphql } from "gatsby"
 
 import styles from "./exhibits.module.scss"
 
+import Figure from "../components/figure"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import TitleSection from "../components/titleSection"
@@ -27,35 +22,39 @@ const ExhibitsPage = props => {
   const nowOnView = []
   const alwaysOnView = []
   const traveling = []
-  const today = new Date()
 
   // pour exhibits into category arrays
-  exhibitNodes.forEach((exhibit, index) => {
+  exhibitNodes.forEach(exhibit => {
     const openingDate = exhibit.openingDate
     const closingDate = exhibit.closingDate
-    const oDate = openingDate && parse(openingDate, "yyyy-MM-dd", new Date())
-    const cDate = closingDate && parse(closingDate, "yyyy-MM-dd", new Date())
-    if (exhibit.specialCategories.includes("traveling")) {
-      traveling.push(exhibit)
-    } else if (!oDate) {
-      // TODO what to do here? it is a required value in Sanity, so hopefully we won't get to this point
-    } else if (isSameDay(oDate, today)) {
-      if (!cDate) {
-        alwaysOnView.push(exhibit)
-      } else {
+    const specialCategories = exhibit.specialCategories
+    const [status] = getExhibitStatus(
+      openingDate,
+      closingDate,
+      specialCategories
+    )
+    switch (status) {
+      case "Now on View":
         nowOnView.push(exhibit)
-      }
-    } else if (isBefore(oDate, today)) {
-      console.log(exhibit)
-      if (!cDate) {
+        break
+      case "Always on View":
         alwaysOnView.push(exhibit)
-      } else if (isBefore(today, cDate) || isSameDay(today, cDate)) {
-        nowOnView.push(exhibit)
-      } else if (isAfter(today, cDate)) {
+        break
+      case "Upcoming":
+        upcoming.push(exhibit)
+        break
+      case "Past":
         past.push(exhibit)
-      }
-    } else if (isAfter(oDate, today)) {
-      upcoming.push(exhibit)
+        break
+      case "Traveling (For Rent)":
+        traveling.push(exhibit)
+        break
+      default:
+        console.log(
+          `Exhibit ${
+            exhibit.title && exhibit.title.en
+          } will not be displayed on /exhibits/ page.`
+        )
     }
   })
 
@@ -98,17 +97,175 @@ const ExhibitsPage = props => {
 
   if (nowOnView.length > 0) {
     sectionTitlesAndContent["Now on View"] = (
-      <div className={classNames(styles.grid, styles.nowOnView)}>
+      <ul className={classNames(styles.grid, styles.nowOnView)}>
         {nowOnView.map((exhibit, index) => (
-          <div key={`now-on-view-${index}`}>
-            {exhibit.title && exhibit.title.en && <h3>{exhibit.title.en}</h3>}
-            <p className={styles.dateInfo}>{`Closes ${format(
-              parse(exhibit.closingDate, "yyyy-MM-dd", new Date()),
-              "PPP"
-            )}`}</p>
-          </div>
+          <li key={`now-on-view-${index}`}>
+            <Link to={`/exhibits/${exhibit.slug && exhibit.slug.current}`}>
+              {exhibit.banner && (
+                <Figure
+                  figure={exhibit.banner}
+                  // dimensions={1 / 1} defaults to 9 / 16 ?
+                  width={300}
+                  displayCaption={false}
+                  // className={styles.banner}
+                />
+              )}
+              {exhibit.title && exhibit.title.en && (
+                <h3 className={"h4"}>{exhibit.title.en}</h3>
+              )}
+              {exhibit.subtitle && exhibit.subtitle.en && (
+                <p className={styles.subtitle}>
+                  <i>{exhibit.subtitle.en}</i>
+                </p>
+              )}
+              <p className={styles.dateInfo}>{`Closes ${format(
+                parse(exhibit.closingDate, "yyyy-MM-dd", new Date()),
+                "PP"
+              )}`}</p>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
+    )
+  }
+
+  if (alwaysOnView.length > 0) {
+    sectionTitlesAndContent["Always on View"] = (
+      <ul className={classNames(styles.grid, styles.alwaysOnView)}>
+        {alwaysOnView.map((exhibit, index) => (
+          <li key={`always-on-view-${index}`}>
+            <Link to={`/exhibits/${exhibit.slug && exhibit.slug.current}`}>
+              {exhibit.banner && (
+                <Figure
+                  figure={exhibit.banner}
+                  // dimensions={1 / 1} defaults to 9 / 16 ?
+                  width={300}
+                  displayCaption={false}
+                  // className={styles.banner}
+                />
+              )}
+              {exhibit.title && exhibit.title.en && (
+                <h3 className={"h4"}>{exhibit.title.en}</h3>
+              )}
+              {exhibit.subtitle && exhibit.subtitle.en && (
+                <p className={styles.subtitle}>
+                  <i>{exhibit.subtitle.en}</i>
+                </p>
+              )}
+              <p className={styles.dateInfo}>{`On view since ${format(
+                parse(exhibit.openingDate, "yyyy-MM-dd", new Date()),
+                "PP"
+              )}`}</p>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  if (upcoming.length > 0) {
+    sectionTitlesAndContent["Upcoming"] = (
+      <ul className={classNames(styles.grid, styles.upcoming)}>
+        {upcoming.map((exhibit, index) => (
+          <li key={`upcoming-${index}`}>
+            <Link to={`/exhibits/${exhibit.slug && exhibit.slug.current}`}>
+              {exhibit.banner && (
+                <Figure
+                  figure={exhibit.banner}
+                  // dimensions={1 / 1} defaults to 9 / 16 ?
+                  width={300}
+                  displayCaption={false}
+                  // className={styles.banner}
+                />
+              )}
+              {exhibit.title && exhibit.title.en && (
+                <h3 className={"h4"}>{exhibit.title.en}</h3>
+              )}
+              {exhibit.subtitle && exhibit.subtitle.en && (
+                <p className={styles.subtitle}>
+                  <i>{exhibit.subtitle.en}</i>
+                </p>
+              )}
+              <p className={styles.dateInfo}>{`Will open on ${format(
+                parse(exhibit.openingDate, "yyyy-MM-dd", new Date()),
+                "PP"
+              )}`}</p>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  if (past.length > 0) {
+    sectionTitlesAndContent["Past"] = (
+      <ul className={classNames(styles.grid, styles.past)}>
+        {past.map((exhibit, index) => (
+          <li key={`past-${index}`}>
+            <Link to={`/exhibits/${exhibit.slug && exhibit.slug.current}`}>
+              {/* {exhibit.banner && (
+                <Figure
+                  figure={exhibit.banner}
+                  // dimensions={1 / 1} defaults to 9 / 16 ?
+                  width={300}
+                  displayCaption={false}
+                />
+              )} */}
+              {exhibit.title && exhibit.title.en && (
+                <h3 className={"h4"}>{exhibit.title.en}</h3>
+              )}
+              {exhibit.subtitle && exhibit.subtitle.en && (
+                <p className={styles.subtitle}>
+                  <i>{exhibit.subtitle.en}</i>
+                </p>
+              )}
+              <p className={styles.dateInfo}>{`Ran from ${format(
+                parse(exhibit.openingDate, "yyyy-MM-dd", new Date()),
+                "P"
+              )} to ${format(
+                parse(exhibit.closingDate, "yyyy-MM-dd", new Date()),
+                "P"
+              )}`}</p>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  if (traveling.length > 0) {
+    sectionTitlesAndContent["Traveling (For Rent)"] = (
+      <ul className={classNames(styles.grid, styles.traveling)}>
+        {traveling.map((exhibit, index) => (
+          <li key={`traveling-${index}`}>
+            <Link to={`/exhibits/${exhibit.slug && exhibit.slug.current}`}>
+              {exhibit.banner && (
+                <Figure
+                  figure={exhibit.banner}
+                  // dimensions={1 / 1} defaults to 9 / 16 ?
+                  width={300}
+                  displayCaption={false}
+                />
+              )}
+              {exhibit.title && exhibit.title.en && (
+                <h3 className={"h4"}>{exhibit.title.en}</h3>
+              )}
+              {exhibit.subtitle && exhibit.subtitle.en && (
+                <p className={styles.subtitle}>
+                  <i>{exhibit.subtitle.en}</i>
+                </p>
+              )}
+              {/* <p className={styles.dateInfo}>{`Ran from ${format(
+                parse(exhibit.openingDate, "yyyy-MM-dd", new Date()),
+                "P"
+              )} to ${format(
+                parse(exhibit.closingDate, "yyyy-MM-dd", new Date()),
+                "P"
+              )}`}</p> */}
+            </Link>
+          </li>
+        ))}
+      </ul>
     )
   }
 
@@ -121,19 +278,13 @@ const ExhibitsPage = props => {
         // image={banner}
       />
       <TitleSection title={"Exhibits"} />
-      <TocLayout sectionTitlesAndContent={sectionTitlesAndContent} />
-      {/* {exhibitNodes.map(exhibit => (
-        <div>
-          <Link to={`/exhibits/${exhibit.slug.current}`}>
-            {exhibit.title && exhibit.title.en}
-          </Link>
-        </div>
-      ))} */}
-      {/* <h2>Now on View</h2> */}
-      <h2>Always on View</h2>
-      <h2>Upcoming</h2>
-      <h2>Past</h2>
-      <h2>Traveling (Available For Rent)</h2>
+      <hr />
+      <TocLayout
+        sectionTitlesAndContent={sectionTitlesAndContent}
+        headersHiddenAtBreakpoint={true}
+        tocTitle={""}
+        breakpoint={"tablet"}
+      />
     </Layout>
   )
 }
@@ -148,9 +299,13 @@ export const query = graphql`
           title {
             en
           }
+          subtitle {
+            en
+          }
           slug {
             current
           }
+          _rawOverview
           banner {
             ...SanityImage
           }

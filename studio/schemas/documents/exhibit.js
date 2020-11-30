@@ -11,7 +11,7 @@ export default {
     },
     {
       name: "subtitle",
-      title: "Sub-Title",
+      title: "Subtitle",
       type: "localeString",
     },
     {
@@ -33,7 +33,7 @@ export default {
       options: {
         dateFormat: "MM-DD-yyyy",
       },
-      validation: (Rule) => Rule.required(),
+      // validation: (Rule) => Rule.required(),
     },
     {
       name: "closingDate",
@@ -279,7 +279,7 @@ export default {
   preview: {
     select: {
       title: "title.en",
-      subtitle: "overview.en",
+      subtitle: "subtitle.en",
       media: "banner",
     },
   },

@@ -1,14 +1,47 @@
 @use "../styles/variables/" as v;
+@use "../styles/typography.scss";
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));
   grid-gap: 1rem;
+  list-style: none;
+  padding-inline-start: 0px;
+  max-width: 100%;
+
+  a {
+    color: inherit;
+
+    &:visited {
+      color: inherit;
+    }
+  }
 
   h3 {
-    margin-top: v.$baseline;
+    margin-top: v.$baseline / 2;
+  }
+
+  p {
+    margin-top: 0.25rem;
+  }
+
+  .subtitle,
+  .dateInfo {
+    text-align: center;
+    @include typography.small-font();
+  }
+
+  figure {
+    margin-top: 0;
   }
 }
 
 .nowOnView {
+}
+
+.past,
+.traveling {
+  h3 {
+    margin-top: 0;
+  }
 }

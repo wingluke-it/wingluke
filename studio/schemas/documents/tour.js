@@ -4,10 +4,14 @@ export default {
   type: "document",
   fields: [
     {
-      name: "name",
-      title: "Name",
+      name: "title",
+      title: "Title",
       type: "localeString",
-      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "subtitle",
+      title: "Subtitle",
+      type: "localeString",
     },
     {
       name: "slug",
@@ -276,8 +280,8 @@ export default {
   ],
   preview: {
     select: {
-      title: "name.en",
-      subtitle: "overview.en",
+      title: "title.en",
+      subtitle: "subtitle.en",
       media: "banner",
     },
   },

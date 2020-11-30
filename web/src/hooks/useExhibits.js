@@ -13,6 +13,9 @@ export const useExhibits = () => {
               slug {
                 current
               }
+              openingDate
+              closingDate
+              specialCategories
             }
           }
         }
