@@ -14,9 +14,9 @@ import React from "react"
 import SEO from "../components/seo"
 import TitleSection from "../components/titleSection"
 import TocLayout from "../components/layouts/tocLayout"
-import navListStyles from "../components/navList.module.scss"
+// import navListStyles from "../components/navList.module.scss"
 import styles from "./exhibit.module.scss"
-import { useExhibits } from "../hooks/useExhibits"
+// import { useExhibits } from "../hooks/useExhibits"
 import { useTicketPurchaseLink } from "../hooks/useTicketPurchaseLink"
 
 const ExhibitTemplate = props => {
@@ -33,7 +33,7 @@ const ExhibitTemplate = props => {
     featuredArtists,
     curatedBy,
   } = props.data && props.data.exhibit
-  const exhibitEdges = useExhibits()
+  // const exhibitEdges = useExhibits()
   const ticketPurchaseLink = useTicketPurchaseLink()
   const [exhibitStatus, secondaryStatus] = getExhibitStatus(
     openingDate,
@@ -166,7 +166,7 @@ const ExhibitTemplate = props => {
       <p>thanks to: THE WING DONORS (link to individual giving page)</p>
     </>
   )
-
+  /* 
   const exEdgesAlphabetizeComparator = ({ node: aNode }, { node: bNode }) => {
     if (!aNode.title || !aNode.title.en || !bNode.title || !bNode.title.en) {
       return 0
@@ -195,30 +195,33 @@ const ExhibitTemplate = props => {
         {node.title && node.title.en}
       </Link>
     </li>
-  )
-  const getNavSection = status => [
-    <h2 key={`${status}-exhibits`} className={"h4"}>
+  ) */
+  const getNavSection = (
+    status //[
+  ) => (
+    <li key={`${status}-exhibits`} className={styles.navListItem}>
       <Link to={`/exhibits/#${status.replace(/\W/g, "-").toLowerCase()}`}>
-        {status}
+        <h2 className={"h4"}>{status}</h2>
       </Link>
-    </h2>,
-    exhibitEdges
-      .filter(exEdgesFilterFunc(status))
-      .sort(exEdgesAlphabetizeComparator)
-      .map(mapExEdgeToLi),
-  ]
+    </li>
+  ) //,
+  //   exhibitEdges
+  //     .filter(exEdgesFilterFunc(status))
+  //     .sort(exEdgesAlphabetizeComparator)
+  //     .map(mapExEdgeToLi),
+  // ]
 
   const navList = (
     <NavList
       listItems={[
-        <h2 key="all-exhibits" className={"h4"}>
+        <h2 key="all-exhibits" className={"h3"}>
           <Link to={"/exhibits/"}>All Exhibits</Link>
         </h2>,
-        ...getNavSection("Now on View"),
-        ...getNavSection("Always on View"),
-        ...getNavSection("Upcoming"),
-        ...getNavSection("Past"),
-        ...getNavSection("Traveling (For Rent)"),
+        getNavSection("Now on View"),
+        getNavSection("Always on View"),
+        getNavSection("Upcoming"),
+        getNavSection("Past"),
+        getNavSection("Traveling (For Rent)"),
       ]}
     />
   )
@@ -277,11 +280,11 @@ const ExhibitTemplate = props => {
             <TocLayout
               tocTitle={""}
               sectionTitlesAndContent={sectionTitlesAndContent}
-              afterToc={<aside>{navList}</aside>}
+              afterToc={null}
             />
           }
           sidebar={
-            null
+            <aside>{navList}</aside>
             // TODO refactor this into a reusable sidebarNav component
           }
         />

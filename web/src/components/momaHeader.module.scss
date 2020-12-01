@@ -78,10 +78,6 @@
   height: 100%;
 }
 
-a {
-  border: 4px solid transparent;
-}
-
 .expandingContainer {
   text-align: center;
   // min-width: 33vw;
@@ -91,6 +87,8 @@ a {
   // margin-left: 30vw;
 
   a {
+    border: 4px solid transparent;
+
     &:first-child {
       margin-top: v.$baseline;
     }
@@ -100,14 +98,18 @@ a {
     display: block;
 
     &:hover {
+      border: 4px solid rgba(white, 0.7);
+    }
+  }
+
+  .activeLink {
+    border: 4px solid white;
+    cursor: default;
+
+    &:hover {
       border: 4px solid white;
     }
   }
-}
-
-.activeLink {
-  border: 4px solid white;
-  cursor: default;
 }
 
 .headerHidden {

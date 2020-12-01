@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
+
 import { Link } from "gatsby"
 import classNames from "classnames"
 import styles from "./tocLayout.module.scss"
@@ -102,10 +103,12 @@ const TocLayout = ({
             ))}
           </ul>
         </nav>
-        <div className={styles.afterToc}>
-          {afterToc}
-          <div className={styles.gradient}></div>
-        </div>
+        {afterToc && (
+          <div className={styles.afterToc}>
+            {afterToc}
+            <div className={styles.gradient}></div>
+          </div>
+        )}
       </div>
       <div className={styles.main}>{sections}</div>
     </div>

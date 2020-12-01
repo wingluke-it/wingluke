@@ -41,3 +41,13 @@
 .excerpt {
   @include typography.small-font();
 }
+
+.navListItem {
+  // margin-top: 0;
+  padding-top: 0;
+
+  h2 {
+    margin-top: v.$baseline / 2;
+    color: inherit;
+  }
+}

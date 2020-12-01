@@ -93,24 +93,24 @@
 .afterToc {
   grid-area: afterToc;
   overflow: auto;
-  border-top: 3px solid v.$medium-gray;
+  // border-top: 3px solid v.$medium-gray;
 
-  .gradient {
-    pointer-events: none;
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%; // TODO this needs fixing. currently it will only display at the very top and bottom of the screen. We want it to start displaying just after the toc section.
-    background: linear-gradient(
-      v.$light-gray-background-color,
-      hsla(0, 0%, 100%, 0) 4%,
-      hsla(0, 0%, 100%, 0) 96%,
-      v.$light-gray-background-color
-    );
-  }
+  // .gradient {
+  //   pointer-events: none;
+  //   content: "";
+  //   display: block;
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   right: 0;
+  //   height: 100%; // TODO this needs fixing. currently it will only display at the very top and bottom of the screen. We want it to start displaying just after the toc section.
+  //   background: linear-gradient(
+  //     v.$light-gray-background-color,
+  //     hsla(0, 0%, 100%, 0) 4%,
+  //     hsla(0, 0%, 100%, 0) 96%,
+  //     v.$light-gray-background-color
+  //   );
+  // }
 }
 
 .noTocTitle ul {
@@ -135,7 +135,7 @@ $sidebar-min-width: 13rem;
     position: sticky;
     top: var(--header-room);
     transition: all 0.2s ease-in-out;
-    height: calc(100vh - var(--header-room));
+    // height: calc(100vh - var(--header-room));
     // overflow: auto;
   }
 
