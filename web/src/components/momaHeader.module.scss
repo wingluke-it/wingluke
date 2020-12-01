@@ -84,7 +84,9 @@ a {
 
 .expandingContainer {
   text-align: center;
-  max-width: 33vw;
+  // min-width: 33vw;
+  // max-width: 50vw;
+  width: fit-content;
   margin: 0 auto;
   // margin-left: 30vw;
 
@@ -92,6 +94,7 @@ a {
     &:first-child {
       margin-top: v.$baseline;
     }
+    padding: 0 v.$baseline / 4;
     font-size: 3rem;
     color: white;
     display: block;
