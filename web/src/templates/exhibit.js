@@ -250,12 +250,12 @@ const ExhibitTemplate = props => {
                   {_rawGallery.slug ? (
                     <Link to={`/galleries/${_rawGallery.slug.current}/`}>
                       {`${_rawGallery.name.en}${
-                        _rawGallery.floor && ` (Floor ${_rawGallery.floor})`
+                        _rawGallery.floor ? ` (Floor ${_rawGallery.floor})` : ""
                       }`}
                     </Link>
                   ) : (
                     `${_rawGallery.name.en}${
-                      _rawGallery.floor && ` (Floor ${_rawGallery.floor})`
+                      _rawGallery.floor ? ` (Floor ${_rawGallery.floor})` : ""
                     }`
                   )}
                 </p>
