@@ -216,10 +216,10 @@ const ExhibitsPage = props => {
               )}
               <p className={styles.dateInfo}>{`Ran from ${format(
                 parse(exhibit.openingDate, "yyyy-MM-dd", new Date()),
-                "P"
+                "MMM yyyy"
               )} to ${format(
                 parse(exhibit.closingDate, "yyyy-MM-dd", new Date()),
-                "P"
+                "MMM yyyy"
               )}`}</p>
             </Link>
           </li>
@@ -276,7 +276,7 @@ const ExhibitsPage = props => {
       <hr />
       <TocLayout
         sectionTitlesAndContent={sectionTitlesAndContent}
-        headersHiddenAtBreakpoint={true}
+        headersHiddenAtBreakpoint={false}
         tocTitle={""}
         breakpoint={"tablet"}
       />

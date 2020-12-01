@@ -6,6 +6,7 @@
 
   &:first-child {
     margin-top: 0;
+    border-top: 1px solid transparent;
   }
 
   // this selects all tocSections besides the first
