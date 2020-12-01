@@ -29,7 +29,7 @@ const ExhibitTemplate = props => {
     openingDate,
     closingDate,
     _rawGallery,
-    specialCategories,
+    specialCategory,
     featuredArtists,
     curatedBy,
   } = props.data && props.data.exhibit
@@ -38,7 +38,7 @@ const ExhibitTemplate = props => {
   const [exhibitStatus, secondaryStatus] = getExhibitStatus(
     openingDate,
     closingDate,
-    specialCategories
+    specialCategory
   )
   const sectionTitlesAndContent = {}
   if (_rawOverview && _rawOverview.en) {
@@ -180,7 +180,7 @@ const ExhibitTemplate = props => {
     getExhibitStatus(
       exhibit.openingDate,
       exhibit.closingDate,
-      exhibit.specialCategories
+      exhibit.specialCategory
     )[0] === status
   const mapExEdgeToLi = ({ node }, index) => (
     // TODO filter out past exhibits
@@ -281,6 +281,7 @@ const ExhibitTemplate = props => {
               tocTitle={""}
               sectionTitlesAndContent={sectionTitlesAndContent}
               afterToc={null}
+              headersHiddenAtBreakpoint={false}
             />
           }
           sidebar={
@@ -314,7 +315,7 @@ export const query = graphql`
         ...SanityImage
       }
       _rawGallery(resolveReferences: { maxDepth: 2 })
-      specialCategories
+      specialCategory
       featuredArtists {
         name {
           en

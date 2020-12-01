@@ -1,7 +1,7 @@
 // TODO audit this for actually useful/used helper functions
-import { isFuture, format, isAfter, isBefore, isSameDay, parse } from "date-fns"
+import { format, isAfter, isBefore, isFuture, isSameDay, parse } from "date-fns"
 
-export function getExhibitStatus(openingDate, closingDate, specialCategories) {
+export function getExhibitStatus(openingDate, closingDate, specialCategory) {
   const statuses = {
     noStatus: "",
     nowOnView: "Now on View",
@@ -15,8 +15,31 @@ export function getExhibitStatus(openingDate, closingDate, specialCategories) {
   const today = new Date()
   const oDate = openingDate && parse(openingDate, "yyyy-MM-dd", new Date())
   const cDate = closingDate && parse(closingDate, "yyyy-MM-dd", new Date())
-  if (specialCategories.includes("traveling")) {
-    exhibitStatus = statuses.traveling
+  if (specialCategory && specialCategory !== "none") {
+    switch (specialCategory) {
+      case "traveling":
+        exhibitStatus = statuses.traveling
+        secondaryStatus = ""
+        break
+      case "past":
+        exhibitStatus = statuses.past
+        secondaryStatus = ""
+        break
+      case "upcoming":
+        exhibitStatus = statuses.upcoming
+        secondaryStatus = "Opening Date TBA"
+        break
+      case "nowOnView":
+        exhibitStatus = statuses.nowOnView
+        secondaryStatus = "Closing Date TBA"
+        break
+      case "alwaysOnView":
+        exhibitStatus = statuses.alwaysOnView
+        secondaryStatus = ""
+        break
+      default:
+        break
+    }
   } else if (!oDate) {
     exhibitStatus = statuses.noStatus
   } else if (isSameDay(today, oDate)) {
@@ -28,6 +51,7 @@ export function getExhibitStatus(openingDate, closingDate, specialCategories) {
   } else if (isAfter(today, oDate)) {
     if (!cDate) {
       exhibitStatus = statuses.alwaysOnView
+      secondaryStatus = `On view since ${format(oDate, "PP")}`
     } else if (isSameDay(today, cDate)) {
       exhibitStatus = statuses.nowOnView
       secondaryStatus = `Closes today (last day to view)`
@@ -36,9 +60,9 @@ export function getExhibitStatus(openingDate, closingDate, specialCategories) {
       secondaryStatus = `Closes ${format(cDate, "PP")}`
     } else if (isAfter(today, cDate)) {
       exhibitStatus = statuses.past
-      secondaryStatus = `Ran from ${format(oDate, "P")} to ${format(
+      secondaryStatus = `Ran from ${format(oDate, "MMM yyyy")} to ${format(
         cDate,
-        "P"
+        "MMM yyyy"
       )}`
     }
   }

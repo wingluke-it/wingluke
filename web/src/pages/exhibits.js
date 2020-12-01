@@ -1,5 +1,5 @@
 import { Link, graphql } from "gatsby"
-import { compareAsc, compareDesc, format, parse } from "date-fns"
+import { compareAsc, compareDesc, parse } from "date-fns"
 import { getExhibitStatus, mapEdgesToNodes } from "../lib/helpers"
 
 import Figure from "../components/figure"
@@ -18,16 +18,18 @@ const ExhibitsPage = props => {
   const alwaysOnView = []
   const traveling = []
 
+  const secondaryStatuses = {}
   // pour exhibits into category arrays
   exhibitNodes.forEach(exhibit => {
     const openingDate = exhibit.openingDate
     const closingDate = exhibit.closingDate
-    const specialCategories = exhibit.specialCategories
-    const [status] = getExhibitStatus(
+    const specialCategory = exhibit.specialCategory
+    const [status, secondaryStatus] = getExhibitStatus(
       openingDate,
       closingDate,
-      specialCategories
+      specialCategory
     )
+    secondaryStatuses[exhibit.id] = secondaryStatus
     switch (status) {
       case "Now on View":
         nowOnView.push(exhibit)
@@ -54,28 +56,29 @@ const ExhibitsPage = props => {
   })
 
   // now sort all of our arrays
+  const dateString = "1000-12-25" // arbitrary long past date
   past.sort((ex1, ex2) =>
     compareDesc(
-      parse(ex1.openingDate, "yyyy-MM-dd", new Date()),
-      parse(ex2.openingDate, "yyyy-MM-dd", new Date())
+      parse(ex1.openingDate || dateString, "yyyy-MM-dd", new Date()),
+      parse(ex2.openingDate || dateString, "yyyy-MM-dd", new Date())
     )
   )
   upcoming.sort((ex1, ex2) =>
     compareAsc(
-      parse(ex1.openingDate, "yyyy-MM-dd", new Date()),
-      parse(ex2.openingDate, "yyyy-MM-dd", new Date())
+      parse(ex1.openingDate || dateString, "yyyy-MM-dd", new Date()),
+      parse(ex2.openingDate || dateString, "yyyy-MM-dd", new Date())
     )
   )
   nowOnView.sort((ex1, ex2) =>
     compareAsc(
-      parse(ex1.closingDate, "yyyy-MM-dd", new Date()),
-      parse(ex2.closingDate, "yyyy-MM-dd", new Date())
+      parse(ex1.closingDate || dateString, "yyyy-MM-dd", new Date()),
+      parse(ex2.closingDate || dateString, "yyyy-MM-dd", new Date())
     )
   )
   alwaysOnView.sort((ex1, ex2) =>
     compareDesc(
-      parse(ex1.openingDate, "yyyy-MM-dd", new Date()),
-      parse(ex2.openingDate, "yyyy-MM-dd", new Date())
+      parse(ex1.openingDate || dateString, "yyyy-MM-dd", new Date()),
+      parse(ex2.openingDate || dateString, "yyyy-MM-dd", new Date())
     )
   )
   traveling.sort((ex1, ex2) => {
@@ -113,10 +116,9 @@ const ExhibitsPage = props => {
                   <i>{exhibit.subtitle.en}</i>
                 </p>
               )}
-              <p className={styles.dateInfo}>{`Closes ${format(
-                parse(exhibit.closingDate, "yyyy-MM-dd", new Date()),
-                "PP"
-              )}`}</p>
+              <p className={styles.secondaryStatus}>
+                {secondaryStatuses[exhibit.id]}
+              </p>
             </Link>
           </li>
         ))}
@@ -147,10 +149,9 @@ const ExhibitsPage = props => {
                   <i>{exhibit.subtitle.en}</i>
                 </p>
               )}
-              <p className={styles.dateInfo}>{`On view since ${format(
-                parse(exhibit.openingDate, "yyyy-MM-dd", new Date()),
-                "PP"
-              )}`}</p>
+              <p className={styles.secondaryStatus}>
+                {secondaryStatuses[exhibit.id]}
+              </p>
             </Link>
           </li>
         ))}
@@ -181,10 +182,9 @@ const ExhibitsPage = props => {
                   <i>{exhibit.subtitle.en}</i>
                 </p>
               )}
-              <p className={styles.dateInfo}>{`Will open on ${format(
-                parse(exhibit.openingDate, "yyyy-MM-dd", new Date()),
-                "PP"
-              )}`}</p>
+              <p className={styles.secondaryStatus}>
+                {secondaryStatuses[exhibit.id]}
+              </p>
             </Link>
           </li>
         ))}
@@ -214,13 +214,9 @@ const ExhibitsPage = props => {
                   <i>{exhibit.subtitle.en}</i>
                 </p>
               )}
-              <p className={styles.dateInfo}>{`Ran from ${format(
-                parse(exhibit.openingDate, "yyyy-MM-dd", new Date()),
-                "MMM yyyy"
-              )} to ${format(
-                parse(exhibit.closingDate, "yyyy-MM-dd", new Date()),
-                "MMM yyyy"
-              )}`}</p>
+              <p className={styles.secondaryStatus}>
+                {secondaryStatuses[exhibit.id]}
+              </p>
             </Link>
           </li>
         ))}
@@ -250,13 +246,7 @@ const ExhibitsPage = props => {
                   <i>{exhibit.subtitle.en}</i>
                 </p>
               )}
-              {/* <p className={styles.dateInfo}>{`Ran from ${format(
-                parse(exhibit.openingDate, "yyyy-MM-dd", new Date()),
-                "P"
-              )} to ${format(
-                parse(exhibit.closingDate, "yyyy-MM-dd", new Date()),
-                "P"
-              )}`}</p> */}
+              {/* <p className={styles.secondaryStatus}>{secondaryStatus[exhibit.id]}</p> */}
             </Link>
           </li>
         ))}
@@ -291,6 +281,7 @@ export const query = graphql`
     allSanityExhibit {
       edges {
         node {
+          id
           title {
             en
           }
@@ -304,7 +295,7 @@ export const query = graphql`
           banner {
             ...SanityImage
           }
-          specialCategories
+          specialCategory
           openingDate
           closingDate
         }

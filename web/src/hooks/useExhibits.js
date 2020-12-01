@@ -1,4 +1,4 @@
-import { useStaticQuery, graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 
 export const useExhibits = () => {
   const { allSanityExhibit } = useStaticQuery(
@@ -15,7 +15,7 @@ export const useExhibits = () => {
               }
               openingDate
               closingDate
-              specialCategories
+              specialCategory
             }
           }
         }

@@ -48,6 +48,36 @@ export default {
       },
     },
     {
+      name: "specialCategory",
+      title: "Special Category",
+      description:
+        "If a special category is set, this exhibit will not be categorized based on its opening and closing dates.",
+      type: "string",
+      options: {
+        layout: "radio",
+        list: [
+          { value: "traveling", title: "Traveling" },
+          { value: "past", title: "Past (dates unknown)" },
+          { value: "upcoming", title: "Upcoming (opening date TBA)" },
+          { value: "nowOnView", title: "Now On View (closing date TBA)" },
+          {
+            value: "alwaysOnView",
+            title: "Always On View (opening date unknown)",
+          },
+          { value: "none", title: "No Special Category" },
+          // { value: "upcoming", title: "Upcoming" }, // should this be automatically inferred from the Opening Date?
+          // { value: "current", title: "Current" }, // should this be automatically inferred from the Opening and Closing Date? ongoing exhibits might not have a closing date
+          // { value: "past", title: "Past" }, // should this be automatically inferred from the Closing Date?
+          // { value: "archived", title: "Archived" },
+          // { value: "ongoing", title: "Ongoing" }, // change to "always on view"?
+          // { value: "alwaysOnView", title: "Always On View" },
+          // { value: "permanent", title: "Permanent" }, // interview said this label isn't necessary...?
+          // { value: "temporary", title: "Temporary" },
+        ],
+      },
+      of: [{ type: "string" }],
+    },
+    {
       name: "gallery",
       title: "Gallery",
       type: "reference",
@@ -119,26 +149,6 @@ export default {
       title: "Is Traveling Exhibit",
       type: "boolean",
     }, */
-    {
-      name: "specialCategories",
-      title: "Special Categories",
-      description: "",
-      type: "array",
-      options: {
-        list: [
-          // { value: "upcoming", title: "Upcoming" }, // should this be automatically inferred from the Opening Date?
-          // { value: "current", title: "Current" }, // should this be automatically inferred from the Opening and Closing Date? ongoing exhibits might not have a closing date
-          // { value: "past", title: "Past" }, // should this be automatically inferred from the Closing Date?
-          // { value: "archived", title: "Archived" },
-          // { value: "ongoing", title: "Ongoing" }, // change to "always on view"?
-          // { value: "alwaysOnView", title: "Always On View" },
-          // { value: "permanent", title: "Permanent" }, // interview said this label isn't necessary...?
-          // { value: "temporary", title: "Temporary" },
-          { value: "traveling", title: "Traveling" },
-        ],
-      },
-      of: [{ type: "string" }],
-    },
     {
       name: "travelingLocation",
       title: "Current Location",
