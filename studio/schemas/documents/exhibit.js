@@ -100,6 +100,15 @@ export default {
       // TODO validation: required?
     }, */
     {
+      name: "curatedBy",
+      title: "Curated By",
+      type: "reference",
+      to: [{ type: "youthProgramSession" }, { type: "cacProcess" }],
+      description:
+        'Choose either "CAC Process" or the corresponding youth program session that curated this exhibit. ' +
+        referenceDescription("youth program session"),
+    },
+    {
       name: "banner",
       title: "Banner",
       type: "figure",
@@ -130,25 +139,6 @@ export default {
       of: [{ type: "reference", to: [{ type: "artist" }] }],
       description: referenceDescription("artist"),
     },
-    {
-      name: "featuredCollectionItems",
-      title: "Featured Collection Items",
-      type: "array",
-      of: [{ type: "reference", to: [{ type: "collectionItem" }] }],
-      description: referenceDescription("collection item"),
-    },
-    {
-      name: "featuredOralHistories",
-      title: "Featured Oral Histories",
-      type: "array",
-      of: [{ type: "reference", to: [{ type: "oralHistory" }] }],
-      description: referenceDescription("oral history"),
-    },
-    /*     {
-      name: "isTraveling",
-      title: "Is Traveling Exhibit",
-      type: "boolean",
-    }, */
     {
       name: "travelingLocation",
       title: "Current Location",
@@ -190,15 +180,6 @@ export default {
       type: "array",
       of: [{ type: "reference", to: [{ type: "event" }] }],
     }, */
-    {
-      name: "curatedBy",
-      title: "Curated By",
-      type: "reference",
-      to: [{ type: "youthProgramSession" }, { type: "cacProcess" }],
-      description:
-        'Choose either "CAC Process" or the corresponding youth program session that curated this exhibit. ' +
-        referenceDescription("youth program session"),
-    },
     // Youth Program Participants can be inferred from the youth program session referenced in the curatedBy field
     {
       name: "cacMembers",
@@ -250,6 +231,20 @@ export default {
       options: {
         collapsible: true,
       },
+    },
+    {
+      name: "featuredCollectionItems",
+      title: "Featured Collection Items",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "collectionItem" }] }],
+      description: referenceDescription("collection item"),
+    },
+    {
+      name: "featuredOralHistories",
+      title: "Featured Oral Histories",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "oralHistory" }] }],
+      description: referenceDescription("oral history"),
     },
     // TODO related tours?
     // TODO related blog posts?
