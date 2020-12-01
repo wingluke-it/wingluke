@@ -4,7 +4,12 @@ import React from "react"
 import classNames from "classnames"
 import styles from "./momaHeader.module.scss"
 
-const MomaHeader = ({ headerIsOpen, toggleHeader, headerIsHidden }) => {
+const MomaHeader = ({
+  headerIsOpen,
+  closeHeader,
+  toggleHeader,
+  headerIsHidden,
+}) => {
   return (
     <header
       className={classNames(styles.header, {
@@ -14,7 +19,7 @@ const MomaHeader = ({ headerIsOpen, toggleHeader, headerIsHidden }) => {
     >
       <nav className={styles.nav}>
         <div className={styles.topBar}>
-          <Link className={styles.homeLink} to="/">
+          <Link className={styles.homeLink} onClick={closeHeader} to="/">
             <img src={Logo} alt={"Wing Luke Museum Logo"} />
             {/* Wing Luke Museum */}
           </Link>
@@ -35,7 +40,7 @@ const MomaHeader = ({ headerIsOpen, toggleHeader, headerIsHidden }) => {
             onClick={toggleHeader}
             activeClassName={styles.activeLink}
             partiallyActive={true}
-            to="/exhibits/"
+            to="/exhibits"
           >
             Exhibits
           </Link>
@@ -43,7 +48,7 @@ const MomaHeader = ({ headerIsOpen, toggleHeader, headerIsHidden }) => {
             onClick={toggleHeader}
             activeClassName={styles.activeLink}
             partiallyActive={true}
-            to="/events/"
+            to="/events"
           >
             Events
           </Link>

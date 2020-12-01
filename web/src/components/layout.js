@@ -15,9 +15,8 @@ import MomaHeader from "./momaHeader"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 import styles from "./layout.module.scss"
+
 // import { useStaticQuery, graphql } from "gatsby"
-
-
 
 let lastKnownScrollPosition = 0
 let previousScrollPos = 0
@@ -26,6 +25,13 @@ let ticking = false
 
 const Layout = ({ children }) => {
   const [headerIsOpen, setHeaderIsOpen] = useState(false)
+  const closeHeader = () => {
+    if (headerIsOpen) {
+      setHeaderIsOpen(false)
+      const body = document.body
+      body.style.overflow = "auto"
+    }
+  }
   const toggleHeader = () => {
     setHeaderIsOpen(!headerIsOpen)
     if (!headerIsOpen) {
@@ -117,7 +123,11 @@ const Layout = ({ children }) => {
       })}
     >
       {/* TODO <a href="#main-content">Jump to Main Content</a> */}
-      <MomaHeader headerIsOpen={headerIsOpen} toggleHeader={toggleHeader} />
+      <MomaHeader
+        closeHeader={closeHeader}
+        headerIsOpen={headerIsOpen}
+        toggleHeader={toggleHeader}
+      />
       <main>
         {/* TODO <a id="main-content"></a> */}
         {children}
