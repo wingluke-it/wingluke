@@ -71,7 +71,7 @@ module.exports = {
         background_color: `#f5f5f5`,
         theme_color: `#7c2128`, // `#c20000`,
         display: `minimal-ui`,
-        icon: `src/images/wingluke-icon2.png`, // This path is relative to the root of the site.
+        icon: `src/images/favicon.jpg`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
