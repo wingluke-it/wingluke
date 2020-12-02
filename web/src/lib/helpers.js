@@ -8,6 +8,19 @@ import {
   parseISO,
 } from "date-fns"
 
+export function toListString(arr) {
+  if (arr.length === 0) {
+    return ""
+  }
+
+  if (arr.length === 1) {
+    return arr[0]
+  }
+
+  const lastString = arr.pop()
+  return `${arr.join(", ")} and ${lastString}`
+}
+
 export function formatOccurrence(startDateTime, endDateTime) {
   const startDT = parseISO(startDateTime)
   const endDT = parseISO(endDateTime)

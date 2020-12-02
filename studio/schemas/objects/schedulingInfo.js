@@ -13,6 +13,7 @@ export default {
       type: "datetime",
       options: {
         dateFormat: "MM-DD-yyyy",
+        timeFormat: "hh:mm A",
       },
     },
     {
@@ -21,6 +22,7 @@ export default {
       type: "datetime",
       options: {
         dateFormat: "MM-DD-yyyy",
+        timeFormat: "hh:mm A",
       },
       validation: (Rule) =>
         Rule.min(Rule.valueOfField("startDateTime")).error(
@@ -159,13 +161,13 @@ export default {
       of: [{ type: "string" }],
       options: {
         list: [
-          { title: "Sunday", value: "sunday" },
-          { title: "Monday", value: "monday" },
-          { title: "Tuesday", value: "tuesday" },
-          { title: "Wednesday", value: "wednesday" },
-          { title: "Thursday", value: "thursday" },
-          { title: "Friday", value: "friday" },
-          { title: "Saturday", value: "saturday" },
+          { title: "Sunday", value: "Sunday" },
+          { title: "Monday", value: "Monday" },
+          { title: "Tuesday", value: "Tuesday" },
+          { title: "Wednesday", value: "Wednesday" },
+          { title: "Thursday", value: "Thursday" },
+          { title: "Friday", value: "Friday" },
+          { title: "Saturday", value: "Saturday" },
         ],
       },
       description: "Select which days of the week this event occurs on.",
@@ -225,13 +227,13 @@ export default {
       of: [{ type: "string" }],
       options: {
         list: [
-          { title: "Sunday", value: "sunday" },
-          { title: "Monday", value: "monday" },
-          { title: "Tuesday", value: "tuesday" },
-          { title: "Wednesday", value: "wednesday" },
-          { title: "Thursday", value: "thursday" },
-          { title: "Friday", value: "friday" },
-          { title: "Saturday", value: "saturday" },
+          { title: "Sunday", value: "Sunday" },
+          { title: "Monday", value: "Monday" },
+          { title: "Tuesday", value: "Tuesday" },
+          { title: "Wednesday", value: "Wednesday" },
+          { title: "Thursday", value: "Thursday" },
+          { title: "Friday", value: "Friday" },
+          { title: "Saturday", value: "Saturday" },
         ],
       },
       description: "Select which days of the week this event occurs on.",

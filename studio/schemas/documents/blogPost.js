@@ -31,6 +31,10 @@ export default {
       name: "publishedAt",
       title: "Published At",
       type: "datetime",
+      options: {
+        dateFormat: "MM-DD-yyyy",
+        timeFormat: "hh:mm A",
+      },
       description: "This can be used to schedule post for publishing",
     },
     {
@@ -38,6 +42,10 @@ export default {
       name: "lastUpdated",
       title: "Last Updated",
       type: "datetime",
+      options: {
+        dateFormat: "MM-DD-yyyy",
+        timeFormat: "hh:mm A",
+      },
     },
     {
       name: "excerpt",

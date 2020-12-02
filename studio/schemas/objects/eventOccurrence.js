@@ -11,6 +11,7 @@ export default {
       type: "datetime",
       options: {
         dateFormat: "MM-DD-yyyy",
+        timeFormat: "hh:mm A",
       },
       validation: (Rule) => Rule.required(),
     },
@@ -20,6 +21,7 @@ export default {
       type: "datetime",
       options: {
         dateFormat: "MM-DD-yyyy",
+        timeFormat: "hh:mm A",
       },
       validation: (Rule) => [
         Rule.required(),

@@ -1,6 +1,6 @@
 import { Link, graphql } from "gatsby"
-import { compareAsc, format, isBefore, isSameDay, parseISO } from "date-fns"
-import { formatOccurrence, toPlainText } from "../lib/helpers"
+import { compareAsc, format, parseISO } from "date-fns"
+import { formatOccurrence, toListString, toPlainText } from "../lib/helpers"
 
 import Banner from "../components/banner"
 import DocsLayout from "../components/layouts/docsLayout"
@@ -60,26 +60,46 @@ const Event = props => {
     startDateTime &&
     endDateTime
   ) {
-    const startDT = parseISO(startDateTime)
-    const endDT = parseISO(endDateTime)
+    dateInfo.push(
+      `First happens ${formatOccurrence(startDateTime, endDateTime)}.`
+    )
     switch (recurrenceType) {
       case "daily":
-        dateInfo[0] = `First happens ${formatOccurrence(
-          startDateTime,
-          endDateTime
-        )}, then repeats every ${intervalDaily} ${
-          intervalDaily > 1 ? "days" : "day"
-        }`
+        dateInfo.push(
+          `Repeats every ${
+            intervalDaily > 1 ? `${intervalDaily} days` : "day"
+          }.`
+        )
         break
       case "weekly":
+        dateInfo.push(
+          `Repeats on ${toListString(daysOfWeekWeekly)} every ${
+            intervalWeekly > 1 ? `${intervalWeekly} weeks` : "week"
+          }.`
+        )
         break
       case "absMonthly":
+        dateInfo.push(
+          `Repeats on the ${format(parseISO(startDateTime), "do")} every ${
+            intervalAbsMonthly > 1 ? `${intervalAbsMonthly} months` : "month"
+          }.`
+        )
         break
       case "relMonthly":
+        dateInfo.push(
+          `Repeats on the ${toListString(indexRelMonthly)} ${toListString(
+            daysOfWeekRelMonthly
+          )} every ${
+            intervalRelMonthly > 1 ? `${intervalRelMonthly} months` : "month"
+          }.`
+        )
         break
       default:
         break
     }
+    dateInfo.push(
+      `Stops repeating after ${format(parseISO(endRepeatDate), "PPP")}.`
+    )
   }
 
   const sectionTitlesAndContent = {}
