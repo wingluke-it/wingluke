@@ -1,5 +1,25 @@
 // TODO audit this for actually useful/used helper functions
-import { format, isAfter, isBefore, isFuture, isSameDay, parse } from "date-fns"
+import {
+  format,
+  isAfter,
+  isBefore,
+  isFuture,
+  isSameDay,
+  parseISO,
+} from "date-fns"
+
+export function formatOccurrence(startDateTime, endDateTime) {
+  const startDT = parseISO(startDateTime)
+  const endDT = parseISO(endDateTime)
+  if (isSameDay(startDT, endDT)) {
+    return `${format(startDT, "PP")} from ${format(startDT, "p")} to ${format(
+      endDT,
+      "p"
+    )}`
+  } else {
+    return `${format(startDT, "PPp")} to ${format(endDT, "PPp")}`
+  }
+}
 
 export function getExhibitStatus(openingDate, closingDate, specialCategory) {
   const statuses = {
@@ -13,8 +33,8 @@ export function getExhibitStatus(openingDate, closingDate, specialCategory) {
   let exhibitStatus
   let secondaryStatus
   const today = new Date()
-  const oDate = openingDate && parse(openingDate, "yyyy-MM-dd", new Date())
-  const cDate = closingDate && parse(closingDate, "yyyy-MM-dd", new Date())
+  const oDate = openingDate && parseISO(openingDate)
+  const cDate = closingDate && parseISO(closingDate)
   if (specialCategory && specialCategory !== "none") {
     switch (specialCategory) {
       case "traveling":

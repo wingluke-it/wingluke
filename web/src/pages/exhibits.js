@@ -1,5 +1,5 @@
 import { Link, graphql } from "gatsby"
-import { compareAsc, compareDesc, parse } from "date-fns"
+import { compareAsc, compareDesc, parseISO } from "date-fns"
 import { getExhibitStatus, mapEdgesToNodes } from "../lib/helpers"
 
 import Figure from "../components/figure"
@@ -59,26 +59,26 @@ const ExhibitsPage = props => {
   const dateString = "1000-12-25" // arbitrary long past date
   past.sort((ex1, ex2) =>
     compareDesc(
-      parse(ex1.openingDate || dateString, "yyyy-MM-dd", new Date()),
-      parse(ex2.openingDate || dateString, "yyyy-MM-dd", new Date())
+      parseISO(ex1.openingDate || dateString),
+      parseISO(ex2.openingDate || dateString)
     )
   )
   upcoming.sort((ex1, ex2) =>
     compareAsc(
-      parse(ex1.openingDate || dateString, "yyyy-MM-dd", new Date()),
-      parse(ex2.openingDate || dateString, "yyyy-MM-dd", new Date())
+      parseISO(ex1.openingDate || dateString),
+      parseISO(ex2.openingDate || dateString)
     )
   )
   nowOnView.sort((ex1, ex2) =>
     compareAsc(
-      parse(ex1.closingDate || dateString, "yyyy-MM-dd", new Date()),
-      parse(ex2.closingDate || dateString, "yyyy-MM-dd", new Date())
+      parseISO(ex1.closingDate || dateString),
+      parseISO(ex2.closingDate || dateString)
     )
   )
   alwaysOnView.sort((ex1, ex2) =>
     compareDesc(
-      parse(ex1.openingDate || dateString, "yyyy-MM-dd", new Date()),
-      parse(ex2.openingDate || dateString, "yyyy-MM-dd", new Date())
+      parseISO(ex1.openingDate || dateString),
+      parseISO(ex2.openingDate || dateString)
     )
   )
   traveling.sort((ex1, ex2) => {
