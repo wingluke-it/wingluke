@@ -19,25 +19,26 @@ const Event = props => {
     title,
     subtitle,
     scheduleType,
-    finiteOccurrences: { occurrences } = {},
-    repeatingOccurrences: {
-      daysOfWeekRelMonthly,
-      daysOfWeekWeekly,
-      endDateTime,
-      endRepeatDate,
-      indexRelMonthly,
-      intervalAbsMonthly,
-      intervalDaily,
-      intervalRelMonthly,
-      intervalWeekly,
-      recurrenceType,
-      startDateTime,
-    } = {},
+    finiteOccurrences,
+    repeatingOccurrences,
     banner,
     _rawDescription,
     _rawPricingDetails,
   } = props.data && props.data.event
-
+  const { occurrences } = finiteOccurrences ?? {}
+  const {
+    daysOfWeekRelMonthly,
+    daysOfWeekWeekly,
+    endDateTime,
+    endRepeatDate,
+    indexRelMonthly,
+    intervalAbsMonthly,
+    intervalDaily,
+    intervalRelMonthly,
+    intervalWeekly,
+    recurrenceType,
+    startDateTime,
+  } = repeatingOccurrences ?? {}
   const eventEdges = useEvents()
 
   let dateInfo = []
