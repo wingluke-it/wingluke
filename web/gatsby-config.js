@@ -60,6 +60,14 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: "https://wingluke.netlify.app/",
+        // sitemap: "https://www.example.com/sitemap.xml",
+        policy: [{ userAgent: "*", disallow: "/" }], // TODO change this once the site goes public
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {

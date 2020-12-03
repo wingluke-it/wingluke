@@ -98,9 +98,11 @@ const Event = props => {
       default:
         break
     }
-    dateInfo.push(
-      `Stops repeating after ${format(parseISO(endRepeatDate), "PPP")}.`
-    )
+    if (endRepeatDate) {
+      dateInfo.push(
+        `Stops repeating after ${format(parseISO(endRepeatDate), "PPP")}.`
+      )
+    }
   }
 
   const sectionTitlesAndContent = {}
