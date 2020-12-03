@@ -13,6 +13,7 @@ console.log(`Sanity token used: ${sanityToken}`)
 module.exports = {
   siteMetadata: {
     title: `Wing Luke Museum of the Asian Pacific American Experience`,
+    siteUrl: `https://wingluke.netlify.app`, // TODO update this
     description: `The official website of the Wing Luke Museum of the Asian Pacific American Experience`,
     author: `Wing Luke Museum of the Asian Pacific American Experience`,
   },
@@ -63,7 +64,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-robots-txt",
       options: {
-        host: "https://wingluke.netlify.app/",
+        host: siteUrl,
         // sitemap: "https://www.example.com/sitemap.xml",
         policy: [{ userAgent: "*", disallow: "/" }], // TODO change this once the site goes public
       },
