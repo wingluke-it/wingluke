@@ -1,12 +1,193 @@
 // TODO audit this for actually useful/used helper functions
 import {
+  add,
+  differenceInMinutes,
   format,
+  getHours,
+  getMinutes,
   isAfter,
   isBefore,
+  isFriday,
   isFuture,
+  isMonday,
   isSameDay,
+  isSaturday,
+  isSunday,
+  isThursday,
+  isTuesday,
+  isWednesday,
+  lastDayOfMonth,
   parseISO,
+  startOfMonth,
+  startOfWeek,
+  sub,
 } from "date-fns"
+
+/* Given:
+ * @param afterDate: the Date after which to return
+ * @param datesNeeded: how many dates after afterDate to return
+ * @param repeatingEvent:
+ * repeatingEvent {
+ *   startDateTime
+ *   endDateTime
+ *   endRepeatDate
+ *   recurrenceType
+ *   intervalDaily
+ *   intervalWeekly
+ *   daysOfWeekWeekly
+ *   intervalRelMonthly
+ *   daysOfWeekRelMonthly
+ *   indexRelMonthly
+ *   intervalAbsMonthly
+ * }
+ * @returns an array of upcoming dates
+ *  */
+export function getUpcomingDates(afterDate, datesNeeded, repeatingEvent) {
+  const {
+    daysOfWeekRelMonthly,
+    daysOfWeekWeekly,
+    endDateTime,
+    endRepeatDate,
+    indexRelMonthly,
+    intervalAbsMonthly,
+    intervalDaily,
+    intervalRelMonthly,
+    intervalWeekly,
+    recurrenceType,
+    startDateTime,
+  } = repeatingEvent ?? {}
+
+  let getNextDate
+  switch (recurrenceType) {
+    case "daily":
+      getNextDate = currDate => add(currDate, { days: intervalDaily })
+      break
+    case "weekly":
+      getNextDate = currDate => add(currDate, { weeks: intervalWeekly })
+      break
+    case "absMonthly":
+      getNextDate = currDate => add(currDate, { months: intervalAbsMonthly })
+      break
+    case "relMonthly":
+      getNextDate = currDate => add(currDate, { months: intervalRelMonthly })
+      break
+    default:
+      getNextDate = cDate => cDate
+      break
+  }
+
+  const upcomingDates = []
+  let currStart = parseISO(startDateTime),
+    currEnd = parseISO(endDateTime)
+  let diffInMin = differenceInMinutes(currEnd, currStart)
+  while (
+    upcomingDates.length < datesNeeded &&
+    (!endRepeatDate || isSameOrBefore(currStart, parseISO(endRepeatDate)))
+  ) {
+    const days = {
+      Sunday: 0,
+      Monday: 1,
+      Tuesday: 2,
+      Wednesday: 3,
+      Thursday: 4,
+      Friday: 5,
+      Saturday: 6,
+    }
+    switch (recurrenceType) {
+      case "daily":
+      case "absMonthly":
+        if (isSameOrAfter(currEnd, afterDate)) {
+          upcomingDates.push([currStart, currEnd])
+        }
+        break
+      case "weekly":
+        const weekStart = add(startOfWeek(currStart), {
+          hours: getHours(currStart),
+          minutes: getMinutes(currStart),
+        })
+        daysOfWeekWeekly.forEach(day => {
+          const startDateToAdd = add(weekStart, { days: days[day] })
+          const endDateToAdd = add(startDateToAdd, { minutes: diffInMin })
+          if (isSameOrAfter(endDateToAdd, afterDate)) {
+            upcomingDates.push([startDateToAdd, endDateToAdd])
+          }
+        })
+        break
+      case "relMonthly":
+        indexRelMonthly.forEach(weekIndex => {
+          daysOfWeekRelMonthly.forEach(dayOfWeek => {
+            const startDateToAdd = add(
+              getRelMonthlyDate(weekIndex, dayOfWeek, currStart),
+              { hours: getHours(currStart), minutes: getMinutes(currStart) }
+            )
+            const endDateToAdd = add(startDateToAdd, { minutes: diffInMin })
+            if (
+              isSameOrAfter(endDateToAdd, afterDate) &&
+              isSameOrBefore(startDateToAdd, parseISO(endRepeatDate))
+            ) {
+              upcomingDates.push([startDateToAdd, endDateToAdd])
+            }
+          })
+        })
+        break
+      default:
+        break
+    }
+    currStart = getNextDate(currStart)
+    currEnd = getNextDate(currEnd)
+  }
+
+  return upcomingDates
+}
+
+// monthDate provides a date that includes the month in question
+export function getRelMonthlyDate(weekIndex, dayOfWeek, monthDate) {
+  const isDayOfWeek = {
+    Sunday: isSunday,
+    Monday: isMonday,
+    Tuesday: isTuesday,
+    Wednesday: isWednesday,
+    Thursday: isThursday,
+    Friday: isFriday,
+    Saturday: isSaturday,
+  }[dayOfWeek]
+  if (weekIndex === "last") {
+    let currDay = lastDayOfMonth(monthDate)
+    while (true) {
+      if (isDayOfWeek(currDay)) {
+        return currDay
+      }
+
+      currDay = sub(currDay, { days: 1 })
+    }
+  } else {
+    const weeks = {
+      first: 1,
+      second: 2,
+      third: 3,
+      fourth: 4,
+    }
+    let dayOfWeekMatches = 0
+    let currDay = startOfMonth(monthDate)
+    while (dayOfWeekMatches < weeks[weekIndex]) {
+      if (isDayOfWeek(currDay)) {
+        dayOfWeekMatches++
+      }
+
+      currDay = add(currDay, { days: 1 })
+    }
+
+    return sub(currDay, { days: 1 })
+  }
+}
+
+export function isSameOrBefore(date, dateToCompare) {
+  return isSameDay(date, dateToCompare) || isBefore(date, dateToCompare)
+}
+
+export function isSameOrAfter(date, dateToCompare) {
+  return isSameDay(date, dateToCompare) || isAfter(date, dateToCompare)
+}
 
 export function toListString(arr) {
   if (arr.length === 0) {
@@ -17,20 +198,20 @@ export function toListString(arr) {
     return arr[0]
   }
 
-  const lastString = arr.pop()
-  return `${arr.join(", ")} and ${lastString}`
+  const lastString = arr.slice(arr.length - 1)
+  return `${arr.slice(0, arr.length - 1).join(", ")} and ${lastString}`
 }
 
 export function formatOccurrence(startDateTime, endDateTime) {
-  const startDT = parseISO(startDateTime)
-  const endDT = parseISO(endDateTime)
+  const startDT = startDateTime
+  const endDT = endDateTime
   if (isSameDay(startDT, endDT)) {
-    return `${format(startDT, "PP")} from ${format(startDT, "p")} to ${format(
+    return `${format(startDT, "PPPP")} from ${format(startDT, "p")} to ${format(
       endDT,
       "p"
     )}`
   } else {
-    return `${format(startDT, "PPp")} to ${format(endDT, "PPp")}`
+    return `${format(startDT, "PPPPp")} to ${format(endDT, "PPPPp")}`
   }
 }
 

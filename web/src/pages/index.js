@@ -1,6 +1,7 @@
 // import { Link } from "gatsby"
 import React from "react"
 import SEO from "../components/seo"
+import TitleSection from "../components/titleSection"
 import { graphql } from "gatsby"
 // import { mapEdgesToNodes } from "../lib/helpers"
 
@@ -14,7 +15,7 @@ const IndexPage = props => {
         // TODO what if banner.asset is null?
         // image={banner}
       />
-      <h1>WLM Home</h1>
+      <TitleSection title={"WLM Home"} />
       <h2>Under Construction!</h2>
       {/* TODO: make this a component, shared with the exhibits page */}
       {/* {exhibitNodes.map(exhibit => (

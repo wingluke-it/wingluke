@@ -258,7 +258,7 @@ const ExhibitsPage = props => {
     <>
       <SEO
         title="Exhibits"
-        description="The Official Website of the Wing Luke Museum of the Asian Pacific American Experience"
+        description="Exhibits of the Wing Luke Museum of the Asian Pacific American Experience"
         // TODO what if banner.asset is null?
         // image={banner}
       />

@@ -22,7 +22,7 @@ export default {
       description:
         "A slug is the identifying part of the URL of this tour's web page",
       options: {
-        source: "name.en",
+        source: "title.en",
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),

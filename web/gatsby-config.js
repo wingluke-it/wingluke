@@ -65,7 +65,6 @@ module.exports = {
       resolve: "gatsby-plugin-robots-txt",
       options: {
         host: "https://wingluke.netlify.app/", // TODO update this
-        // sitemap: "https://www.example.com/sitemap.xml",
         policy: [{ userAgent: "*", disallow: "/" }], // TODO change this once the site goes public
       },
     },

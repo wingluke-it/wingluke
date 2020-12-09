@@ -1,0 +1,26 @@
+@use "../styles/variables/" as v;
+
+.datePicker {
+  max-width: min(22rem, 100%);
+  margin: 0 auto;
+
+  .react-calendar__navigation__label {
+    color: black;
+  }
+
+  .react-calendar__month-view__days__day--weekend {
+    color: v.$primary-brand-color;
+  }
+
+  .react-calendar__tile--now {
+    // background-color: v.$secondary-brand-color;
+  }
+
+  .react-calendar__month-view__weekdays {
+    // text-align: center;
+    // text-transform: uppercase;
+    // font-weight: bold;
+    // font-size: 0.75em;
+  }
+  // background-color: transparent;
+}

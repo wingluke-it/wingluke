@@ -1,6 +1,11 @@
 import { Link, graphql } from "gatsby"
 import { compareAsc, format, parseISO } from "date-fns"
-import { formatOccurrence, toListString, toPlainText } from "../lib/helpers"
+import {
+  formatOccurrence,
+  getUpcomingDates,
+  toListString,
+  toPlainText,
+} from "../lib/helpers"
 
 import Banner from "../components/banner"
 import DocsLayout from "../components/layouts/docsLayout"
@@ -52,7 +57,10 @@ const Event = props => {
       .map((occ, index) => {
         const occIndexString =
           occurrences.length > 1 ? `Occurrence ${index + 1}: ` : ""
-        const occString = formatOccurrence(occ.startDateTime, occ.endDateTime)
+        const occString = formatOccurrence(
+          parseISO(occ.startDateTime),
+          parseISO(occ.endDateTime)
+        )
         return `${occIndexString}${occString}`
       })
   } else if (
@@ -62,7 +70,10 @@ const Event = props => {
     endDateTime
   ) {
     dateInfo.push(
-      `First happens ${formatOccurrence(startDateTime, endDateTime)}.`
+      `First happens ${formatOccurrence(
+        parseISO(startDateTime),
+        parseISO(endDateTime)
+      )}.`
     )
     switch (recurrenceType) {
       case "daily":
@@ -103,6 +114,19 @@ const Event = props => {
         `Stops repeating after ${format(parseISO(endRepeatDate), "PPP")}.`
       )
     }
+
+    getUpcomingDates(
+      new Date(),
+      5,
+      repeatingOccurrences
+    ).forEach(([start, end], index) =>
+      dateInfo.push(
+        `Upcoming occurrence ${index + 1} happens ${formatOccurrence(
+          start,
+          end
+        )}`
+      )
+    )
   }
 
   const sectionTitlesAndContent = {}

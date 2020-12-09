@@ -57,6 +57,7 @@ export default {
         layout: "radio",
         list: [
           { value: "traveling", title: "Traveling" },
+          { value: "virtual", title: "Virtual (online-only)" },
           { value: "past", title: "Past (dates unknown)" },
           { value: "upcoming", title: "Upcoming (opening date TBA)" },
           { value: "nowOnView", title: "Now On View (closing date TBA)" },
@@ -138,6 +139,18 @@ export default {
       type: "array",
       of: [{ type: "reference", to: [{ type: "artist" }] }],
       description: referenceDescription("artist"),
+    },
+    {
+      name: "virtualExhibitLink",
+      title: "Virtual Exhibit Link",
+      type: "url",
+      validation: (Rule) =>
+        Rule.uri({
+          allowRelative: false,
+          scheme: ["https", "http"],
+        }),
+      description:
+        "If this is a virtual (online-only) exhibit, please provide the URL to the webpage where it can be viewed. Otherwise, leave blank.",
     },
     {
       name: "travelingLocation",

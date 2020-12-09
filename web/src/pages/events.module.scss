@@ -1,0 +1,38 @@
+@use "../styles/variables/" as v;
+
+.h2 {
+  margin-top: 0;
+  margin-bottom: v.$baseline;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "datePicker" "events";
+}
+
+.datePickerContainer {
+  grid-area: datePicker;
+  padding: 0 v.$baseline / 2 v.$baseline;
+}
+
+.eventsContainer {
+  grid-area: events;
+  padding: 0 v.$baseline / 2 v.$baseline;
+}
+
+@media (min-width: v.$width-breakpoint-tablet) {
+  .grid {
+    grid-template-columns: 40% 1fr;
+    grid-template-areas: "datePicker events";
+  }
+
+  .datePickerContainer {
+    align-self: start;
+    position: sticky;
+    top: calc(var(--header-room) + #{v.$baseline});
+    transition: all 0.2s ease-in-out;
+    max-height: calc(100vh - var(--header-room));
+    overflow: auto;
+  }
+}

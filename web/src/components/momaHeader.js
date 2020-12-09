@@ -10,6 +10,17 @@ const MomaHeader = ({
   toggleHeader,
   headerIsHidden,
 }) => {
+  const MomaHeaderLink = ({ to = "/", text }) => (
+    <Link
+      onClick={toggleHeader}
+      activeClassName={styles.activeLink}
+      partiallyActive={true}
+      to={to}
+    >
+      {text}
+    </Link>
+  )
+
   return (
     <header
       className={classNames(styles.header, {
@@ -36,22 +47,15 @@ const MomaHeader = ({
         </div>
         {/* {headerIsOpen && ( */}
         <div className={styles.expandingContainer}>
-          <Link
-            onClick={toggleHeader}
-            activeClassName={styles.activeLink}
-            partiallyActive={true}
-            to="/exhibits"
-          >
-            Exhibits
-          </Link>
-          <Link
-            onClick={toggleHeader}
-            activeClassName={styles.activeLink}
-            partiallyActive={true}
-            to="/events"
-          >
-            Events
-          </Link>
+          <MomaHeaderLink to="/events" text="Events" />
+          <MomaHeaderLink to="/exhibits" text="Exhibits" />
+          <MomaHeaderLink to="/give" text="Give" />
+          <MomaHeaderLink to="/join" text="Join" />
+          <MomaHeaderLink to="/visit" text="Visit" />
+          <MomaHeaderLink to="/sponsors" text="Sponsors" />
+          <MomaHeaderLink to="/about" text="About" />
+          <MomaHeaderLink to="/spaces" text="Event Space Usage" />
+          <MomaHeaderLink to="/volunteer" text="Volunteer" />
         </div>
         {/* )} */}
       </nav>

@@ -214,7 +214,7 @@ export default {
           { title: "First", value: "first" },
           { title: "Second", value: "second" },
           { title: "Third", value: "third" },
-          { title: "Fourth", value: "Fourth" },
+          { title: "Fourth", value: "fourth" },
           { title: "Last", value: "last" },
         ],
       },
