@@ -2,10 +2,10 @@ import React from "react"
 import SEO from "../components/seo"
 import TitleSection from "../components/titleSection"
 import { graphql } from "gatsby"
-import { mapEdgesToNodes } from "../lib/helpers"
+// import { mapEdgesToNodes } from "../lib/helpers"
 
 const AboutPage = ({ data }) => {
-  const nodes = mapEdgesToNodes(data.allSanityStaffMember)
+  // const nodes = mapEdgesToNodes(data.allSanityStaffMember)
   return (
     <>
       <SEO

@@ -1,5 +1,5 @@
 import { Link, graphql } from "gatsby"
-import { compareAsc, format, parseISO } from "date-fns"
+import { compareAsc, format, isSameDay, parseISO } from "date-fns"
 import {
   formatOccurrence,
   getUpcomingDates,
@@ -8,6 +8,7 @@ import {
 } from "../lib/helpers"
 
 import Banner from "../components/banner"
+import ButtonStyledA from "../components/base_elements/buttonStyledA"
 import DocsLayout from "../components/layouts/docsLayout"
 import NavList from "../components/navList"
 import PortableText from "../components/portableText"
@@ -15,8 +16,8 @@ import React from "react"
 import SEO from "../components/seo"
 import TitleSection from "../components/titleSection"
 import TocLayout from "../components/layouts/tocLayout"
-// import styles from "./event.module.scss"
 import navListStyles from "../components/navList.module.scss"
+import styles from "./event.module.scss"
 import { useEvents } from "../hooks/useEvents"
 
 const Event = props => {
@@ -26,6 +27,11 @@ const Event = props => {
     scheduleType,
     finiteOccurrences,
     repeatingOccurrences,
+    isOnline,
+    loc,
+    streamLink,
+    admittanceType,
+    ticketingLink,
     banner,
     _rawDescription,
     _rawPricingDetails,
@@ -55,13 +61,28 @@ const Event = props => {
         compareAsc(parseISO(occ1.startDateTime), parseISO(occ2.startDateTime))
       )
       .map((occ, index) => {
-        const occIndexString =
-          occurrences.length > 1 ? `Occurrence ${index + 1}: ` : ""
-        const occString = formatOccurrence(
-          parseISO(occ.startDateTime),
-          parseISO(occ.endDateTime)
+        const startDT = parseISO(occ.startDateTime)
+        const endDT = parseISO(occ.endDateTime)
+        return (
+          <div key={`occ-${index}`} className={styles.keyDetailsWhenOccurrence}>
+            {occurrences.length > 1 && (
+              <p className={"h4"}>Occurrence {index + 1}</p>
+            )}
+            {isSameDay(startDT, endDT) ? (
+              <>
+                <p>{format(startDT, "E, PP")}</p>
+                <p>
+                  {format(startDT, "p")} to {format(endDT, "p")}
+                </p>
+              </>
+            ) : (
+              <>
+                <p>Starts: {format(startDT, "E, PP")}</p>
+                <p>Ends: {format(endDT, "E, PP")}</p>
+              </>
+            )}
+          </div>
         )
-        return `${occIndexString}${occString}`
       })
   } else if (
     scheduleType === "repeating" &&
@@ -70,40 +91,42 @@ const Event = props => {
     endDateTime
   ) {
     dateInfo.push(
-      `First happens ${formatOccurrence(
-        parseISO(startDateTime),
-        parseISO(endDateTime)
-      )}.`
+      <p key={"first-occ"}>
+        First happens{" "}
+        {formatOccurrence(parseISO(startDateTime), parseISO(endDateTime))}.
+      </p>
     )
     switch (recurrenceType) {
       case "daily":
         dateInfo.push(
-          `Repeats every ${
-            intervalDaily > 1 ? `${intervalDaily} days` : "day"
-          }.`
+          <p key={"repeat-info"}>
+            Repeats every {intervalDaily > 1 ? `${intervalDaily} days` : "day"}.
+          </p>
         )
         break
       case "weekly":
         dateInfo.push(
-          `Repeats on ${toListString(daysOfWeekWeekly)} every ${
-            intervalWeekly > 1 ? `${intervalWeekly} weeks` : "week"
-          }.`
+          <p key={"repeat-info"}>
+            Repeats on {toListString(daysOfWeekWeekly)} every{" "}
+            {intervalWeekly > 1 ? `${intervalWeekly} weeks` : "week"}.
+          </p>
         )
         break
       case "absMonthly":
         dateInfo.push(
-          `Repeats on the ${format(parseISO(startDateTime), "do")} every ${
-            intervalAbsMonthly > 1 ? `${intervalAbsMonthly} months` : "month"
-          }.`
+          <p key={"repeat-info"}>
+            Repeats on the {format(parseISO(startDateTime), "do")} every{" "}
+            {intervalAbsMonthly > 1 ? `${intervalAbsMonthly} months` : "month"}.
+          </p>
         )
         break
       case "relMonthly":
         dateInfo.push(
-          `Repeats on the ${toListString(indexRelMonthly)} ${toListString(
-            daysOfWeekRelMonthly
-          )} every ${
-            intervalRelMonthly > 1 ? `${intervalRelMonthly} months` : "month"
-          }.`
+          <p key={"repeat-info"}>
+            Repeats on the {toListString(indexRelMonthly)}{" "}
+            {toListString(daysOfWeekRelMonthly)} every{" "}
+            {intervalRelMonthly > 1 ? `${intervalRelMonthly} months` : "month"}.
+          </p>
         )
         break
       default:
@@ -111,21 +134,20 @@ const Event = props => {
     }
     if (endRepeatDate) {
       dateInfo.push(
-        `Stops repeating after ${format(parseISO(endRepeatDate), "PPP")}.`
+        <p key={"end-repeat"}>
+          Stops repeating after {format(parseISO(endRepeatDate), "PPP")}.
+        </p>
       )
     }
 
-    getUpcomingDates(
-      new Date(),
-      5,
-      repeatingOccurrences
-    ).forEach(([start, end], index) =>
-      dateInfo.push(
-        `Upcoming occurrence ${index + 1} happens ${formatOccurrence(
-          start,
-          end
-        )}`
-      )
+    getUpcomingDates(new Date(), 5, repeatingOccurrences).forEach(
+      ([start, end], index) =>
+        dateInfo.push(
+          <p key={`occ-${index}`}>
+            Upcoming occurrence {index + 1} happens{" "}
+            {formatOccurrence(start, end)}
+          </p>
+        )
     )
   }
 
@@ -158,16 +180,61 @@ const Event = props => {
           subtitle={subtitle && subtitle.en}
           beforeText={"EVENT"}
           after={
-            <>
-              {dateInfo.length > 0 &&
-                dateInfo.map((occurrence, index) => (
-                  <p
-                    key={`occ-${index}`} /* className={styles.halfTopMargin} */
-                  >
-                    {occurrence}
-                  </p>
-                ))}
-            </>
+            <div className={styles.keyDetailsContainer}>
+              <div className={styles.keyDetailsWhen}>{dateInfo}</div>
+              <div className={styles.keyDetailsWhere}>
+                {isOnline ? (
+                  <p>Online</p>
+                ) : (
+                  loc &&
+                  loc.address && (
+                    <>
+                      {/* TODO location icon */}
+                      {loc.siteName && loc.siteName.en && (
+                        <p>{loc.siteName.en}</p>
+                      )}
+                      {loc.address && <p>{loc.address}</p>}
+                    </>
+                  )
+                )}
+                {streamLink && (
+                  <ButtonStyledA
+                    href={streamLink}
+                    newtab={true}
+                    text={"Join Stream"}
+                  />
+                )}
+              </div>
+              <div className={styles.keyDetailsRSVP}>
+                {/* TODO capacityInfo */}
+                {/* TODO "RSVP on Facebook" button/link */}
+                {admittanceType === "freeNoReg" && <p>Free</p>}
+                {admittanceType === "freeWithReg" && (
+                  <>
+                    <p>Free with Registration</p>
+                    {ticketingLink && (
+                      <ButtonStyledA
+                        href={ticketingLink}
+                        newtab={true}
+                        text={"Register"}
+                      />
+                    )}
+                  </>
+                )}
+                {admittanceType === "ticketPurchaseRequired" && (
+                  <>
+                    <p>Ticket Purchase Required</p>
+                    {ticketingLink && (
+                      <ButtonStyledA
+                        href={ticketingLink}
+                        newtab={true}
+                        text={"Buy Tickets"}
+                      />
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
           }
         />
         <Banner figure={banner} />
@@ -238,6 +305,17 @@ export const query = graphql`
       banner {
         ...SanityImage
       }
+      isOnline
+      loc {
+        address
+        siteName {
+          en
+        }
+        # mapLocation # (for google maps lat lon)
+      }
+      streamLink
+      admittanceType
+      ticketingLink
       _rawDescription
       _rawPricingDetails
     }

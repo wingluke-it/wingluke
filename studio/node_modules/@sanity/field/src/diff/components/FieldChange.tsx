@@ -1,4 +1,4 @@
-import {DialogAction} from '@sanity/components'
+import {DialogAction} from '@sanity/base/__legacy/@sanity/components'
 import {useDocumentOperation} from '@sanity/react-hooks'
 import classNames from 'classnames'
 import PopoverDialog from 'part:@sanity/components/dialogs/popover'
@@ -73,7 +73,7 @@ export function FieldChange({change}: {change: FieldChangeNode}) {
           ) : (
             <DiffErrorBoundary>
               <DiffContext.Provider value={{path: change.path}}>
-                <DiffComponent diff={change.diff} schemaType={change.schemaType} />
+                <DiffComponent diff={change.diff} schemaType={change.schemaType as any} />
               </DiffContext.Provider>
             </DiffErrorBoundary>
           )}

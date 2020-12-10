@@ -63,6 +63,12 @@ p {
   max-width: min(100vw, #{$p-width});
 }
 
+span {
+  letter-spacing: 0px;
+  font-weight: 300;
+  font-style: normal;
+}
+
 li {
   line-height: v.$baseline;
   max-width: min(100vw, #{$p-width});

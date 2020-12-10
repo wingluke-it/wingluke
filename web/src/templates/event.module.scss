@@ -1,0 +1,34 @@
+@use "../styles/variables/" as v;
+
+.keyDetailsContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+  min-height: v.$baseline * 5;
+  margin-top: v.$baseline;
+
+  & > div {
+    margin: 0 v.$baseline / 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  p {
+    margin: 0 auto;
+  }
+}
+
+.keyDetailsWhen {
+  &Occurrence {
+    height: 100%;
+    margin-bottom: v.$baseline / 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+}
+
+// @media (min-width < #{v.$breakpoint-tablet})

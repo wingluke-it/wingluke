@@ -1,12 +1,12 @@
 import React from "react"
 import { buildImageObj } from "../lib/helpers"
+import classNames from "classnames"
 import { imageUrlFor } from "../lib/image-url"
 import styles from "./figure.module.scss"
-import classNames from "classnames"
 
 const Figure = ({
   figure,
-  displayCaption = true,
+  displayCaption = false,
   width = 1200,
   dimensions = 9 / 16,
   className,

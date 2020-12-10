@@ -1,8 +1,29 @@
 @use "../styles/variables/" as v;
 
-.h2 {
-  margin-top: 0;
-  margin-bottom: v.$baseline;
+.eventDateSection {
+  margin-bottom: v.$baseline * 2;
+
+  & > div {
+    margin-bottom: v.$baseline;
+  }
+
+  h2 {
+    position: sticky;
+    top: var(--header-room);
+    transition: all 0.2s ease-in-out;
+    border-bottom: 1px solid v.$dark-gray;
+    padding: v.$baseline 0;
+    margin: 0;
+  }
+
+  .eventCardSubtitle {
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.25 * v.$baseline;
+    margin: 0 auto;
+    text-align: center;
+    color: v.$transparent-black-lighter;
+  }
 }
 
 .grid {
@@ -14,6 +35,15 @@
 .datePickerContainer {
   grid-area: datePicker;
   padding: 0 v.$baseline / 2 v.$baseline;
+  max-width: 100vw;
+
+  // *:first-child {
+  //   margin-top: 0;
+  // }
+
+  p {
+    margin-top: v.$baseline;
+  }
 }
 
 .eventsContainer {

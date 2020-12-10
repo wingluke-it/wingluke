@@ -2,7 +2,7 @@
 
 .datePicker {
   max-width: min(22rem, 100%);
-  margin: 0 auto;
+  margin: v.$baseline auto 0;
 
   .react-calendar__navigation__label {
     color: black;

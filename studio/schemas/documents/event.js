@@ -36,6 +36,28 @@ export default {
       description: "Provide a short (3-5 sentence) description of this event.",
     },
     {
+      // TODO should this be changed or separated into event audience?
+      name: "eventTags",
+      title: "Event Tags",
+      type: "array",
+      options: {
+        list: [
+          { value: "communityProgram", title: "Community/Public Programming" },
+          { value: "donorEvent", title: "Donor Event" },
+          { value: "memberOnly", title: "Member-Only" },
+          {
+            value: "tatuechi",
+            title: "Supported by the Tatuechi Story Theatre",
+          },
+          {
+            value: "nonWing",
+            title: "Non-Wing Event (promoted, but not planned, by the Wing)",
+          },
+        ],
+      },
+      of: [{ type: "string" }],
+    },
+    {
       name: "scheduleType",
       title: "Schedule Type",
       type: "string",
@@ -82,16 +104,86 @@ export default {
       // TODO validation (may need to be document-level validation)
     },
     {
+      name: "isOnline",
+      title: "Is Online Event",
+      type: "boolean",
+    },
+    {
       name: "loc",
       title: "Location",
       type: "location",
+      description:
+        "These details should NOT be provided if this is an online event.",
       // TODO should this only be enabled if this event is not an online-only event?
+    },
+    {
+      name: "admittanceType",
+      title: "Admittance Type",
+      type: "string",
+      options: {
+        list: [
+          {
+            value: "freeNoReg",
+            title: "Free (no registration required)",
+          },
+          {
+            value: "freeWithReg",
+            title: "Free with Registration",
+          },
+          {
+            value: "ticketPurchaseRequired",
+            title: "Ticket Purchase Required",
+          },
+        ],
+        layout: "radio",
+      },
+    },
+    {
+      name: "streamLink",
+      title: "Stream Link",
+      type: "url",
+      validation: (Rule) =>
+        Rule.uri({
+          allowRelative: false,
+          scheme: ["https", "http"],
+        }),
+      description:
+        "Provide a link to where attendees for this event can stream it.",
+    },
+    {
+      name: "ticketingLink",
+      title: "Ticketing Link",
+      type: "url",
+      validation: (Rule) =>
+        Rule.uri({
+          allowRelative: false,
+          scheme: ["https", "http"],
+        }),
+      description:
+        "Provide a link to where attendees for this event can register and/or purchase tickets.",
     },
     {
       name: "banner",
       title: "Banner",
       type: "figure",
       description: "Provide a banner image for this event",
+    },
+    {
+      name: "pricingDetails",
+      title: "Pricing Details",
+      type: "localePortableText",
+      description: "Please provide pricing details for this event.",
+    },
+    {
+      name: "fbEvent",
+      title: "Facebook Event",
+      type: "url",
+      validation: (Rule) =>
+        Rule.uri({
+          allowRelative: false,
+          scheme: ["https", "http"],
+        }),
+      description: "Provide a link to the corresponding Facebook event.",
     },
     {
       name: "flier",
@@ -134,69 +226,6 @@ export default {
       type: "array",
       of: [{ type: "reference", to: [{ type: "department" }] }],
       validation: (Rule) => Rule.unique(),
-    },
-    {
-      name: "eventTypes",
-      title: "Event Type(s)",
-      type: "array",
-      options: {
-        list: [
-          { value: "communityProgram", title: "Community/Public Programming" },
-          { value: "donorEvent", title: "Donor Event" },
-          { value: "memberOnly", title: "Member-Only" },
-          { value: "onlineOnly", title: "Online-Only" },
-          {
-            value: "tatuechi",
-            title: "Supported by the Tatuechi Story Theatre",
-          },
-          {
-            value: "nonWing",
-            title: "Non-Wing Event (promoted, but not planned, by the Wing)",
-          },
-        ],
-      },
-      of: [{ type: "string" }],
-    },
-    {
-      name: "rsvpLink",
-      title: "RSVP Link",
-      type: "url",
-      validation: (Rule) =>
-        Rule.uri({
-          allowRelative: false,
-          scheme: ["https", "http"],
-        }),
-      description:
-        "Provide a link to where attendees for this event can RSVP or register.",
-    },
-    {
-      name: "pricingDetails",
-      title: "Pricing Details",
-      type: "localePortableText",
-      description: "Please provide pricing details for this event.",
-    },
-    {
-      name: "streamLink",
-      title: "Stream Link",
-      type: "url",
-      validation: (Rule) =>
-        Rule.uri({
-          allowRelative: false,
-          scheme: ["https", "http"],
-        }),
-      description:
-        "Provide a link to where attendees for this event can stream it.",
-    },
-    {
-      name: "fbEvent",
-      title: "Facebook Event",
-      type: "url",
-      validation: (Rule) =>
-        Rule.uri({
-          allowRelative: false,
-          scheme: ["https", "http"],
-        }),
-      description: "Provide a link to the corresponding Facebook event.",
     },
     {
       name: "accessibilityInfo",
@@ -256,6 +285,26 @@ export default {
       },
     },
   ],
+  validation: (Rule) =>
+    Rule.custom((fields) => {
+      if (
+        fields &&
+        fields.admittanceType === "freeWithReg" &&
+        !fields.ticketingLink
+      ) {
+        return 'A ticketing link must be provided because this event is set to the admittance type "Free with Registration".';
+      }
+
+      if (
+        fields &&
+        fields.admittanceType === "ticketPurchaseRequired" &&
+        !fields.ticketingLink
+      ) {
+        return 'A ticketing link must be provided because this event is set to the admittance type "Ticket Purchase Required".';
+      }
+
+      return true;
+    }),
   preview: {
     select: {
       title: "title.en",
