@@ -16,13 +16,67 @@
     margin: 0;
   }
 
+  p {
+    text-align: center;
+  }
+
+  figure {
+    margin: 0;
+
+    img {
+      width: 75%;
+      height: auto;
+
+      @media (min-width: 1175px) {
+        max-height: 4 * v.$baseline;
+        width: auto;
+      }
+    }
+  }
+
   .eventCardSubtitle {
     font-weight: 500;
-    font-size: 1.25rem;
-    line-height: 1.25 * v.$baseline;
+    font-size: 1.15rem;
+    line-height: 1.15 * v.$baseline;
     margin: 0 auto;
-    text-align: center;
     color: v.$transparent-black-lighter;
+  }
+
+  .eventCardBannerContainer {
+    margin-top: v.$baseline;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    @media (min-width: 1175px) {
+      flex-direction: row;
+    }
+
+    .eventCardDateInfo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: v.$baseline auto 0;
+
+      @media (min-width: 380px) {
+        flex-direction: row;
+      }
+
+      @media (min-width: 1175px) {
+        margin: 0 0 0 v.$baseline / 2;
+      }
+
+      p {
+        margin: 0 v.$baseline / 2;
+        text-align: center;
+      }
+    }
+
+    *:first-child {
+      margin-top: 0;
+    }
   }
 }
 
@@ -60,7 +114,7 @@
   .datePickerContainer {
     align-self: start;
     position: sticky;
-    top: calc(var(--header-room) + #{v.$baseline});
+    top: var(--header-room);
     transition: all 0.2s ease-in-out;
     max-height: calc(100vh - var(--header-room));
     overflow: auto;

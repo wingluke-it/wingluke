@@ -218,6 +218,7 @@ export function formatOccurrence(startDateTime, endDateTime) {
 export function getExhibitStatus(openingDate, closingDate, specialCategory) {
   const statuses = {
     noStatus: "",
+    virtual: "Virtual",
     nowOnView: "Now on View",
     alwaysOnView: "Always on View",
     upcoming: "Upcoming",
@@ -231,6 +232,10 @@ export function getExhibitStatus(openingDate, closingDate, specialCategory) {
   const cDate = closingDate && parseISO(closingDate)
   if (specialCategory && specialCategory !== "none") {
     switch (specialCategory) {
+      case "virtual":
+        exhibitStatus = statuses.virtual
+        secondaryStatus = ""
+        break
       case "traveling":
         exhibitStatus = statuses.traveling
         secondaryStatus = ""

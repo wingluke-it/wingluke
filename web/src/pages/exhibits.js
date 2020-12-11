@@ -16,6 +16,7 @@ const ExhibitsPage = props => {
   const upcoming = []
   const nowOnView = []
   const alwaysOnView = []
+  const virtual = []
   const traveling = []
 
   const secondaryStatuses = {}
@@ -36,6 +37,9 @@ const ExhibitsPage = props => {
         break
       case "Always on View":
         alwaysOnView.push(exhibit)
+        break
+      case "Virtual":
+        virtual.push(exhibit)
         break
       case "Upcoming":
         upcoming.push(exhibit)
@@ -155,6 +159,53 @@ const ExhibitsPage = props => {
             </Link>
           </li>
         ))}
+      </ul>
+    )
+  }
+
+  if (virtual.length > 0) {
+    sectionTitlesAndContent["Virtual"] = (
+      <ul className={classNames(styles.grid, styles.virtual)}>
+        {virtual.map((exhibit, index) => {
+          const virtualExhibitCard = (
+            <>
+              {exhibit.banner && (
+                <Figure
+                  figure={exhibit.banner}
+                  // dimensions={1 / 1} defaults to 9 / 16 ?
+                  width={300}
+                  displayCaption={false}
+                  // className={styles.banner}
+                />
+              )}
+              {exhibit.title && exhibit.title.en && (
+                <h3 className={"h4"}>{exhibit.title.en}</h3>
+              )}
+              {exhibit.subtitle && exhibit.subtitle.en && (
+                <p className={styles.subtitle}>
+                  <i>{exhibit.subtitle.en}</i>
+                </p>
+              )}
+            </>
+          )
+          return (
+            <li key={`virtual-${index}`}>
+              {exhibit.virtualExhibitLink ? (
+                <a
+                  href={exhibit.virtualExhibitLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {virtualExhibitCard}
+                </a>
+              ) : (
+                <Link to={`/exhibits/${exhibit.slug && exhibit.slug.current}`}>
+                  {virtualExhibitCard}
+                </Link>
+              )}
+            </li>
+          )
+        })}
       </ul>
     )
   }
@@ -298,6 +349,7 @@ export const query = graphql`
           specialCategory
           openingDate
           closingDate
+          virtualExhibitLink
         }
       }
     }

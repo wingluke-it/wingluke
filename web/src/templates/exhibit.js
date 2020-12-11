@@ -30,6 +30,7 @@ const ExhibitTemplate = props => {
     closingDate,
     _rawGallery,
     specialCategory,
+    virtualExhibitLink,
     featuredArtists,
     curatedBy,
   } = props.data && props.data.exhibit
@@ -219,6 +220,7 @@ const ExhibitTemplate = props => {
         </h2>,
         getNavSection("Now on View"),
         getNavSection("Always on View"),
+        getNavSection("Virtual"),
         getNavSection("Upcoming"),
         getNavSection("Past"),
         getNavSection("Traveling (For Rent)"),
@@ -261,11 +263,19 @@ const ExhibitTemplate = props => {
                 </p>
               )}
               <div className={styles.titleButtonContainer}>
-                <ButtonStyledA
-                  href={ticketPurchaseLink}
-                  newtab={true}
-                  text={"Buy Tickets"}
-                />
+                {virtualExhibitLink ? (
+                  <ButtonStyledA
+                    href={virtualExhibitLink}
+                    newtab={true}
+                    text={"View Exhibit"}
+                  />
+                ) : (
+                  <ButtonStyledA
+                    href={ticketPurchaseLink}
+                    newtab={true}
+                    text={"Buy Tickets"}
+                  />
+                )}
                 {/* TODO update this with actual plan a visit link */}
                 <ButtonStyledLink to={"/visit/"} text={"Plan a Visit"} />
                 {/* <ButtonStyledLink to={"/exhibits/"} text={"All Exhibits"} /> */}
@@ -316,6 +326,7 @@ export const query = graphql`
       }
       _rawGallery(resolveReferences: { maxDepth: 2 })
       specialCategory
+      virtualExhibitLink
       featuredArtists {
         name {
           en
