@@ -114,11 +114,15 @@ export function getUpcomingDates(afterDate, datesNeeded, repeatingEvent) {
         })
         break
       case "relMonthly":
+        const currStartCopy = currStart // this is to avoid the 'no-loop-func' ESLintError
         indexRelMonthly.forEach(weekIndex => {
           daysOfWeekRelMonthly.forEach(dayOfWeek => {
             const startDateToAdd = add(
-              getRelMonthlyDate(weekIndex, dayOfWeek, currStart),
-              { hours: getHours(currStart), minutes: getMinutes(currStart) }
+              getRelMonthlyDate(weekIndex, dayOfWeek, currStartCopy),
+              {
+                hours: getHours(currStartCopy),
+                minutes: getMinutes(currStartCopy),
+              }
             )
             const endDateToAdd = add(startDateToAdd, { minutes: diffInMin })
             if (

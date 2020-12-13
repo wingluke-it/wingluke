@@ -16,7 +16,7 @@ export default {
       type: "slug",
       title: "Slug",
       description:
-        "To give this artist a dedicated page on wingluke.org, please set the slug. Otherwise, leave blank. A slug is the identifying part of the URL of this exhibit's web page. Once this is set on a published, public page, do not change it.",
+        "To give this artist a dedicated page on wingluke.org, please set the slug. Otherwise, leave blank. A slug is the identifying part of the URL of this exhibit's web page. Use the 'Generate' button to set it to a unique ID based on the Name field. Once this is set on a published, public page, do not change it.",
       options: {
         source: "name.en",
         maxLength: 96,

@@ -20,7 +20,7 @@ export default {
       type: "slug",
       title: "Slug",
       description:
-        "A slug is the identifying part of the URL of this tour's web page",
+        "A slug is the identifying part of the URL of this tour's web page. Use the 'Generate' button to set it to a unique ID based on the Title field. Once this is set on a published, public page, do not change it.",
       options: {
         source: "title.en",
         maxLength: 96,
@@ -39,16 +39,6 @@ export default {
       title: "Banner",
       type: "figure",
       description: "Provide a banner image for this tour.",
-    },
-    {
-      name: "imageGallery",
-      title: "Image Gallery",
-      type: "array",
-      of: [{ type: "figure" }],
-      options: {
-        layout: "grid",
-      },
-      // TODO description...what types of images are in this field?
     },
     /*     {
       name: "isDropIn",
@@ -172,6 +162,16 @@ export default {
         }),
       description:
         "If visitors may register or purchase tickets for this tour online, please provide the corresponding Altru or ticketing engine link.",
+    },
+    {
+      name: "imageGallery",
+      title: "Image Gallery",
+      type: "array",
+      of: [{ type: "figure" }],
+      options: {
+        layout: "grid",
+      },
+      // TODO description...what types of images are in this field?
     },
     {
       name: "capacity",

@@ -21,7 +21,7 @@ export default {
       type: "slug",
       title: "Slug",
       description:
-        "A slug is the identifying part of the URL of this exhibit's web page. Once this is set on a published, public page, do not change it.",
+        "A slug is the identifying part of the URL of this exhibit's web page. Use the 'Generate' button to set it to a unique ID based on the Title field. Once this is set on a published, public page, do not change it.",
       options: {
         source: "title.en",
         maxLength: 96,
