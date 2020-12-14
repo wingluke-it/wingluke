@@ -1,5 +1,5 @@
 import { Link } from "gatsby"
-import Logo from "../images/white-logo.png"
+import Logo from "../images/wingluke-logo-white-horizontal.svg"
 import React from "react"
 import classNames from "classnames"
 import styles from "./momaHeader.module.scss"

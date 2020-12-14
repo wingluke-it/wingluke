@@ -1,0 +1,43 @@
+@use "../styles/variables/" as v;
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  padding-left: v.$baseline;
+
+  .detail {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-top: v.$baseline;
+
+    .iconContainer {
+      min-width: 1rem;
+    }
+
+    &Text {
+      margin-left: v.$baseline / 2;
+    }
+
+    @media (max-width: 767px) {
+      width: auto;
+      margin: v.$baseline v.$baseline / 2 0;
+    }
+  }
+
+  @media (max-width: 767px) {
+    flex-flow: row wrap;
+    padding-left: 0;
+    justify-content: space-evenly;
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: v.$baseline;
+}

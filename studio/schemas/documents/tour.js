@@ -28,6 +28,16 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: "type",
+      type: "string",
+      title: "Tour Type",
+      options: {
+        list: ["Neighborhood Tour", "Museum Tour", "Literary Tour", "No type"],
+        layout: "radio",
+        direction: "horizontal",
+      },
+    },
+    {
       name: "overview",
       title: "Overview",
       type: "localePortableText",
@@ -98,9 +108,9 @@ export default {
     {
       name: "schedulingInfo",
       title: "Public Schedule",
-      type: "schedulingInfo",
+      type: "localeText",
       description:
-        "If this is a public tour that runs on a set schedule, provide details for when and how often this tour occurs. (This enables this tour to show up on the website calendar).", // TODO provide example, such as HHT or CDT
+        "If this is a public tour that runs on a set schedule, provide details for when and how often this tour occurs.", // TODO provide example, such as HHT or CDT
       options: {
         collapsible: true,
       },
