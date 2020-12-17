@@ -6,20 +6,20 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: v.$baseline / 2;
+}
 
-  .detail {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: auto;
-    margin: 0 v.$baseline / 2 v.$baseline / 2 0;
+.detail {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: auto;
+  margin: 0 v.$baseline / 2 v.$baseline / 2 0;
 
-    .iconContainer {
-      min-width: 1rem;
-    }
+  .iconContainer {
+    min-width: 1rem;
+  }
 
-    &Text {
-      margin-left: v.$baseline / 2;
-    }
+  &Text {
+    margin-left: v.$baseline / 2;
   }
 }

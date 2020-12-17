@@ -9,6 +9,11 @@
   box-shadow: 4px 4px 10px 0 rgba(0, 0, 6, 0.08), 0 0 2px 0 rgba(0, 0, 6, 0.08);
   overflow: hidden;
 
+  &:hover {
+    box-shadow: 6px 6px 10px 0 rgba(0, 0, 6, 0.18),
+      0 0 4px 0 rgba(0, 0, 6, 0.18);
+  }
+
   &Body {
     flex: 0 1 60%;
     display: flex;

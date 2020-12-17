@@ -2,27 +2,53 @@
 
 .keyDetailsContainer {
   display: flex;
+  flex-flow: row wrap;
   justify-content: space-evenly;
   align-items: stretch;
   min-height: v.$baseline * 5;
   margin-top: v.$baseline;
 
-  & > div {
-    margin: 0 v.$baseline / 2;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-  }
+  // & > div {
+  //   margin: 0 v.$baseline / 2;
+  //   flex: 1 0 v.$baseline * 6;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: space-evenly;
+  //   align-items: center;
+  // }
 
   p {
     margin: 0 auto;
   }
 }
 
-.keyDetailsWhen {
-  &Occurrence {
+.detail {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: auto;
+  margin: 0 v.$baseline / 2 v.$baseline / 2 0;
+
+  .iconContainer {
+    min-width: 1rem;
+  }
+
+  &Text {
+    margin-left: v.$baseline / 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-height: 100%;
+  }
+}
+
+.keyDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+
+  &WhenOccurrence {
     height: 100%;
     margin-bottom: v.$baseline / 2;
     display: flex;

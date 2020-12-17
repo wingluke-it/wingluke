@@ -117,11 +117,23 @@ export default {
       type: "boolean",
     },
     {
+      name: "streamLink",
+      title: "Stream Link",
+      type: "url",
+      validation: (Rule) =>
+        Rule.uri({
+          allowRelative: false,
+          scheme: ["https", "http"],
+        }),
+      description:
+        "Provide a link to where attendees for this event can stream it.",
+    },
+    {
       name: "loc",
       title: "Location",
       type: "location",
       description:
-        "These details should NOT be provided if this is an online event.",
+        "These details do NOT need to be provided if this is an online event.",
       // TODO should this only be enabled if this event is not an online-only event?
     },
     {
@@ -145,18 +157,6 @@ export default {
         ],
         layout: "radio",
       },
-    },
-    {
-      name: "streamLink",
-      title: "Stream Link",
-      type: "url",
-      validation: (Rule) =>
-        Rule.uri({
-          allowRelative: false,
-          scheme: ["https", "http"],
-        }),
-      description:
-        "Provide a link to where attendees for this event can stream it.",
     },
     {
       name: "ticketingLink",

@@ -8,11 +8,15 @@ import {
 } from "../lib/helpers"
 
 import Banner from "../components/banner"
+import { BsCalendar } from "@react-icons/all-files/bs/BsCalendar"
 import ButtonStyledA from "../components/base_elements/buttonStyledA"
 import DocsLayout from "../components/layouts/docsLayout"
+import { GoLocation } from "@react-icons/all-files/go/GoLocation"
+import { IoTicketOutline } from "@react-icons/all-files/io5/IoTicketOutline"
 import NavList from "../components/navList"
 import PortableText from "../components/portableText"
 import React from "react"
+import { RiComputerLine } from "@react-icons/all-files/ri/RiComputerLine"
 import SEO from "../components/seo"
 import TitleSection from "../components/titleSection"
 import TocLayout from "../components/layouts/tocLayout"
@@ -20,10 +24,18 @@ import navListStyles from "../components/navList.module.scss"
 import styles from "./event.module.scss"
 import { useEvents } from "../hooks/useEvents"
 
+const Detail = ({ icon, text }) => (
+  <div className={styles.detail}>
+    <span className={styles.iconContainer}>{icon}</span>
+    <span className={styles.detailText}>{text}</span>
+  </div>
+)
+
 const Event = props => {
   const {
     title,
     subtitle,
+    eventTags,
     scheduleType,
     finiteOccurrences,
     repeatingOccurrences,
@@ -181,59 +193,75 @@ const Event = props => {
           beforeText={"EVENT"}
           after={
             <div className={styles.keyDetailsContainer}>
-              <div className={styles.keyDetailsWhen}>{dateInfo}</div>
-              <div className={styles.keyDetailsWhere}>
-                {isOnline ? (
-                  <p>Online</p>
-                ) : (
-                  loc &&
-                  loc.address && (
-                    <>
-                      {/* TODO location icon */}
-                      {loc.siteName && loc.siteName.en && (
-                        <p>{loc.siteName.en}</p>
-                      )}
-                      {loc.address && <p>{loc.address}</p>}
-                    </>
+              <Detail text={dateInfo} icon={<BsCalendar title={"Date"} />} />
+              <Detail
+                text={
+                  <>
+                    {isOnline ? (
+                      <p>Online</p>
+                    ) : (
+                      loc &&
+                      loc.address && (
+                        <>
+                          {/* TODO location icon */}
+                          {loc.siteName && loc.siteName.en && (
+                            <p>{loc.siteName.en}</p>
+                          )}
+                          {loc.address && <p>{loc.address}</p>}
+                        </>
+                      )
+                    )}
+                    {streamLink && (
+                      <ButtonStyledA
+                        href={streamLink}
+                        newtab={true}
+                        text={"Join Stream"}
+                      />
+                    )}
+                  </>
+                }
+                icon={
+                  isOnline ? (
+                    <RiComputerLine />
+                  ) : (
+                    <GoLocation title={"Location"} />
                   )
-                )}
-                {streamLink && (
-                  <ButtonStyledA
-                    href={streamLink}
-                    newtab={true}
-                    text={"Join Stream"}
-                  />
-                )}
-              </div>
-              <div className={styles.keyDetailsRSVP}>
-                {/* TODO capacityInfo */}
-                {/* TODO "RSVP on Facebook" button/link */}
-                {admittanceType === "freeNoReg" && <p>Free</p>}
-                {admittanceType === "freeWithReg" && (
+                }
+              />
+              <Detail
+                icon={<IoTicketOutline />}
+                text={
                   <>
-                    <p>Free with Registration</p>
-                    {ticketingLink && (
-                      <ButtonStyledA
-                        href={ticketingLink}
-                        newtab={true}
-                        text={"Register"}
-                      />
+                    {/* TODO capacityInfo */}
+                    {/* TODO "RSVP on Facebook" button/link */}
+                    {admittanceType === "freeNoReg" && <p>Free</p>}
+                    {admittanceType === "freeWithReg" && (
+                      <>
+                        <p>Free with Registration</p>
+                        {ticketingLink && (
+                          <ButtonStyledA
+                            href={ticketingLink}
+                            newtab={true}
+                            text={"Register"}
+                          />
+                        )}
+                      </>
+                    )}
+                    {admittanceType === "ticketPurchaseRequired" && (
+                      <>
+                        <p>Ticket Purchase Required</p>
+                        {ticketingLink && (
+                          <ButtonStyledA
+                            href={ticketingLink}
+                            newtab={true}
+                            text={"Buy Tickets"}
+                          />
+                        )}
+                      </>
                     )}
                   </>
-                )}
-                {admittanceType === "ticketPurchaseRequired" && (
-                  <>
-                    <p>Ticket Purchase Required</p>
-                    {ticketingLink && (
-                      <ButtonStyledA
-                        href={ticketingLink}
-                        newtab={true}
-                        text={"Buy Tickets"}
-                      />
-                    )}
-                  </>
-                )}
-              </div>
+                }
+              />
             </div>
           }
         />
@@ -288,6 +316,7 @@ export const query = graphql`
       subtitle {
         en
       }
+      eventTags
       scheduleType
       finiteOccurrences {
         occurrences {

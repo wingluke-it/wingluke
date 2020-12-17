@@ -1,4 +1,5 @@
 import React from "react"
+import SEO from "../components/seo"
 import TabbedTitles from "../components/tabbedTitles"
 import WingCalendar from "../components/wingCalendar"
 import { graphql } from "gatsby"
@@ -10,6 +11,11 @@ const ToursPage = ({ data, pageContext: { currentDate } }) => {
 
   return (
     <>
+      <SEO
+        title={"Tours"}
+        description={"Tours Calendar of the Wing Luke Museum"}
+        // image={banner}
+      />
       <TabbedTitles
         titles={[
           {

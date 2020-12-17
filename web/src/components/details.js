@@ -26,4 +26,5 @@ Details.propTypes = {
   ),
 }
 
+export { Detail }
 export default Details
