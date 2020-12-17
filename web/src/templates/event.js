@@ -239,7 +239,13 @@ const Event = props => {
         />
         <Banner figure={banner} />
         <DocsLayout
-          main={<TocLayout sectionTitlesAndContent={sectionTitlesAndContent} />}
+          main={
+            <TocLayout
+              hideTocNav={true}
+              headersHiddenAtBreakpoint={false}
+              sectionTitlesAndContent={sectionTitlesAndContent}
+            />
+          }
           sidebar={
             <aside>
               <NavList

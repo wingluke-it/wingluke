@@ -1,0 +1,23 @@
+@use "../styles/variables/" as v;
+
+.titles {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  max-width: v.$width-breakpoint-laptop-s;
+  margin: v.$baseline * 2 auto;
+
+  .activeTitle {
+    margin-top: v.$baseline * 2;
+    border-bottom: 2px solid black;
+  }
+
+  .nonActiveTitle {
+    margin-top: v.$baseline * 2;
+    font-weight: 500;
+
+    &:hover {
+      color: v.$primary-brand-color;
+    }
+  }
+}

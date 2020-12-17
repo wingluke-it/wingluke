@@ -128,7 +128,7 @@ const Layout = ({ children }) => {
         headerIsOpen={headerIsOpen}
         toggleHeader={toggleHeader}
       />
-      <main>
+      <main className={classNames({ [styles.visibilityHidden]: headerIsOpen })}>
         {/* TODO <a id="main-content"></a> */}
         {children}
       </main>

@@ -105,61 +105,64 @@ export default {
       fieldset: "bookingOptions",
     }, */
     // TODO add validation such that schedulingInfo and other fields is requried if isPublic is true
+
     {
-      name: "schedulingInfo",
-      title: "Public Schedule",
-      type: "localeText",
-      description:
-        "If this is a public tour that runs on a set schedule, provide details for when and how often this tour occurs.", // TODO provide example, such as HHT or CDT
+      name: "scheduleType",
+      title: "Schedule Type",
+      type: "string",
       options: {
-        collapsible: true,
+        list: [
+          {
+            title:
+              "Finite Tour Occurrences (this tour only occurs on a single date or on a finite number of specific dates - e.g. JART tour or a limited Food Walk series)",
+            value: "finite",
+          },
+          {
+            // TODO add another example
+            title:
+              "Repeating Tour Occurrences (this tour runs on a set schedule and has many occurrences - e.g. Virtual Historic Hotel Tour every Thursday)",
+            value: "repeating",
+          },
+          {
+            title: "Do not show this tour on calendar (unscheduled)",
+            value: "unscheduled",
+          },
+        ],
+        layout: "radio",
       },
-      fieldset: "bookingOptions",
+      fieldset: "calendarOptions",
     },
     {
-      name: "privateGroupContact",
-      title: "Private Group Scheduling Contact",
-      type: "localePortableText",
+      name: "finiteOccurrences",
+      title: "Finite Tour Occurrences Details",
+      type: "eventOccurrences",
       options: {
         collapsible: true,
       },
       description:
-        "If this tour can be privately booked for private groups, please provide contact details (e.g. 'If you would like to schedule a private tour for your family, business, or friend group, contact tours@wingluke.org or 206.623.5124 ext 133').",
-      fieldset: "bookingOptions",
+        "If this tour occurs on a finite number of specific dates, please add all such occurrences here.",
+      fieldset: "calendarOptions",
+      // TODO validation (may need to be document-level validation) include instructions: "please click dropdown arrow"
     },
     {
-      name: "schoolGroupContact",
-      title: "School Group Scheduling Contact",
-      type: "localePortableText",
+      name: "repeatingOccurrences",
+      title: "Repeating Tour Occurrences Details",
+      type: "schedulingInfo",
       options: {
         collapsible: true,
       },
       description:
-        "If this tour can be booked for school groups, please provide contact details (e.g. 'If you would like to schedule a tour for your school group, contact tours@wingluke.org or 206.623.5124 ext 133').",
-      fieldset: "bookingOptions",
+        "If this tour runs on a repeating schedule, please provide details for that schedule here.",
+      fieldset: "calendarOptions",
+      // TODO validation (may need to be document-level validation)
     },
     {
-      name: "specialTourSchedule",
-      title: "Special Tour Schedule",
-      type: "eventOccurrence",
-      options: {
-        collapsible: true,
-      },
+      name: "scheduleDetails",
+      title: "Schedule Details",
       description:
-        "If this is a special tour, please set the date and start/end times.",
-      fieldset: "bookingOptions",
-    },
-    {
-      // TODO make into object that includes a url streamLink field
-      name: "virtualOptions",
-      title: "Virtual Options",
-      type: "localePortableText",
-      description:
-        "If this tour may be taken virtually, please provide details for the logistics of the virtual tour.",
-      options: {
-        collapsible: true,
-      },
-      fieldset: "bookingOptions",
+        '(Optional) Provide any additional details about this tour\'s schedule here. E.g. "Runs every hour on the half hour" for the HHT.',
+      type: "string",
+      fieldset: "calendarOptions",
     },
     {
       name: "bookingLink",
@@ -172,6 +175,41 @@ export default {
         }),
       description:
         "If visitors may register or purchase tickets for this tour online, please provide the corresponding Altru or ticketing engine link.",
+      fieldset: "bookingOptions",
+    },
+    {
+      name: "privateGroupContact",
+      title: "Private Group Booking Contact",
+      type: "localePortableText",
+      options: {
+        collapsible: true,
+      },
+      description:
+        "If this tour can be privately booked for private groups, please provide contact details (e.g. 'If you would like to schedule a private tour for your family, business, or friend group, contact tours@wingluke.org or 206.623.5124 ext 133').",
+      fieldset: "bookingOptions",
+    },
+    {
+      name: "schoolGroupContact",
+      title: "School Group Booking Contact",
+      type: "localePortableText",
+      options: {
+        collapsible: true,
+      },
+      description:
+        "If this tour can be booked for school groups, please provide contact details (e.g. 'If you would like to schedule a tour for your school group, contact tours@wingluke.org or 206.623.5124 ext 133').",
+      fieldset: "bookingOptions",
+    },
+    {
+      // TODO make into object that includes a url streamLink field
+      name: "virtualOptions",
+      title: "Virtual Options",
+      type: "localePortableText",
+      description:
+        "If this tour may be taken virtually, please provide details for the logistics of the virtual tour.",
+      options: {
+        collapsible: true,
+      },
+      // fieldset: "bookingOptions",
     },
     {
       name: "imageGallery",
@@ -284,8 +322,16 @@ export default {
   ],
   fieldsets: [
     {
+      name: "calendarOptions",
+      title: "Calendar Scheduling Options",
+      options: {
+        collapsible: true,
+        collapsed: false,
+      },
+    },
+    {
       name: "bookingOptions",
-      title: "Booking and Scheduling Options",
+      title: "Booking Options",
       options: {
         collapsible: true,
         collapsed: false,

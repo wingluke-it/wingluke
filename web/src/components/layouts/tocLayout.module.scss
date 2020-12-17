@@ -11,11 +11,21 @@
 
   // this selects all tocSections besides the first
   & ~ .tocSection {
-    border-top: 3px solid v.$medium-gray;
+    // border-top: 3px solid v.$medium-gray;
   }
 
   h2 {
     margin-top: v.$baseline;
+
+    &.stickyHeader {
+      position: sticky;
+      top: var(--header-room);
+      transition: all 0.2s ease-in-out;
+      padding: v.$baseline 0;
+      margin: 0;
+      border-bottom: 1px solid v.$dark-gray;
+      box-shadow: 0 10px 5px -5px rgba(0, 0, 6, 0.08);
+    }
   }
   // this is for jumping to the right place when an internal link sends the user to a heading with an id
   //  & h2::before {
@@ -164,4 +174,8 @@ $sidebar-min-width: 13rem;
   .gridBreakpointLaptop {
     @include toc-shown();
   }
+}
+
+.displayNone {
+  display: none;
 }

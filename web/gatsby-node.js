@@ -4,6 +4,8 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
+const { endOfYesterday } = require("date-fns")
+
 async function createExhibitPages(pathPrefix, graphql, actions, reporter) {
   const { createPage } = actions
   const result = await graphql(`
@@ -106,9 +108,39 @@ async function createTourPages(pathPrefix, graphql, actions, reporter) {
     })
 }
 
+function createCalendarPages(actions, reporter) {
+  const { createPage } = actions
+
+  const calendarData = [
+    {
+      path: "tours",
+      title: "Tours",
+    },
+    {
+      path: "events",
+      title: "Events",
+    },
+  ]
+
+  calendarData.forEach(calendar => {
+    reporter.info(
+      `Creating ${calendar.title} calendar page: /${calendar.path}/`
+    )
+    createPage({
+      path: `/${calendar.path}`,
+      component: require.resolve(`./src/templates/${calendar.path}.js`),
+      context: {
+        currentDate: endOfYesterday().toISOString(),
+      },
+    })
+  })
+}
+
 exports.createPages = async ({ graphql, actions, reporter }) => {
   //await createLandingPages("/", graphql, actions, reporter)
   await createExhibitPages("/exhibits", graphql, actions, reporter)
   await createEventPages("/events", graphql, actions, reporter)
   await createTourPages("/tours", graphql, actions, reporter)
+
+  createCalendarPages(actions, reporter)
 }

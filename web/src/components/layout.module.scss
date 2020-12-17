@@ -25,3 +25,8 @@
 .headerIsShown {
   --header-room: #{v.$header-height}; //0px;
 }
+
+.visibilityHidden {
+  visibility: hidden;
+  transition: all 0.2s ease-in-out 0s;
+}

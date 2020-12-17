@@ -104,6 +104,14 @@ export default {
       // TODO validation (may need to be document-level validation)
     },
     {
+      name: "scheduleDetails",
+      title: "Schedule Details",
+      description:
+        "(Optional) Provide any additional details about this event's schedule here.",
+      type: "string",
+      fieldset: "schedule",
+    },
+    {
       name: "isOnline",
       title: "Is Online Event",
       type: "boolean",

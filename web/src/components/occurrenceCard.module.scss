@@ -1,0 +1,45 @@
+@use "../styles/variables/" as v;
+
+.card {
+  margin-top: v.$baseline;
+  min-height: v.$baseline * 5;
+  max-width: 100%;
+  display: flex;
+  border-radius: 4px;
+  box-shadow: 4px 4px 10px 0 rgba(0, 0, 6, 0.08), 0 0 2px 0 rgba(0, 0, 6, 0.08);
+  overflow: hidden;
+
+  &Body {
+    flex: 0 1 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    h3 {
+      margin: v.$baseline / 2 v.$baseline / 2;
+      text-align: left;
+    }
+
+    &Subtitle {
+      text-align: left;
+      margin: v.$baseline / 2 v.$baseline / 2;
+    }
+  }
+
+  &Banner {
+    margin: 0;
+    flex: 1 0 40%;
+    min-height: 100%;
+
+    img {
+      min-height: 100%;
+      width: auto;
+      object-fit: cover;
+    }
+  }
+}
+
+.inheritColor {
+  color: inherit;
+}

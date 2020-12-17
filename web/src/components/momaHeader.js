@@ -46,7 +46,11 @@ const MomaHeader = ({
           </div>
         </div>
         {/* {headerIsOpen && ( */}
-        <div className={styles.expandingContainer}>
+        <div
+          className={classNames(styles.expandingContainer, {
+            [styles.visibilityHidden]: !headerIsOpen,
+          })}
+        >
           <MomaHeaderLink to="/events" text="Events" />
           <MomaHeaderLink to="/exhibits" text="Exhibits" />
           <MomaHeaderLink to="/give" text="Give" />

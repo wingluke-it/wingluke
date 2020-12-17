@@ -1,6 +1,6 @@
 export default {
   name: "eventOccurrences",
-  title: "Event Occurrences",
+  title: "Occurrences",
   type: "object",
   fields: [
     {

@@ -12,6 +12,8 @@ const TocLayout = ({
   tocTitle = "On This Page",
   breakpoint = "laptop",
   tocSize = "large",
+  hideTocNav = false,
+  stickyHeaders = false,
   afterToc,
 }) => {
   const titles = Object.keys(sectionTitlesAndContent)
@@ -32,6 +34,7 @@ const TocLayout = ({
       <h2
         className={classNames("h3", {
           [styles.hiddenAtBreakpoint]: headersHiddenAtBreakpoint,
+          [styles.stickyHeader]: stickyHeaders,
         })}
       >
         {title}
@@ -86,7 +89,13 @@ const TocLayout = ({
       )}
     >
       <div className={styles.sidebar}>
-        <nav className={classNames(styles.toc, !tocTitle && styles.noTocTitle)}>
+        <nav
+          className={classNames(
+            styles.toc,
+            { [styles.displayNone]: hideTocNav },
+            { [styles.noTocTitle]: !tocTitle }
+          )}
+        >
           {tocTitle && (
             <h2 className={classNames("h4", styles.tocHeader)}>{tocTitle}</h2>
           )}

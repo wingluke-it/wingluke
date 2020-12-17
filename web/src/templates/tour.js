@@ -29,7 +29,6 @@ const Tour = ({
       subtitle,
       type,
       _rawOverview,
-      schedulingInfo,
       _rawPrivateGroupContact,
       _rawAccessibilityInfo,
       bookingLink,
@@ -43,12 +42,10 @@ const Tour = ({
   const essentialDetails = (
     <>
       <div className={styles.details}>
-        {schedulingInfo && schedulingInfo.en && (
-          <Detail
-            icon={<BsCalendar title={"Public Schedule"} />}
-            text={schedulingInfo.en}
-          />
-        )}
+        <Detail
+          icon={<BsCalendar title={"Public Schedule"} />}
+          text={"calendar schedule goes here"}
+        />
       </div>
       <div className={styles.details}>
         {duration && (
@@ -132,6 +129,7 @@ const Tour = ({
               <TocLayout
                 sectionTitlesAndContent={sectionTitlesAndContent}
                 headersHiddenAtBreakpoint={false}
+                hideTocNav={true}
               />
             </>
           }
@@ -159,9 +157,6 @@ export const query = graphql`
       }
       type
       _rawOverview
-      schedulingInfo {
-        en
-      }
       _rawPrivateGroupContact
       _rawAccessibilityInfo
       duration

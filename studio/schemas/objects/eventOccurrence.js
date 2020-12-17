@@ -3,7 +3,7 @@ import moment from "moment";
 export default {
   name: "eventOccurrence",
   type: "object",
-  title: "Event Occurrence",
+  title: "Occurrence",
   fields: [
     {
       name: "startDateTime",

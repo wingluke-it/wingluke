@@ -5,7 +5,7 @@ import { getExhibitStatus, mapEdgesToNodes } from "../lib/helpers"
 import Figure from "../components/figure"
 import React from "react"
 import SEO from "../components/seo"
-import TitleSection from "../components/titleSection"
+import TabbedTitles from "../components/tabbedTitles"
 import TocLayout from "../components/layouts/tocLayout"
 import classNames from "classnames"
 import styles from "./exhibits.module.scss"
@@ -313,13 +313,31 @@ const ExhibitsPage = props => {
         // TODO what if banner.asset is null?
         // image={banner}
       />
-      <TitleSection title={"Exhibits"} />
-      <hr />
+      <TabbedTitles
+        titles={[
+          {
+            title: "Exhibits",
+            href: "/exhibits",
+            activeTitle: true,
+          },
+          {
+            title: "Events",
+            href: "/events",
+            activeTitle: false,
+          },
+          {
+            title: "Tours",
+            href: "/tours",
+            activeTitle: false,
+          },
+        ]}
+      />
       <TocLayout
         sectionTitlesAndContent={sectionTitlesAndContent}
         headersHiddenAtBreakpoint={false}
         tocTitle={""}
         breakpoint={"tablet"}
+        stickyHeaders={true}
       />
     </>
   )

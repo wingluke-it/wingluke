@@ -292,6 +292,7 @@ const ExhibitTemplate = props => {
               sectionTitlesAndContent={sectionTitlesAndContent}
               afterToc={null}
               headersHiddenAtBreakpoint={false}
+              hideTocNav={true}
             />
           }
           sidebar={

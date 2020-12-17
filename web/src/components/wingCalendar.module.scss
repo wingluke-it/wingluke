@@ -1,0 +1,65 @@
+@use "../styles/variables/" as v;
+
+.dateSection {
+  margin-bottom: v.$baseline * 2;
+
+  & > div {
+    margin-bottom: v.$baseline;
+  }
+
+  h2 {
+    position: sticky;
+    top: var(--header-room);
+    transition: all 0.2s ease-in-out;
+    border-bottom: 1px solid v.$dark-gray;
+    padding: v.$baseline 0;
+    margin: 0;
+    box-shadow: 0 10px 5px -5px rgba(0, 0, 6, 0.08);
+  }
+}
+
+// TODO audit stuff below (copied from events.module.scss)
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "datePicker" "occurrences";
+}
+
+.datePickerContainer {
+  grid-area: datePicker;
+  padding: 0 v.$baseline / 2 v.$baseline;
+  max-width: 100vw;
+
+  // *:first-child {
+  //   margin-top: 0;
+  // }
+
+  p {
+    margin-top: v.$baseline;
+  }
+}
+
+.occContainer {
+  grid-area: occurrences;
+  padding: 0 v.$baseline / 2 v.$baseline;
+
+  .cardContainer {
+    padding: 0 v.$baseline / 2;
+  }
+}
+
+@media (min-width: v.$width-breakpoint-tablet) {
+  .grid {
+    grid-template-columns: 40% 1fr;
+    grid-template-areas: "datePicker occurrences";
+  }
+
+  .datePickerContainer {
+    align-self: start;
+    position: sticky;
+    top: var(--header-room);
+    transition: all 0.2s ease-in-out;
+    max-height: calc(100vh - var(--header-room));
+    overflow: auto;
+  }
+}
