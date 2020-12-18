@@ -39,6 +39,7 @@ const Event = props => {
     scheduleType,
     finiteOccurrences,
     repeatingOccurrences,
+    scheduleDetails,
     isOnline,
     loc,
     streamLink,
@@ -337,6 +338,7 @@ export const query = graphql`
         recurrenceType
         startDateTime
       }
+      scheduleDetails
       banner {
         ...SanityImage
       }

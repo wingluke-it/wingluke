@@ -127,7 +127,8 @@ export function getUpcomingDates(afterDate, datesNeeded, repeatingEvent) {
             const endDateToAdd = add(startDateToAdd, { minutes: diffInMin })
             if (
               isSameOrAfter(endDateToAdd, afterDate) &&
-              isSameOrBefore(startDateToAdd, parseISO(endRepeatDate))
+              (!endRepeatDate ||
+                isSameOrBefore(startDateToAdd, parseISO(endRepeatDate))) // TODO BUG HERE, endRepeatDate might be null!
             ) {
               upcomingDates.push([startDateToAdd, endDateToAdd])
             }

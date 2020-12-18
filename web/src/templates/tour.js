@@ -28,6 +28,7 @@ const Tour = ({
       title,
       subtitle,
       type,
+      scheduleDetails,
       _rawOverview,
       _rawPrivateGroupContact,
       _rawAccessibilityInfo,
@@ -152,6 +153,7 @@ export const query = graphql`
       subtitle {
         en
       }
+      scheduleDetails
       banner {
         ...SanityImage
       }

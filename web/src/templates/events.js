@@ -46,7 +46,8 @@ const EventsPage = ({ data }) => {
 export default EventsPage
 
 export const query = graphql`
-  query($currentDate: Date!) {
+  query # ($currentDate: Date!)
+  {
     finiteEvents: allSanityEvent(filter: { scheduleType: { eq: "finite" } }) {
       edges {
         node {
@@ -62,6 +63,7 @@ export const query = graphql`
           banner {
             ...SanityImage
           }
+          scheduleDetails
           finiteOccurrences {
             occurrences {
               startDateTime
@@ -73,7 +75,7 @@ export const query = graphql`
     }
     repeatingEvents: allSanityEvent(
       filter: {
-        repeatingOccurrences: { endRepeatDate: { gte: $currentDate } }
+        # repeatingOccurrences: { endRepeatDate: { gte: $currentDate } }
         scheduleType: { eq: "repeating" }
       }
     ) {
@@ -82,6 +84,16 @@ export const query = graphql`
           title {
             en
           }
+          subtitle {
+            en
+          }
+          slug {
+            current
+          }
+          banner {
+            ...SanityImage
+          }
+          scheduleDetails
           repeatingOccurrences {
             daysOfWeekRelMonthly
             daysOfWeekWeekly

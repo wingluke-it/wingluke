@@ -51,8 +51,9 @@ const MomaHeader = ({
             [styles.visibilityHidden]: !headerIsOpen,
           })}
         >
-          <MomaHeaderLink to="/events" text="Events" />
           <MomaHeaderLink to="/exhibits" text="Exhibits" />
+          <MomaHeaderLink to="/events" text="Events" />
+          <MomaHeaderLink to="/tours" text="Tours" />
           <MomaHeaderLink to="/give" text="Give" />
           <MomaHeaderLink to="/join" text="Join" />
           <MomaHeaderLink to="/visit" text="Visit" />
@@ -60,6 +61,7 @@ const MomaHeader = ({
           <MomaHeaderLink to="/about" text="About" />
           <MomaHeaderLink to="/spaces" text="Event Space Usage" />
           <MomaHeaderLink to="/volunteer" text="Volunteer" />
+          {/* TODO add external links to collections, curriculum, and db .wingluke.org */}
         </div>
         {/* )} */}
       </nav>

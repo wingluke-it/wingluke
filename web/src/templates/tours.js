@@ -47,7 +47,8 @@ const ToursPage = ({ data, pageContext: { currentDate } }) => {
 export default ToursPage
 
 export const query = graphql`
-  query($currentDate: Date!) {
+  query #($currentDate: Date!)
+  {
     finiteTours: allSanityTour(filter: { scheduleType: { eq: "finite" } }) {
       edges {
         node {
@@ -69,12 +70,13 @@ export const query = graphql`
               endDateTime
             }
           }
+          scheduleDetails
         }
       }
     }
     repeatingTours: allSanityTour(
       filter: {
-        repeatingOccurrences: { endRepeatDate: { gte: $currentDate } }
+        # repeatingOccurrences: { endRepeatDate: { gte: $currentDate } }
         scheduleType: { eq: "repeating" }
       }
     ) {
@@ -82,6 +84,15 @@ export const query = graphql`
         node {
           title {
             en
+          }
+          subtitle {
+            en
+          }
+          slug {
+            current
+          }
+          banner {
+            ...SanityImage
           }
           repeatingOccurrences {
             daysOfWeekRelMonthly
@@ -96,6 +107,7 @@ export const query = graphql`
             recurrenceType
             startDateTime
           }
+          scheduleDetails
         }
       }
     }

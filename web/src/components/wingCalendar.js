@@ -10,6 +10,7 @@ import {
   parse,
   parseISO,
 } from "date-fns"
+import { getUpcomingDates, isSameOrBefore } from "../lib/helpers"
 
 import { BsArrowDown } from "@react-icons/all-files/bs/BsArrowDown"
 import { BsArrowRight } from "@react-icons/all-files/bs/BsArrowRight"
@@ -17,7 +18,6 @@ import Calendar from "react-calendar"
 import OccurrenceCard from "./occurrenceCard"
 import PropTypes from "prop-types"
 import classNames from "classnames"
-import { isSameOrBefore } from "../lib/helpers"
 import styles from "./wingCalendar.module.scss"
 import { useMediaQuery } from "react-responsive"
 
@@ -27,18 +27,20 @@ const WingCalendar = ({ contentType, finiteNodes, repeatingNodes }) => {
   const didMount = useRef(false)
   const calendarTop = useRef(null)
   useEffect(() => {
-    // window.scrollTo(0, 0)
+    const toScrollTo =
+      calendarTop.current.getBoundingClientRect().top -
+      document.body.getBoundingClientRect().top
     if (didMount.current) {
-      window.scrollTo(
-        0,
-        calendarTop.current.getBoundingClientRect().top -
-          document.body.getBoundingClientRect().top
-      )
+      if (window.scrollY > toScrollTo) {
+        window.scrollTo(0, toScrollTo)
+      }
     } else {
       didMount.current = true
     }
-  }, [datePicked]) // TODO have component scroll to the top of the calendar when state updates
-  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 767px)" })
+  }, [datePicked]) // TODO perhaps only perform this scrollTo when the window's scrollY position is below calendarTop's position
+  const isTabletOrMobile = useMediaQuery({
+    query: "(max-width: 767px)",
+  })
 
   const upcomingOccurrences = {}
 
@@ -48,10 +50,14 @@ const WingCalendar = ({ contentType, finiteNodes, repeatingNodes }) => {
     const { occurrences = [] } = finiteOccurrences ?? {}
     occurrences
       .filter(occ => occ.startDateTime && occ.endDateTime) // each occurrence should have both start and end values
+      .map(occ => ({
+        startDateTime: parseISO(occ.startDateTime),
+        endDateTime: parseISO(occ.endDateTime),
+      }))
       .forEach(occ => {
         const occInfo = [occ, finiteNode]
-        const startDateKey = format(parseISO(occ.startDateTime), "MM-dd-yyyy")
-        if (isSameOrBefore(datePicked, parseISO(occ.endDateTime))) {
+        const startDateKey = format(occ.startDateTime, "MM-dd-yyyy")
+        if (isSameOrBefore(datePicked, occ.endDateTime)) {
           if (upcomingOccurrences[startDateKey]) {
             upcomingOccurrences[startDateKey].push(occInfo)
           } else {
@@ -60,6 +66,44 @@ const WingCalendar = ({ contentType, finiteNodes, repeatingNodes }) => {
         }
       })
   })
+  // Pour repeating occurrences into upcomingOccurrences
+  repeatingNodes.forEach(repeatingNode => {
+    const { repeatingOccurrences } = repeatingNode
+    const occurrences = getUpcomingDates(
+      datePicked,
+      1,
+      repeatingOccurrences
+    ).map(([startDT, endDT]) => ({
+      startDateTime: startDT,
+      endDateTime: endDT,
+    }))
+    occurrences
+      .filter(occ => occ.startDateTime && occ.endDateTime) // each occurrence should have both start and end values
+      .forEach(occ => {
+        const occInfo = [occ, repeatingNode]
+        const startDateKey = format(occ.startDateTime, "MM-dd-yyyy")
+        if (isSameOrBefore(datePicked, occ.endDateTime)) {
+          if (upcomingOccurrences[startDateKey]) {
+            upcomingOccurrences[startDateKey].push(occInfo)
+          } else {
+            upcomingOccurrences[startDateKey] = [occInfo]
+          }
+        }
+      })
+    /* .map(([startDT, endDT]) => ({
+        startDateTime: startDT,
+        endDateTime: endDT,
+      }))
+      .forEach(([start, end], index) =>
+        dateInfo.push(
+          <p key={`occ-${index}`}>
+            Upcoming occurrence {index + 1} happens{" "}
+            {formatOccurrence(start, end)}
+          </p>
+        )
+      ) */
+  })
+
   const datePickedString = format(datePicked, "MM-dd-yyyy")
   if (!upcomingOccurrences[datePickedString]) {
     upcomingOccurrences[datePickedString] = []
@@ -90,18 +134,15 @@ const WingCalendar = ({ contentType, finiteNodes, repeatingNodes }) => {
           ) : (
             upcomingOccurrences[date]
               .sort(([occ1], [occ2]) =>
-                compareAsc(
-                  parseISO(occ1.startDateTime),
-                  parseISO(occ2.startDateTime)
-                )
+                compareAsc(occ1.startDateTime, occ2.startDateTime)
               )
               .map((upcomingOcc, index) => {
                 const [
                   occurrence,
-                  { title, slug, banner, subtitle },
+                  { title, slug, banner, subtitle, scheduleDetails },
                 ] = upcomingOcc
-                const startDT = parseISO(occurrence.startDateTime)
-                const endDT = parseISO(occurrence.endDateTime)
+                const startDT = occurrence.startDateTime
+                const endDT = occurrence.endDateTime
                 let dateString
                 let timeString
                 if (isSameDay(startDT, endDT)) {
@@ -136,8 +177,6 @@ const WingCalendar = ({ contentType, finiteNodes, repeatingNodes }) => {
     )
   })
 
-  // Pour repeating occurrences into upcomingOccurrences
-
   return (
     <>
       <div className={styles.grid} ref={calendarTop}>
@@ -147,7 +186,12 @@ const WingCalendar = ({ contentType, finiteNodes, repeatingNodes }) => {
           </p>
           <Calendar
             calendarType={"US"}
-            className={classNames({ [styles.datePicker]: false }, "datePicker")}
+            className={classNames(
+              {
+                [styles.datePicker]: false,
+              },
+              "datePicker"
+            )}
             value={datePicked}
             onChange={handleDateChange}
             maxDate={addYears(new Date(), 2)}
