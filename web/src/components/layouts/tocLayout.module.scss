@@ -18,6 +18,7 @@
     margin-top: v.$baseline;
 
     &.stickyHeader {
+      min-width: 100%;
       position: sticky;
       top: var(--header-room);
       transition: all 0.2s ease-in-out;
