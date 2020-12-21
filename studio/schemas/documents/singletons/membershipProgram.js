@@ -1,10 +1,14 @@
 import { EMAIL_REGEX, PHONE_REGEX } from "../../schemaGlobals";
-const MEMBERSHIP_PROGRAM_TITLE = "Membership Program";
+
+import { AiOutlineIdcard } from "react-icons/ai";
+
+const MEMBERSHIP_PROGRAM_TITLE = "Membership Program Info";
 
 export default {
   name: "membershipProgram",
   title: MEMBERSHIP_PROGRAM_TITLE,
   type: "document",
+  __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"],
   fields: [
     {
       name: "joinLink",
@@ -17,6 +21,14 @@ export default {
         }),
       description:
         "Please provide the link to the membership signup/renew page.",
+    },
+    {
+      name: "generalBenefits",
+      title: "General Membership Benefits",
+      description:
+        "Please provide all benefits that are common to ALL membership levels",
+      type: "array",
+      of: [{ type: "membershipBenefit" }],
     },
     {
       name: "email",
@@ -36,12 +48,6 @@ export default {
         Rule.regex(PHONE_REGEX, {
           name: "phone-number",
         }).warning("The recommended phone format is '123-456-7890 x123'"),
-    },
-    {
-      name: "membershipLevels",
-      title: "Membership Levels",
-      type: "array",
-      of: [{ type: "membershipLevel" }],
     },
     {
       name: "overview",
@@ -75,6 +81,7 @@ export default {
     prepare() {
       return {
         title: MEMBERSHIP_PROGRAM_TITLE,
+        media: AiOutlineIdcard,
       };
     },
   },

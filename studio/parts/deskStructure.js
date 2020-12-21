@@ -1,23 +1,23 @@
-// S stands for structure Builder
-import S from "@sanity/desk-tool/structure-builder";
+import { AiFillShop, AiOutlineIdcard } from "react-icons/ai";
 import {
-  FaYinYang,
-  FaSuitcaseRolling,
   FaHandHoldingHeart,
   FaHandHoldingUsd,
+  FaSuitcaseRolling,
+  FaYinYang,
 } from "react-icons/fa";
+
 import { GiPartyFlags } from "react-icons/gi";
 import { IoIosPeople } from "react-icons/io";
-import { AiFillShop, AiOutlineIdcard } from "react-icons/ai";
-import pluralize from "pluralize";
+import S from "@sanity/desk-tool/structure-builder";
 import cacProcess from "../schemas/documents/singletons/cacProcess";
-import museumMeta from "../schemas/documents/singletons/museumMeta";
-import visitorGuide from "../schemas/documents/singletons/visitorGuide";
+import donorProgram from "../schemas/documents/singletons/donorProgram";
 import eventSpaceUsage from "../schemas/documents/singletons/eventSpaceUsage";
 import marketplace from "../schemas/documents/singletons/marketplace";
 import membershipProgram from "../schemas/documents/singletons/membershipProgram";
+import museumMeta from "../schemas/documents/singletons/museumMeta";
+import pluralize from "pluralize";
+import visitorGuide from "../schemas/documents/singletons/visitorGuide";
 import volunteerProgram from "../schemas/documents/singletons/volunteerProgram";
-import donorProgram from "../schemas/documents/singletons/donorProgram";
 
 export const SINGLETON_TYPES = [
     "cacProcess",
@@ -31,6 +31,7 @@ export const SINGLETON_TYPES = [
   ],
   HIDDEN_TYPES = [
     /* if you put a document in a folder, list it here to hide it from the top-level document list of the studio */
+    "membershipLevel",
   ];
 
 export default () =>
@@ -64,12 +65,35 @@ export default () =>
           S.editor().schemaType(marketplace.name).documentId(marketplace.name)
         ),
       S.listItem()
-        .title(membershipProgram.title)
+        .title("Membership Program")
         .icon(AiOutlineIdcard)
         .child(
-          S.editor()
-            .schemaType(membershipProgram.name)
-            .documentId(membershipProgram.name)
+          S.documentList()
+            .title("Membership Program")
+            .filter(
+              `_type == "${membershipProgram.name}" || _type == "membershipLevel"`
+            )
+            .defaultOrdering([{ field: "_type", direction: "desc" }])
+          /* S.list()
+            .title(membershipProgram.title)
+            .items([
+              S.listItem()
+                .title(membershipProgram.title)
+                .icon(AiOutlineIdcard)
+                .child(
+                  S.editor()
+                    .schemaType(membershipProgram.name)
+                    .documentId(membershipProgram.name)
+                ),
+              S.listItem()
+                .title("Membership Levels")
+                .schemaType("membershipLevel")
+                .child(
+                  S.documentTypeList("membershipLevel").title(
+                    "Membership Levels"
+                  )
+                ),
+            ]) */
         ),
       S.listItem()
         .title(museumMeta.title)

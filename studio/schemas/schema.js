@@ -29,6 +29,7 @@ import gallery from "./documents/gallery";
 import historicSite from "./documents/historicSite";
 import eventSpace from "./documents/eventSpace";
 import marketplaceProduct from "./documents/marketplaceProduct";
+import membershipLevel from "./documents/membershipLevel";
 import oralHistory from "./documents/oralHistory";
 import sponsor from "./documents/sponsor";
 import staffMember from "./documents/staffMember";
@@ -48,7 +49,7 @@ import localeStringArray from "./objects/localeStringArray";
 import localeText from "./objects/localeText";
 import localePortableText from "./objects/localePortableText";
 import location from "./objects/location";
-import membershipLevel from "./objects/membershipLevel";
+import membershipBenefit from "./objects/membershipBenefit";
 import person from "./objects/person";
 import portableText from "./objects/portableText";
 import schedulingInfo from "./objects/schedulingInfo";
@@ -88,6 +89,7 @@ export default createSchema({
     gallery,
     historicSite,
     marketplaceProduct,
+    membershipLevel,
     oralHistory,
     sponsor,
     staffMember,
@@ -107,7 +109,7 @@ export default createSchema({
     localeText,
     localePortableText,
     location,
-    membershipLevel,
+    membershipBenefit,
     person,
     portableText,
     schedulingInfo,
