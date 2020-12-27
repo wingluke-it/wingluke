@@ -73,7 +73,8 @@ export default () =>
             .filter(
               `_type == "${membershipProgram.name}" || _type == "membershipLevel"`
             )
-            .defaultOrdering([{ field: "_type", direction: "desc" }])
+            .defaultOrdering([{ field: "yearlyPrice", direction: "asc" }])
+          // .defaultOrdering([{ field: "_type", direction: "desc" }])
           /* S.list()
             .title(membershipProgram.title)
             .items([

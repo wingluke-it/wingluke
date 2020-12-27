@@ -21,7 +21,7 @@ export default {
         Rule.uri({
           allowRelative: false,
           scheme: ["https", "http"],
-        }),
+        }).required(),
       description:
         "Please provide the link to where donors can donate to the Wing.",
     },
@@ -105,7 +105,7 @@ export default {
       name: "gsBenefits",
       title: "Gallery Supporter Benefits",
       type: "array",
-      of: [{ type: "localeString" }],
+      of: [{ type: "membershipBenefit" }],
     },
     {
       name: "lcDescription",
@@ -118,7 +118,7 @@ export default {
       name: "lcBenefits",
       title: "Leadership Circle Benefits",
       type: "array",
-      of: [{ type: "localeString" }],
+      of: [{ type: "membershipBenefit" }],
     },
     {
       name: "faqs",

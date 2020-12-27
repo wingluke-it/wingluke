@@ -1,0 +1,152 @@
+@use "../styles/variables/" as v;
+@use "../styles/fluid-typography" as f;
+@use "../components/base_elements/button.module.scss";
+
+.titleSection {
+  &ButtonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    max-width: v.$width-breakpoint-tablet / 2;
+    margin: v.$baseline auto 0;
+  }
+
+  &Intro {
+    font-weight: 400;
+    text-align: left;
+  }
+}
+
+.memCards {
+  display: flex;
+  // gap: v.$baseline; // TODO remove this because it's super unsupported? though postCSS plugin might take care of it
+  overflow: auto;
+
+  & > * {
+    margin-right: v.$baseline;
+  }
+
+  $min-padding: v.$baseline / 2;
+  padding: $min-padding;
+  $max-padding: 7.5 * 16;
+
+  &:last-child::after {
+    visibility: hidden;
+    content: "";
+    min-width: $min-padding;
+  }
+
+  $lower-width: v.$width-breakpoint-tablet;
+  $upper-width: v.$width-breakpoint-laptop-s;
+  @media (min-width: $lower-width) {
+    padding-left: calc(
+      #{$min-padding} + #{f.strip-unit($max-padding - $min-padding)} *
+        (100vw - #{$lower-width}) / #{f.strip-unit($upper-width - $lower-width)}
+    );
+
+    &:last-child::after {
+      min-width: calc(
+        #{$min-padding} + #{f.strip-unit($max-padding - $min-padding)} *
+          (100vw - #{$lower-width}) / #{f.strip-unit(
+            $upper-width - $lower-width
+          )}
+      );
+    }
+  }
+
+  @media (min-width: $upper-width) {
+    padding-left: #{$max-padding}px;
+
+    &:last-child::after {
+      min-width: #{$max-padding}px;
+    }
+  }
+}
+
+.memCardsContainer {
+  position: relative; // necessary so that scroll buttons can be positioned
+  overflow: visible;
+}
+
+.scrollButton {
+  &Left,
+  &Right {
+    $button-height: v.$baseline * 2;
+    $button-width: $button-height;
+    @include button.remove-default-button-styles();
+    position: absolute;
+    top: calc(50% - #{$button-height} / 2);
+    font-size: $button-height / 1.5;
+    width: $button-width;
+    height: $button-height;
+    border: 2px solid v.$transparent-black-darker;
+    border-radius: 4px;
+    background-color: transparent;
+
+    &:hover {
+      background-color: v.$light-gray;
+    }
+
+    &:focus {
+      background-color: transparent;
+      outline-style: 2px solid;
+      outline-color: v.$primary-brand-color;
+    }
+  }
+
+  &Left {
+    left: v.$baseline;
+  }
+
+  &Right {
+    right: v.$baseline;
+  }
+}
+
+.coreBenefits {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: v.$baseline;
+
+  &List {
+    margin: v.$baseline v.$baseline / 2 0;
+    max-width: 30rem;
+
+    dt {
+      margin-top: v.$baseline / 2;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    // dd {
+    //   position: absolute;
+    //   width: 1px;
+    //   height: 1px;
+    //   padding: 0;
+    //   margin: -1px;
+    //   margin-top: -1px;
+    //   overflow: hidden;
+    //   clip: rect(0, 0, 0, 0);
+    //   white-space: nowrap;
+    //   border: 0;
+    // }
+  }
+
+  &Footnotes {
+    list-style-type: none;
+    margin-bottom: v.$baseline;
+
+    li {
+      font-size: 0.75rem;
+      line-height: 0.75 * v.$baseline;
+
+      & ~ li {
+        margin-top: 0.75 * v.$baseline / 2;
+      }
+    }
+  }
+}

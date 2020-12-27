@@ -11,6 +11,7 @@ import "../styles/global.scss"
 import React, { useEffect, useRef, useState } from "react"
 
 import Footer from "./footer"
+import { IconContext } from "@react-icons/all-files"
 import MomaHeader from "./momaHeader"
 import PropTypes from "prop-types"
 import classNames from "classnames"
@@ -122,17 +123,23 @@ const Layout = ({ children }) => {
         // [styles.scrolledPastHeaderHeight]: scrolledPastHeaderHeight,
       })}
     >
-      {/* TODO <a href="#main-content">Jump to Main Content</a> */}
-      <MomaHeader
-        closeHeader={closeHeader}
-        headerIsOpen={headerIsOpen}
-        toggleHeader={toggleHeader}
-      />
-      <main className={classNames({ [styles.visibilityHidden]: headerIsOpen })}>
-        {/* TODO <a id="main-content"></a> */}
-        {children}
-      </main>
-      <Footer />
+      <IconContext.Provider
+        value={{ size: "1.1rem", style: { verticalAlign: "middle" } }}
+      >
+        {/* TODO <a href="#main-content">Jump to Main Content</a> */}
+        <MomaHeader
+          closeHeader={closeHeader}
+          headerIsOpen={headerIsOpen}
+          toggleHeader={toggleHeader}
+        />
+        <main
+          className={classNames({ [styles.visibilityHidden]: headerIsOpen })}
+        >
+          {/* TODO <a id="main-content"></a> */}
+          {children}
+        </main>
+        <Footer />
+      </IconContext.Provider>
     </div>
   )
 }

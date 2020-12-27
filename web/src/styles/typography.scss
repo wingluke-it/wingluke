@@ -85,6 +85,11 @@ ol {
   line-height: v.$baseline;
   // overflow-wrap: break-word;
   max-width: min(100vw, #{$p-width});
+
+  ul,
+  ol {
+    margin-top: 0;
+  }
 }
 
 h2,

@@ -11,6 +11,27 @@ export default {
   __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"],
   fields: [
     {
+      name: "title",
+      title: "Title",
+      type: "localeString",
+      description:
+        "Provide a title to introduce The Wing's membership program.",
+    },
+    {
+      name: "subtitle",
+      title: "Subtitle",
+      type: "localeString",
+      description:
+        "Provide a brief subtitle to introduce The Wing's membership program.",
+    },
+    {
+      name: "intro",
+      title: "Intro",
+      type: "localeText",
+      description:
+        "Please provide a brief intro blurb for the membership program.",
+    },
+    {
       name: "joinLink",
       title: "Join/Renew Link",
       type: "url",
@@ -23,8 +44,8 @@ export default {
         "Please provide the link to the membership signup/renew page.",
     },
     {
-      name: "generalBenefits",
-      title: "General Membership Benefits",
+      name: "coreBenefits",
+      title: "Core Membership Benefits",
       description:
         "Please provide all benefits that are common to ALL membership levels",
       type: "array",
@@ -50,12 +71,6 @@ export default {
         }).warning("The recommended phone format is '123-456-7890 x123'"),
     },
     {
-      name: "overview",
-      title: "Overview",
-      type: "localePortableText",
-      description: "Please provide an overview of the membership program.",
-    },
-    {
       name: "faqs",
       title: "FAQs",
       type: "array",
@@ -75,6 +90,19 @@ export default {
       options: {
         layout: "tags",
       },
+    },
+    {
+      name: "banner",
+      title: "Banner",
+      type: "figure",
+    },
+    {
+      // this is just to get this to show up first in the desk structure ordering of this document and the membership levels
+      // value should always be -1
+      name: "yearlyPrice",
+      title: "Price",
+      type: "number",
+      hidden: true,
     },
   ],
   preview: {

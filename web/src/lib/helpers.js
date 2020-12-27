@@ -294,6 +294,16 @@ export function getExhibitStatus(openingDate, closingDate, specialCategory) {
   return [exhibitStatus, secondaryStatus]
 }
 
+export function getContentWidth(element) {
+  var styles = getComputedStyle(element)
+
+  return (
+    element.scrollWidth -
+    parseFloat(styles.paddingLeft) -
+    parseFloat(styles.paddingRight)
+  )
+}
+
 export function cn(...args) {
   return args.filter(Boolean).join(" ")
 }

@@ -5,6 +5,7 @@
   min-height: v.$baseline * 5;
   max-width: 100%;
   display: flex;
+  background-color: v.$lighter-gray;
   border-radius: 4px;
   box-shadow: 4px 4px 10px 0 rgba(0, 0, 6, 0.08), 0 0 2px 0 rgba(0, 0, 6, 0.08);
   overflow: hidden;

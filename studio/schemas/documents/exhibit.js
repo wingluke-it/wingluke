@@ -291,6 +291,28 @@ export default {
       },
     },
   ],
+  orderings: [
+    {
+      title: "Opening Date, New",
+      name: "openingDateDesc",
+      by: [{ field: "openingDate", direction: "desc" }],
+    },
+    {
+      title: "Opening Date, Old",
+      name: "openingDateAsc",
+      by: [{ field: "openingDate", direction: "asc" }],
+    },
+    {
+      title: "Closing Date, New",
+      name: "closingDateDesc",
+      by: [{ field: "closingDate", direction: "desc" }],
+    },
+    {
+      title: "Closing Date, Old",
+      name: "closingDateAsc",
+      by: [{ field: "closingDate", direction: "asc" }],
+    },
+  ],
   validation: (Rule) =>
     Rule.custom((fields) => {
       if (

@@ -1,0 +1,29 @@
+@use "../../styles/variables/" as v;
+
+.infoIcon {
+  cursor: pointer;
+}
+
+.tooltip {
+  max-width: min(90vw, 30rem);
+  font-size: 1rem;
+  vertical-align: middle;
+  // background-color: #f7f7f7;
+  color: v.$transparent-black-darker;
+  border: 1px solid v.$transparent-black-darker;
+  padding: v.$baseline / 3;
+  border-radius: 4px;
+
+  .closeX {
+    cursor: pointer;
+    float: right;
+    padding: v.$baseline / 4;
+    font-size: 1.5rem;
+  }
+}
+
+.arrow {
+  // background-color: transparent !important;
+  background-color: transparent;
+  // border-color: red red red red !important;
+}

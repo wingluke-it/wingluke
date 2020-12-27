@@ -42,6 +42,7 @@ const OccurrenceCard = ({
           figure={banner}
           displayCaption={false}
           dimensions={9 / 16}
+          width={400}
         />
       )}
     </div>
