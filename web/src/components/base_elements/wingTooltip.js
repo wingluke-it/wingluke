@@ -25,7 +25,7 @@ const WingTooltip = ({ children, content }) => {
     auto: true,
     triggerOffset: 16,
     onOutsideClick: () => toggleIsOpen(false),
-    onDisappear: () => toggleIsOpen(false),
+    // onDisappear: () => toggleIsOpen(false),
   })
 
   return (

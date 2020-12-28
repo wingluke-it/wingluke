@@ -71,39 +71,58 @@ const MembershipLevelCard = ({
       ? (priceString += ` - $${yearlyPriceMaximum}`)
       : (priceString += "+")
   }
+  let membersTooltipInfo = []
+  if (numMemberCards > 0)
+    membersTooltipInfo.push(`${numMemberCards} member cards`)
+  if (numCardsDonated > 0)
+    membersTooltipInfo.push(<br />, `${numCardsDonated} cards donated`)
+  if (numAdultGuests > 0)
+    membersTooltipInfo.push(<br />, `${numAdultGuests} adult guests`)
+  if (numChildGuests > 0)
+    membersTooltipInfo.push(<br />, `${numChildGuests} child guests`)
+  if (narmIncluded)
+    membersTooltipInfo.push(
+      <br />,
+      <>
+        <a href="google.com">NARM</a> card included
+      </>
+    )
+
   const card = (
     <div className={styles.card}>
       <h3>{name.en ?? "Untitled"}</h3>
       {/* TODO memberCard and child/adult guest symbols */}
-      <div className={styles.membersAndGuests}>
-        {numMemberCards > 0 && (
-          <div className={styles.memberCards}>{memberCards}</div>
-        )}
-        {numCardsDonated > 0 && (
-          <>
-            <span> + </span>
-            <div className={styles.cardsDonated}>{cardsDonated}</div>
-          </>
-        )}
-        {numAdultGuests > 0 && (
-          <>
-            <span> + </span>
-            <div className={styles.adultGuests}>{adultGuests}</div>
-          </>
-        )}
-        {numChildGuests > 0 && (
-          <>
-            <span> + </span>
-            <div className={styles.childGuests}>{childGuests}</div>
-          </>
-        )}
-        {narmIncluded && (
-          <>
-            <span> + </span>
-            <Img className={styles.narmLogo} fixed={narmLogoFixed} />
-          </>
-        )}
-      </div>
+      <WingTooltip content={<span>{membersTooltipInfo}</span>}>
+        <span className={styles.membersAndGuests}>
+          {numMemberCards > 0 && (
+            <div className={styles.memberCards}>{memberCards}</div>
+          )}
+          {numCardsDonated > 0 && (
+            <>
+              <span> + </span>
+              <div className={styles.cardsDonated}>{cardsDonated}</div>
+            </>
+          )}
+          {numAdultGuests > 0 && (
+            <>
+              <span> + </span>
+              <div className={styles.adultGuests}>{adultGuests}</div>
+            </>
+          )}
+          {numChildGuests > 0 && (
+            <>
+              <span> + </span>
+              <div className={styles.childGuests}>{childGuests}</div>
+            </>
+          )}
+          {narmIncluded && (
+            <>
+              <span> + </span>
+              <Img className={styles.narmLogo} fixed={narmLogoFixed} />
+            </>
+          )}
+        </span>
+      </WingTooltip>
       {yearlyPrice && (
         <span className={styles.priceInfo}>
           <span className={styles.price}>{priceString}</span>
