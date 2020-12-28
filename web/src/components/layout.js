@@ -69,7 +69,7 @@ const Layout = ({ children }) => {
       parseFloat(headerHeight) *
       parseFloat(getComputedStyle(document.documentElement).fontSize)
 
-    if (scrollPos === 0 && !headerIsShown) {
+    if (scrollPos <= 0 && !headerIsShown) {
       setHeaderIsShown(true)
     } else if (scrollPos > headerHeight) {
       const maxScrollDelta = window.innerHeight / 5

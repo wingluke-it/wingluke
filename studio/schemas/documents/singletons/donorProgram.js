@@ -94,7 +94,8 @@ export default {
         }).warning("The recommended phone format is '123-456-7890 x123'"),
       fieldset: "contactInfo",
     },
-    {
+    // this now can be represented with membershipLevel documents
+    /* {
       name: "gsDescription",
       title: "Gallery Supporter Description",
       type: "localePortableText",
@@ -119,7 +120,7 @@ export default {
       title: "Leadership Circle Benefits",
       type: "array",
       of: [{ type: "membershipBenefit" }],
-    },
+    }, */
     {
       name: "faqs",
       title: "FAQs",
