@@ -91,12 +91,11 @@ export default {
     },
     {
       name: "featuredBenefits",
-      title: "Featured Benefits",
-      description:
-        "Provide up to 3 featured benefits for this membership level",
+      title: "Benefits",
+      description: "Provide all benefits for this membership level",
       type: "array",
       of: [{ type: "membershipBenefit" }],
-      validation: (Rule) => Rule.max(3),
+      // validation: (Rule) => Rule.max(3),
     },
     {
       name: "inheritsFrom",
@@ -108,6 +107,19 @@ export default {
       // of: [{ type: "string" }],
     },
     {
+      name: "tagline",
+      title: "Tagline",
+      description:
+        'Give a short tagline for this membership level, e.g. "Best value"',
+      type: "localeString",
+    },
+    /* { // these aren't needed, for now
+      name: "overview",
+      title: "Overview",
+      type: "localePortableText",
+      description: "Please provide an overview of this membership level.",
+    },
+    {
       name: "additionalBenefits",
       title: "Additional Benefits",
       description:
@@ -115,20 +127,7 @@ export default {
       type: "array",
       of: [{ type: "membershipBenefit" }],
       // of: [{ type: "string" }],
-    },
-    {
-      name: "tagline",
-      title: "Tagline",
-      description:
-        'Give a short tagline for this membership level, e.g. "Best value"',
-      type: "localeString",
-    },
-    {
-      name: "overview",
-      title: "Overview",
-      type: "localePortableText",
-      description: "Please provide an overview of this membership level.",
-    },
+    }, */
     {
       name: "banner",
       title: "Banner",

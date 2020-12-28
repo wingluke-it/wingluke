@@ -110,6 +110,13 @@ const MembershipLevelCard = ({
           {paymentType === "range" ? " yearly donation" : " per year"}
         </span>
       )}
+      <div className={styles.buttonContainer}>
+        <ButtonStyledA
+          href={buttonLink}
+          text={paymentType === "fixed" ? "Join / Renew" : "Donate"}
+          newtab={true}
+        />
+      </div>
       {banner && (
         <Figure
           className={styles.cardBanner}
@@ -119,13 +126,6 @@ const MembershipLevelCard = ({
           width={600}
         />
       )}
-      <div className={styles.buttonContainer}>
-        <ButtonStyledA
-          href={buttonLink}
-          text={paymentType === "fixed" ? "Join / Renew" : "Donate"}
-          newtab={true}
-        />
-      </div>
       {featuredBenefits.length > 0 && (
         <ul className={styles.featuredBenefits}>
           {featuredBenefits.map(({ title, description, footnotes }, i) => {

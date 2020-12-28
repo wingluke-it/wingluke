@@ -14,14 +14,17 @@
   }
 
   // margin-top: v.$baseline;
-  min-height: 50vh;
+  // min-height: min(100%, 50vh);
+  // height: fit-content;
+  overflow: auto;
   // max-width: 100%;
   display: flex;
   flex-direction: column;
+  max-height: 90vh;
+  // height: auto;
   background-color: v.$lighter-gray;
   border-radius: 4px;
   box-shadow: 4px 4px 10px 0 rgba(0, 0, 6, 0.08), 0 0 2px 0 rgba(0, 0, 6, 0.08);
-  overflow: hidden;
 
   &:hover {
     box-shadow: 6px 6px 10px 0 rgba(0, 0, 6, 0.18),
@@ -82,8 +85,8 @@
   }
 
   &Banner {
-    margin: v.$baseline / 2 0;
-    flex: 1 0 25%;
+    margin: v.$baseline / 2 0 0;
+    flex: 0 0 25%;
     min-width: 100%;
 
     img {
@@ -94,7 +97,7 @@
   }
 
   .buttonContainer {
-    margin: v.$baseline auto 0;
+    margin: v.$baseline / 2 auto 0;
     display: flex;
     justify-content: center;
     align-items: center;

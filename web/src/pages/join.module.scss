@@ -19,8 +19,11 @@
 
 .memCards {
   display: flex;
+  align-items: stretch;
+  min-height: 50vh;
+  // height: fit-content;
   // gap: v.$baseline; // TODO remove this because it's super unsupported? though postCSS plugin might take care of it
-  overflow: auto;
+  overflow-x: auto;
 
   & > * {
     margin-right: v.$baseline;
