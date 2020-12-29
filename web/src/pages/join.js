@@ -125,8 +125,7 @@ const JoinPage = ({
 
   // CONTACT INFO
   const phoneSplit = phone ? phone.split(" ") : []
-  const phoneNum =
-    phoneSplit.length > 0 ? phoneSplit[0].replaceAll("-", "") : ""
+  const phoneNum = phoneSplit.length > 0 ? phoneSplit[0].replace(/-/g, "") : ""
   const ext = phoneSplit.length > 1 ? phoneSplit[1].replace("x", "w") : ""
   const contactInfo = (
     <div className={styles.contactInfo}>
