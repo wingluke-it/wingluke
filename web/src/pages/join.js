@@ -2,7 +2,9 @@ import React, { useRef, useState } from "react"
 
 import Banner from "../components/banner"
 import ButtonStyledA from "../components/base_elements/buttonStyledA"
+import { FaPhoneAlt } from "@react-icons/all-files/fa/FaPhoneAlt"
 import { FiInfo } from "@react-icons/all-files/fi/FiInfo"
+import { MdEmail } from "@react-icons/all-files/md/MdEmail"
 import MembershipLevelCard from "../components/membershipLevelCard"
 import SEO from "../components/seo"
 import TitleSection from "../components/titleSection"
@@ -12,9 +14,25 @@ import { graphql } from "gatsby"
 import { mapEdgesToNodes } from "../lib/helpers"
 import styles from "./join.module.scss"
 
+const ContactOption = ({ icon, children }) => (
+  <div className={styles.contactOption}>
+    <span className={styles.contactOptionIcon}>{icon}</span>{" "}
+    <span className={styles.contactOptionInfo}>{children}</span>
+  </div>
+)
+
 const JoinPage = ({
   data: {
-    membershipInfo: { joinLink, title, subtitle, intro, coreBenefits, banner },
+    membershipInfo: {
+      joinLink,
+      title,
+      subtitle,
+      intro,
+      coreBenefits,
+      banner,
+      phone,
+      email,
+    },
     allSanityMembershipLevel,
   },
 }) => {
@@ -105,6 +123,35 @@ const JoinPage = ({
     }
   }
 
+  // CONTACT INFO
+  const phoneSplit = phone ? phone.split(" ") : []
+  const phoneNum =
+    phoneSplit.length > 0 ? phoneSplit[0].replaceAll("-", "") : ""
+  const ext = phoneSplit.length > 1 ? phoneSplit[1].replace("x", "w") : ""
+  const contactInfo = (
+    <div className={styles.contactInfo}>
+      <p>You may also join or renew by phone and email:</p>
+      <div className={styles.contactInfoOptions}>
+        {email && (
+          <ContactOption icon={<MdEmail />}>
+            <a
+              href={`mailto:${email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {email}
+            </a>
+          </ContactOption>
+        )}
+        {phone && (
+          <ContactOption icon={<FaPhoneAlt />}>
+            <a href={`tel:+1${phoneNum}${ext}`}>{phone}</a>
+          </ContactOption>
+        )}
+      </div>
+    </div>
+  )
+
   // CORE BENEFITS and FOOTNOTES
   const footnotesMap = new Map()
   const coreBenefitsList = coreBenefits
@@ -156,14 +203,16 @@ const JoinPage = ({
         subtitle={subtitle && subtitle.en}
         beforeText={"Join"}
         after={
-          <div className={styles.titleSectionAfterContainer}>
+          <div className={styles.titleSection}>
             {intro && intro.en && (
               <p className={styles.titleSectionIntro}>{intro.en}</p>
             )}
+            <p>Join or renew online:</p>
             <div className={styles.titleSectionButtonContainer}>
               <ButtonStyledA href={joinLink} text={"Join"} newtab={true} />
               <ButtonStyledA href={joinLink} text={"Renew"} newtab={true} />
             </div>
+            {contactInfo}
           </div>
         }
       />
@@ -270,15 +319,6 @@ export const query = graphql`
             name {
               en
             }
-          }
-          additionalBenefits {
-            title {
-              en
-            }
-            description {
-              en
-            }
-            footnotes
           }
           tagline {
             en

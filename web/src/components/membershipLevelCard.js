@@ -28,7 +28,6 @@ const MembershipLevelCard = ({
     narmIncluded,
     featuredBenefits,
     inheritsFrom,
-    additionalBenefits,
     tagline,
     banner,
   },
@@ -84,7 +83,14 @@ const MembershipLevelCard = ({
     membersTooltipInfo.push(
       <br />,
       <>
-        <a href="google.com">NARM</a> card included
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://narmassociation.org/"
+        >
+          NARM
+        </a>{" "}
+        card included
       </>
     )
 
@@ -191,7 +197,6 @@ MembershipLevelCard.propTypes = {
     narmIncluded: PropTypes.bool,
     featuredBenefits: PropTypes.array,
     inheritsFrom: PropTypes.object,
-    additionalBenefits: PropTypes.array,
     tagline: PropTypes.object,
   }).isRequired,
   joinLink: PropTypes.string,

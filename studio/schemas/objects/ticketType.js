@@ -1,5 +1,5 @@
 export default {
-  name: "visitorGuideTicket",
+  name: "ticketType",
   title: "General Admission Ticket Type",
   type: "object",
   fields: [
@@ -14,23 +14,23 @@ export default {
       type: "string",
     },
     {
-      name: "audience",
-      title: "Audience",
+      name: "ageRange",
+      title: "Age Range",
       type: "localeString",
       description:
-        "Please succinctly indicate who qualifies for purchasing using this ticket type (e.g. '5-12yrs' or '65 and older with ID').",
+        "Please succinctly provide the age range of who qualifies for purchasing using this ticket type (e.g. '5-12yrs' or '65 and older with ID').",
     },
   ],
   preview: {
     select: {
       name: "name.en",
       price: "price",
-      audience: "audience.en",
+      ageRange: "ageRange.en",
     },
-    prepare: ({ name, price, audience }) => {
+    prepare: ({ name, price, ageRange }) => {
       return {
-        title: audience ? `${name} (${audience})` : name,
-        subtitle: price,
+        title: ageRange ? `${name} (${ageRange})` : name,
+        subtitle: `$${price}`,
       };
     },
   },

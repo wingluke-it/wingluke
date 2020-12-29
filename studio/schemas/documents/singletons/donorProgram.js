@@ -49,7 +49,7 @@ export default {
       validation: (Rule) =>
         Rule.regex(PHONE_REGEX, {
           name: "phone-number",
-        }).warning("The recommended phone format is '123-456-7890 x123'"),
+        }).error("The required phone format is '123-456-7890 x123'"),
       fieldset: "contactInfo",
     },
     {
@@ -70,7 +70,7 @@ export default {
       validation: (Rule) =>
         Rule.regex(PHONE_REGEX, {
           name: "phone-number",
-        }).warning("The recommended phone format is '123-456-7890 x123'"),
+        }).error("The required phone format is '123-456-7890 x123'"),
       fieldset: "contactInfo",
     },
     {
@@ -91,7 +91,7 @@ export default {
       validation: (Rule) =>
         Rule.regex(PHONE_REGEX, {
           name: "phone-number",
-        }).warning("The recommended phone format is '123-456-7890 x123'"),
+        }).error("The required phone format is '123-456-7890 x123'"),
       fieldset: "contactInfo",
     },
     // this now can be represented with membershipLevel documents

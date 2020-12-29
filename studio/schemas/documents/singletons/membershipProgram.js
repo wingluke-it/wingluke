@@ -68,7 +68,7 @@ export default {
       validation: (Rule) =>
         Rule.regex(PHONE_REGEX, {
           name: "phone-number",
-        }).warning("The recommended phone format is '123-456-7890 x123'"),
+        }).error("The required phone format is '123-456-7890 x123'"),
     },
     {
       name: "faqs",

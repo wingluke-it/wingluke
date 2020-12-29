@@ -29,11 +29,13 @@ a {
   text-decoration: none;
 }
 
-p a {
+p a,
+span a,
+.wing-link-style {
   text-decoration: none;
   border-bottom: 1px solid v.$a-underline-color;
   background-color: v.$a-background-color;
-  color: black;
+  color: v.$transparent-black-darker;
   transition: 175ms all ease-in-out;
 
   &:visited {

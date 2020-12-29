@@ -15,6 +15,24 @@
     font-weight: 400;
     text-align: left;
   }
+
+  .contactInfo {
+    max-width: 30rem;
+    margin: v.$baseline auto;
+
+    &Options {
+      margin: v.$baseline;
+      display: flex;
+      flex-wrap: wrap;
+      gap: v.$baseline;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contactOptionIcon {
+      margin-right: v.$baseline / 2;
+    }
+  }
 }
 
 .memCards {

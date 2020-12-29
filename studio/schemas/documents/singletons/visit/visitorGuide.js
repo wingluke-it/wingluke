@@ -1,4 +1,4 @@
-import { EMAIL_REGEX, PHONE_REGEX } from "../../schemaGlobals";
+import { EMAIL_REGEX, PHONE_REGEX } from "../../../schemaGlobals";
 const VISITOR_GUIDE_TITLE = "Visitor Guide";
 
 export default {
@@ -6,19 +6,6 @@ export default {
   title: VISITOR_GUIDE_TITLE, // might want to update this
   type: "document",
   fields: [
-    {
-      name: "ticketPurchaseLink",
-      title: "Ticket Purchase Link",
-      type: "url",
-      validation: (Rule) =>
-        Rule.uri({
-          allowRelative: false,
-          scheme: ["https", "http"],
-        }),
-      description:
-        "Please provide the link for where visitors can purchase general admission tickets in advance of their visit to the museum.",
-      fieldset: "before",
-    },
     {
       name: "visitEmail",
       title: "Contact Email",
@@ -37,15 +24,8 @@ export default {
       validation: (Rule) =>
         Rule.regex(PHONE_REGEX, {
           name: "phone-number",
-        }).warning("The recommended phone format is '123-456-7890 x123'"),
+        }).error("The required phone format is '123-456-7890 x123'"),
       // fieldset: "contactInfo",
-    },
-    {
-      name: "ticketTypes",
-      title: "General Admission Ticket Types",
-      type: "array",
-      of: [{ type: "visitorGuideTicket" }],
-      fieldset: "before",
     },
     {
       // TODO add a list of days of the week field as well as two time fields?

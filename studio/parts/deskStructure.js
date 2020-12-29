@@ -3,6 +3,7 @@ import {
   FaHandHoldingHeart,
   FaHandHoldingUsd,
   FaSuitcaseRolling,
+  FaTicketAlt,
   FaYinYang,
 } from "react-icons/fa";
 
@@ -16,7 +17,8 @@ import marketplace from "../schemas/documents/singletons/marketplace";
 import membershipProgram from "../schemas/documents/singletons/membershipProgram";
 import museumMeta from "../schemas/documents/singletons/museumMeta";
 import pluralize from "pluralize";
-import visitorGuide from "../schemas/documents/singletons/visitorGuide";
+import tickets from "../schemas/documents/singletons/visit/tickets";
+import visitorGuide from "../schemas/documents/singletons/visit/visitorGuide";
 import volunteerProgram from "../schemas/documents/singletons/volunteerProgram";
 
 export const SINGLETON_TYPES = [
@@ -26,6 +28,7 @@ export const SINGLETON_TYPES = [
     "marketplace",
     "membershipProgram",
     "museumMeta",
+    "tickets",
     "visitorGuide",
     "volunteerProgram",
   ],
@@ -102,18 +105,28 @@ export default () =>
         .child(
           S.editor().schemaType(museumMeta.name).documentId(museumMeta.name)
         ),
-      // S.listItem()
-      //   .title("Action Guides")
-      //   .icon(IoIosInformationCircleOutline)
-      //   .child(
-      //     S.list()
-      //       .title("Action Guides")
-      //       .items([
       S.listItem()
-        .title(visitorGuide.title)
+        .title("Visitor Guide")
         .icon(FaSuitcaseRolling)
         .child(
-          S.editor().schemaType(visitorGuide.name).documentId(visitorGuide.name)
+          S.list()
+            .title("Visit Pages")
+            .items([
+              S.listItem()
+                .title(visitorGuide.title)
+                .icon(FaSuitcaseRolling)
+                .child(
+                  S.editor()
+                    .schemaType(visitorGuide.name)
+                    .documentId(visitorGuide.name)
+                ),
+              S.listItem()
+                .title(tickets.title)
+                .icon(FaTicketAlt)
+                .child(
+                  S.editor().schemaType(tickets.name).documentId(tickets.name)
+                ),
+            ])
         ),
       S.listItem()
         .title(volunteerProgram.title)

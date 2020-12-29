@@ -1,15 +1,15 @@
-import { useStaticQuery, graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 
 export const useTicketPurchaseLink = () => {
-  const { sanityVisitorGuide } = useStaticQuery(
+  const { sanityTickets } = useStaticQuery(
     graphql`
       {
-        sanityVisitorGuide {
+        sanityTickets {
           ticketPurchaseLink
         }
       }
     `
   )
 
-  return sanityVisitorGuide.ticketPurchaseLink
+  return sanityTickets.ticketPurchaseLink
 }
