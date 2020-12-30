@@ -19,10 +19,12 @@ import styles from "./layout.module.scss"
 
 // import { useStaticQuery, graphql } from "gatsby"
 
-let lastKnownScrollPosition = 0
 let previousScrollPos = 0
+let lastDownPos = 0
+let lastUpPos = 0
 // let minScrollDelta = 5
 let ticking = false
+let maxHeaderHeight = 0
 
 const Layout = ({ children }) => {
   const [headerIsOpen, setHeaderIsOpen] = useState(false)
@@ -68,26 +70,32 @@ const Layout = ({ children }) => {
     headerHeight =
       parseFloat(headerHeight) *
       parseFloat(getComputedStyle(document.documentElement).fontSize)
+    if (maxHeaderHeight === 0) maxHeaderHeight = headerHeight * 2
 
-    if (scrollPos <= 0 && !headerIsShown) {
+    if (scrollPos <= maxHeaderHeight && !headerIsShown) {
       setHeaderIsShown(true)
-    } else if (scrollPos > headerHeight) {
+    } else {
       const maxScrollDelta = window.innerHeight / 5
       const minScrollDelta = window.innerHeight / 100
-      if (
-        !headerIsShown &&
-        scrollPos < previousScrollPos - minScrollDelta &&
-        scrollPos + maxScrollDelta > previousScrollPos // if we're scrolling from more than 100px down, we're likely jumping using a hashtag ToC link, in which case, the header should not be shown
-      ) {
+      if (scrollPos < previousScrollPos /* - minScrollDelta */ /*  */) {
         // scrolling up
-        setHeaderIsShown(true)
-      } else if (
-        headerIsShown &&
-        (scrollPos > previousScrollPos + minScrollDelta ||
-          previousScrollPos - scrollPos > maxScrollDelta)
-      ) {
-        // scrolling down OR jumping up more than 100px using a hashtag toc link
-        setHeaderIsShown(false)
+        lastUpPos = scrollPos
+        if (
+          !headerIsShown &&
+          lastUpPos < lastDownPos - maxHeaderHeight &&
+          scrollPos + maxScrollDelta > previousScrollPos // if we're scrolling from more than 100px down, we're likely jumping using a hashtag ToC link, in which case, the header should not be shown
+        ) {
+          setHeaderIsShown(true)
+        }
+      } else if (scrollPos > previousScrollPos /* + minScrollDelta */ /*  */) {
+        lastDownPos = scrollPos
+        if (
+          (headerIsShown && lastDownPos > lastUpPos + maxHeaderHeight) ||
+          previousScrollPos - scrollPos > maxScrollDelta
+        ) {
+          // scrolling down OR jumping up more than 100px using a hashtag toc link
+          setHeaderIsShown(false)
+        }
       }
     }
 
@@ -95,11 +103,9 @@ const Layout = ({ children }) => {
   }
 
   const handleScroll = event => {
-    lastKnownScrollPosition = window.scrollY
-
     if (!ticking) {
       window.requestAnimationFrame(function () {
-        adjustHeader(lastKnownScrollPosition)
+        adjustHeader(window.scrollY)
         ticking = false
       })
 

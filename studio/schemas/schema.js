@@ -21,6 +21,7 @@ import figure from "./objects/figure";
 import fileWithMetadata from "./objects/fileWithMetadata";
 import gallery from "./documents/gallery";
 import historicSite from "./documents/historicSite";
+import hours from "./documents/singletons/visit/hours";
 import localePortableText from "./objects/localePortableText";
 import localeString from "./objects/localeString";
 import localeStringArray from "./objects/localeStringArray";
@@ -65,8 +66,9 @@ export default createSchema({
     museumMeta,
     volunteerProgram,
     // /visit/
-    tickets,
     visitorGuide,
+    hours,
+    tickets,
 
     // documents
     artist,

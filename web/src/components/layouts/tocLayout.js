@@ -19,7 +19,7 @@ const TocLayout = ({
   const titles = Object.keys(sectionTitlesAndContent)
   const ids = titles.map(title => title.replace(/\W/g, "-").toLowerCase())
   const tocLinks = ids.map((id, index) => (
-    <Link key={id} to={`#${id}`}>
+    <Link key={id} to={`#${id}`} replace>
       {titles[index]}
     </Link>
   ))

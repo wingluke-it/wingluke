@@ -38,25 +38,6 @@ export default {
       // fieldset: "contactInfo",
     },
     {
-      // TODO add a list of days of the week field as well as two time fields?
-      name: "hours",
-      title: "Building Hours",
-      type: "localeText",
-      // rows: 3, // this only works with text fields (not localeText)
-      description:
-        "Please provide the hours the museum is open in a typical week (e.g. '10 AM - 5 PM, Tuesday - Sunday').",
-      fieldset: "before",
-    },
-    {
-      name: "daysClosed",
-      title: "Days of the Year Closed",
-      type: "array",
-      of: [{ type: "localeString" }],
-      description:
-        "Please list all days (mostly holidays) of the year the museum is closed.",
-      fieldset: "before",
-    },
-    {
       name: "loc",
       title: "Wing Luke Building Location",
       type: "location",

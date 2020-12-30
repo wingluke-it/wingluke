@@ -1,4 +1,4 @@
-import { AiFillShop, AiOutlineIdcard } from "react-icons/ai";
+import { AiFillClockCircle, AiFillShop, AiOutlineIdcard } from "react-icons/ai";
 import {
   FaHandHoldingHeart,
   FaHandHoldingUsd,
@@ -13,6 +13,7 @@ import S from "@sanity/desk-tool/structure-builder";
 import cacProcess from "../schemas/documents/singletons/cacProcess";
 import donorProgram from "../schemas/documents/singletons/donorProgram";
 import eventSpaceUsage from "../schemas/documents/singletons/eventSpaceUsage";
+import hours from "../schemas/documents/singletons/visit/hours";
 import marketplace from "../schemas/documents/singletons/marketplace";
 import membershipProgram from "../schemas/documents/singletons/membershipProgram";
 import museumMeta from "../schemas/documents/singletons/museumMeta";
@@ -25,6 +26,7 @@ export const SINGLETON_TYPES = [
     "cacProcess",
     "donorProgram",
     "eventSpaceUsage",
+    "hours",
     "marketplace",
     "membershipProgram",
     "museumMeta",
@@ -125,6 +127,12 @@ export default () =>
                 .icon(FaTicketAlt)
                 .child(
                   S.editor().schemaType(tickets.name).documentId(tickets.name)
+                ),
+              S.listItem()
+                .title(hours.title)
+                .icon(AiFillClockCircle)
+                .child(
+                  S.editor().schemaType(hours.name).documentId(hours.name)
                 ),
             ])
         ),
