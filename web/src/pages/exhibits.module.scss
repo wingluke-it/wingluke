@@ -1,5 +1,5 @@
 @use "../styles/variables/" as v;
-@use "../styles/typography.scss";
+@use "../styles/fluid-typography" as ft;
 
 .grid {
   display: grid;
@@ -28,7 +28,7 @@
   .subtitle,
   .secondaryStatus {
     text-align: center;
-    @include typography.small-font();
+    @include ft.small-font();
   }
 
   figure {

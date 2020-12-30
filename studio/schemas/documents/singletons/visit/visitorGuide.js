@@ -7,6 +7,16 @@ export default {
   type: "document",
   fields: [
     {
+      name: "title",
+      title: "Title",
+      type: "localeString",
+    },
+    {
+      name: "subtitle",
+      title: "Subtitle",
+      type: "localeString",
+    },
+    {
       name: "visitEmail",
       title: "Contact Email",
       type: "string",

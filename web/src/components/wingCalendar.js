@@ -22,8 +22,13 @@ import styles from "./wingCalendar.module.scss"
 import { useMediaQuery } from "react-responsive"
 
 // TODO add a section for past events/tours - note that graphql query currently filters out past repeating event/tours
-const WingCalendar = ({ contentType, finiteNodes, repeatingNodes }) => {
-  const [datePicked, handleDateChange] = useState(new Date())
+const WingCalendar = ({
+  contentType,
+  finiteNodes,
+  repeatingNodes,
+  datePicked,
+  handleDateChange,
+}) => {
   const didMount = useRef(false)
   const calendarTop = useRef(null)
   useEffect(() => {

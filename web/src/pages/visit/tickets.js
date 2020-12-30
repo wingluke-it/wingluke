@@ -2,6 +2,7 @@ import ButtonStyledA from "../../components/base_elements/buttonStyledA"
 import React from "react"
 import SEO from "../../components/seo"
 import TitleSection from "../../components/titleSection"
+import VisitNav from "../../components/visitNav"
 import { graphql } from "gatsby"
 
 const TicketsPage = ({
@@ -20,6 +21,7 @@ const TicketsPage = ({
         // image={banner}
       />
       <TitleSection title={title?.en ?? "Tickets"} />
+      <VisitNav />
       {ticketPurchaseLink && (
         <ButtonStyledA
           href={ticketPurchaseLink}

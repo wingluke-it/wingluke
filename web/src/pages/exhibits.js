@@ -10,8 +10,10 @@ import TocLayout from "../components/layouts/tocLayout"
 import classNames from "classnames"
 import styles from "./exhibits.module.scss"
 
-const ExhibitsPage = props => {
-  const exhibitNodes = mapEdgesToNodes(props.data.allSanityExhibit)
+const ExhibitsPage = ({ data, location }) => {
+  const datePicked = location?.state?.datePassed ?? new Date()
+
+  const exhibitNodes = mapEdgesToNodes(data.allSanityExhibit)
   const past = []
   const upcoming = []
   const nowOnView = []
@@ -314,6 +316,7 @@ const ExhibitsPage = props => {
         // image={banner}
       />
       <TabbedTitles
+        dateToPass={datePicked}
         titles={[
           {
             title: "Exhibits",

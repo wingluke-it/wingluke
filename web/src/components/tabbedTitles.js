@@ -4,7 +4,7 @@ import React from "react"
 import classNames from "classnames"
 import styles from "./tabbedTitles.module.scss"
 
-const TabbedTitles = ({ titles }) => (
+const TabbedTitles = ({ titles, dateToPass }) => (
   <>
     <div className={styles.titles}>
       {titles.map(({ title, href, activeTitle }, index) =>
@@ -17,6 +17,10 @@ const TabbedTitles = ({ titles }) => (
             key={index}
             to={href}
             className={classNames("h2", styles.nonActiveTitle)}
+            state={{
+              datePassed: dateToPass,
+            }}
+            replace
           >
             {title}
           </Link>

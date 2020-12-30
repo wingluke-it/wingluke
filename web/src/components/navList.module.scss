@@ -1,5 +1,5 @@
 @use "../styles/variables/" as v;
-@use "../styles/typography.scss";
+@use "../styles/fluid-typography" as ft;
 
 @mixin nav-list-a {
   a {
@@ -49,7 +49,7 @@
     letter-spacing: 0.5px;
     border-left: 4px solid v.$light-gray-background-color;
     margin-top: v.$baseline / 4;
-    @include typography.small-font();
+    @include ft.small-font();
   }
 
   ul {

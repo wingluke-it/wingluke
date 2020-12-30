@@ -1,13 +1,17 @@
-import React from "react"
+import React, { useState } from "react"
+
 import SEO from "../components/seo"
 import TabbedTitles from "../components/tabbedTitles"
 import WingCalendar from "../components/wingCalendar"
 import { graphql } from "gatsby"
 import { mapEdgesToNodes } from "../lib/helpers"
 
-const ToursPage = ({ data, pageContext: { currentDate } }) => {
+const ToursPage = ({ data, pageContext: { currentDate }, location }) => {
   const finiteNodes = mapEdgesToNodes(data.finiteTours)
   const repeatingNodes = mapEdgesToNodes(data.repeatingTours)
+  const [datePicked, handleDateChange] = useState(
+    location?.state?.datePassed ?? new Date()
+  )
 
   return (
     <>
@@ -17,6 +21,7 @@ const ToursPage = ({ data, pageContext: { currentDate } }) => {
         // image={banner}
       />
       <TabbedTitles
+        dateToPass={datePicked}
         titles={[
           {
             title: "Exhibits",
@@ -39,6 +44,8 @@ const ToursPage = ({ data, pageContext: { currentDate } }) => {
         contentType={"tours"}
         finiteNodes={finiteNodes}
         repeatingNodes={repeatingNodes}
+        datePicked={datePicked}
+        handleDateChange={handleDateChange}
       />
     </>
   )
