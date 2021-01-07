@@ -62,6 +62,16 @@
     justify-content: center;
     align-items: center;
 
+    padding: v.$baseline / 4;
+    background-color: v.$a-background-color;
+    &:hover,
+    &:focus {
+      background-color: v.$a-hover-background-color;
+    }
+    * {
+      background-color: transparent;
+    }
+
     & > div {
       display: flex;
       justify-content: center;
@@ -71,6 +81,9 @@
 
     & > * {
       margin-left: v.$baseline / 6;
+    }
+    > *:first-child {
+      margin-left: 0;
     }
 
     .memberCards,
