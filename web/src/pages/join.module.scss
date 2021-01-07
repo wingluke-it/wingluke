@@ -1,6 +1,6 @@
 @use "../styles/variables/" as v;
 @use "../styles/fluid-typography" as f;
-@use "../components/base_elements/button.module.scss";
+@use "../styles/helpers";
 
 .titleSection {
   &ButtonContainer {
@@ -17,7 +17,7 @@
   }
 
   .contactInfo {
-    max-width: 30rem;
+    max-width: v.$max-p-width;
     margin: v.$baseline auto;
 
     &Options {
@@ -94,7 +94,7 @@
   &Right {
     $button-height: v.$baseline * 2;
     $button-width: $button-height;
-    @include button.remove-default-button-styles();
+    @include helpers.remove-default-button-styles();
     position: absolute;
     top: calc(50% - #{$button-height} / 2);
     font-size: $button-height / 1.5;
@@ -133,7 +133,7 @@
 
   &List {
     margin: v.$baseline v.$baseline / 2 0;
-    max-width: 30rem;
+    max-width: v.$max-p-width;
 
     dt {
       margin-top: v.$baseline / 2;
@@ -159,7 +159,6 @@
 
   &Footnotes {
     list-style-type: none;
-    margin-bottom: v.$baseline;
 
     li {
       font-size: 0.75rem;

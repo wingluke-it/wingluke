@@ -1,0 +1,15 @@
+@use "../../styles/variables/" as v;
+
+.daysClosed {
+  max-width: v.$max-p-width;
+  margin: v.$baseline auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: v.$baseline / 2 v.$baseline;
+
+  span {
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+  }
+}

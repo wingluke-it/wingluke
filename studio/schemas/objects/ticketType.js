@@ -14,23 +14,23 @@ export default {
       type: "string",
     },
     {
-      name: "ageRange",
-      title: "Age Range",
+      name: "whoQualifies",
+      title: "Who Qualifies?",
       type: "localeString",
       description:
-        "Please succinctly provide the age range of who qualifies for purchasing using this ticket type (e.g. '5-12yrs' or '65 and older with ID').",
+        "Please succinctly describe who qualifies for purchasing this ticket type (e.g. '5-12yrs' or 'Students with ID').",
     },
   ],
   preview: {
     select: {
       name: "name.en",
       price: "price",
-      ageRange: "ageRange.en",
+      whoQualifies: "whoQualifies.en",
     },
-    prepare: ({ name, price, ageRange }) => {
+    prepare: ({ name, price, whoQualifies }) => {
       return {
-        title: ageRange ? `${name} (${ageRange})` : name,
-        subtitle: `$${price}`,
+        title: whoQualifies ? `${name} (${whoQualifies})` : name,
+        subtitle: price,
       };
     },
   },

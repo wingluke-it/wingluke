@@ -25,18 +25,21 @@ let lastUpPos = 0
 // let minScrollDelta = 5
 let ticking = false
 let maxHeaderHeight = 0
+const maxScrollDelta = 100
+// const minScrollDelta = 5 // window.innerHeight / 100 uhh this was unnecessary
 
 const Layout = ({ children }) => {
+  const headerElement = useRef(null)
   const [headerIsOpen, setHeaderIsOpen] = useState(false)
   const closeHeader = () => {
     if (headerIsOpen) {
       setHeaderIsOpen(false)
       const body = document.body
       body.style.overflow = "auto"
+      headerElement.current.scrollTop = 0
     }
   }
   const toggleHeader = () => {
-    setHeaderIsOpen(!headerIsOpen)
     if (!headerIsOpen) {
       // const scrollY = document.documentElement.style.getPropertyValue(
       //   "--scroll-y"
@@ -48,11 +51,14 @@ const Layout = ({ children }) => {
     } else {
       const body = document.body
       body.style.overflow = "auto"
+      headerElement.current.scrollTop = 0
+
       // const scrollY = body.style.top
       // body.style.position = ""
       // body.style.top = ""
       // window.scrollTo(0, parseInt(scrollY || "0") * -1)
     }
+    setHeaderIsOpen(!headerIsOpen)
   }
 
   const [headerIsShown, setHeaderIsShown] = useState(true)
@@ -75,8 +81,6 @@ const Layout = ({ children }) => {
     if (scrollPos <= maxHeaderHeight && !headerIsShown) {
       setHeaderIsShown(true)
     } else {
-      const maxScrollDelta = window.innerHeight / 5
-      const minScrollDelta = window.innerHeight / 100
       if (scrollPos < previousScrollPos /* - minScrollDelta */ /*  */) {
         // scrolling up
         lastUpPos = scrollPos
@@ -86,6 +90,11 @@ const Layout = ({ children }) => {
           scrollPos + maxScrollDelta > previousScrollPos // if we're scrolling from more than 100px down, we're likely jumping using a hashtag ToC link, in which case, the header should not be shown
         ) {
           setHeaderIsShown(true)
+        } else if (
+          headerIsShown &&
+          scrollPos + maxScrollDelta < previousScrollPos
+        ) {
+          setHeaderIsShown(false)
         }
       } else if (scrollPos > previousScrollPos /* + minScrollDelta */ /*  */) {
         lastDownPos = scrollPos
@@ -103,7 +112,7 @@ const Layout = ({ children }) => {
   }
 
   const handleScroll = event => {
-    if (!ticking) {
+    if (!ticking && !headerIsOpen) {
       window.requestAnimationFrame(function () {
         adjustHeader(window.scrollY)
         ticking = false
@@ -126,7 +135,6 @@ const Layout = ({ children }) => {
       className={classNames(styles.layoutContainer, {
         [styles.headerIsShown]: headerIsShown,
         [styles.headerIsOpen]: headerIsOpen,
-        // [styles.scrolledPastHeaderHeight]: scrolledPastHeaderHeight,
       })}
     >
       <IconContext.Provider
@@ -137,6 +145,7 @@ const Layout = ({ children }) => {
           closeHeader={closeHeader}
           headerIsOpen={headerIsOpen}
           toggleHeader={toggleHeader}
+          ref={headerElement}
         />
         <main
           className={classNames({ [styles.visibilityHidden]: headerIsOpen })}

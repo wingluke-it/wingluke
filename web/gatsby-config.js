@@ -17,6 +17,11 @@ module.exports = {
     description: `The official website of the Wing Luke Museum of the Asian Pacific American Experience`,
     author: `Wing Luke Museum of the Asian Pacific American Experience`,
   },
+  flags: {
+    PRESERVE_WEBPACK_CACHE: true,
+    QUERY_ON_DEMAND: true,
+    LAZY_IMAGES: true,
+  },
   plugins: [
     {
       resolve: `gatsby-plugin-sass`,

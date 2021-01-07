@@ -102,11 +102,11 @@ export default {
     }, */
     {
       name: "curatedBy",
-      title: "Curated By",
+      title: "Community Creation Process",
       type: "reference",
-      to: [{ type: "youthProgramSession" }, { type: "cacProcess" }],
+      to: [{ type: "cacProcess" }, { type: "youthProgramSession" }],
       description:
-        'Choose either "CAC Process" or the corresponding youth program session that curated this exhibit. ' +
+        'Search and choose either "CAC Process" or the corresponding youth program session that collaborated to create this exhibit. ' +
         referenceDescription("youth program session"),
     },
     {
@@ -134,13 +134,6 @@ export default {
       // TODO description...what types of images are in this field?
     },
     {
-      name: "featuredArtists",
-      title: "Featured Artists",
-      type: "array",
-      of: [{ type: "reference", to: [{ type: "artist" }] }],
-      description: referenceDescription("artist"),
-    },
-    {
       name: "virtualExhibitLink",
       title: "Virtual Exhibit Link",
       type: "url",
@@ -151,6 +144,45 @@ export default {
         }),
       description:
         "If this is a virtual (online-only) exhibit, please provide the URL to the webpage where it can be viewed. Otherwise, leave blank.",
+    },
+    {
+      name: "featuredArtists",
+      title: "Featured Artists",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "artist" }] }],
+      description: referenceDescription("artist"),
+    },
+    // creation process can be inferred from curatedBy field...e.g. if this exhibit was created by TeensWay Winter 2020,
+    // it can be inferred that this exhibit was created by the TeensWay youth program
+    /*     {
+      name: "creationProcess",
+      title: "Creation Process",
+      type: "reference",
+      to: [{ type: "youthProgram" }, { type: "cacProcess" }],
+    }, */
+    {
+      name: "exhibitWriters",
+      title: "Exhibit Writers",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "artist" }] }],
+      fieldset: "creditPanel",
+      description: referenceDescription("artist"),
+    },
+    {
+      name: "exhibitDesigners",
+      title: "Exhibit Designers",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "artist" }] }],
+      fieldset: "creditPanel",
+      description: referenceDescription("artist"),
+    },
+    // Youth Program Participants can be inferred from the youth program session referenced in the curatedBy field
+    {
+      name: "cacMembers",
+      title: "Community Advisory Committee Participants",
+      type: "array",
+      of: [{ type: "string" }],
+      fieldset: "creditPanel",
     },
     {
       name: "travelingLocation",
@@ -193,38 +225,6 @@ export default {
       type: "array",
       of: [{ type: "reference", to: [{ type: "event" }] }],
     }, */
-    // Youth Program Participants can be inferred from the youth program session referenced in the curatedBy field
-    {
-      name: "cacMembers",
-      title: "Community Advisory Committee Participants",
-      type: "array",
-      of: [{ type: "string" }],
-      fieldset: "creditPanel",
-    },
-    // creation process can be inferred from curatedBy field...e.g. if this exhibit was created by TeensWay Winter 2020,
-    // it can be inferred that this exhibit was created by the TeensWay youth program
-    /*     {
-      name: "creationProcess",
-      title: "Creation Process",
-      type: "reference",
-      to: [{ type: "youthProgram" }, { type: "cacProcess" }],
-    }, */
-    {
-      name: "exhibitWriters",
-      title: "Exhibit Writers",
-      type: "array",
-      of: [{ type: "reference", to: [{ type: "artist" }] }],
-      fieldset: "creditPanel",
-      description: referenceDescription("artist"),
-    },
-    {
-      name: "exhibitDesigners",
-      title: "Exhibit Designers",
-      type: "array",
-      of: [{ type: "reference", to: [{ type: "artist" }] }],
-      fieldset: "creditPanel",
-      description: referenceDescription("artist"),
-    },
     /*     {
       name: "wingDonors",
       title: "The Wing Donors",
@@ -288,6 +288,7 @@ export default {
       title: "Credit Panel",
       options: {
         collapsible: true,
+        collapsed: false,
       },
     },
   ],

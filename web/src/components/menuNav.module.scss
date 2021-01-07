@@ -1,0 +1,86 @@
+@use "../styles/variables/" as v;
+@use "../styles/helpers";
+
+$nav-padding: v.$baseline / 2;
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: v.$max-p-width;
+  min-width: min(#{v.$width-breakpoint-mobile-s - 32px}, 90%);
+  border: 2px solid v.$medium-gray;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out 0s;
+  padding: 0;
+  overflow: hidden;
+
+  height: 1.95 * v.$baseline;
+  &.navShown {
+    height: max-content;
+    // overflow: auto;
+  }
+
+  > button {
+    @include helpers.remove-default-button-styles();
+
+    > span {
+      margin-right: v.$baseline / 2;
+    }
+
+    padding: $nav-padding;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:active {
+      background-color: scale-color(
+        v.$light-gray-background-color,
+        $lightness: -10%
+      );
+    }
+
+    &:focus {
+      background-color: scale-color(
+        v.$light-gray-background-color,
+        $lightness: -5%
+      );
+    }
+  }
+
+  .navTitle {
+    margin: $nav-padding 0;
+    display: block;
+    text-align: left;
+    padding-left: $nav-padding;
+  }
+
+  nav {
+    padding: 0 $nav-padding $nav-padding;
+    overflow: auto;
+
+    ul {
+      margin: 0;
+      border-top: 1px dashed v.$medium-gray;
+      list-style: none;
+      padding-top: $nav-padding;
+      padding-inline-start: v.$baseline;
+
+      li {
+        margin: $nav-padding 0;
+        display: flex;
+        align-items: center;
+      }
+
+      a {
+        @include helpers.wing-link-style;
+
+        &.activeLink {
+          font-weight: 600;
+          background-color: inherit;
+          // text-transform: uppercase;
+          border-bottom: 1px solid transparent;
+        }
+      }
+    }
+  }
+}

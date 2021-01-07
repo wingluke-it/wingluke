@@ -8,13 +8,12 @@ import DocsLayout from "../components/layouts/docsLayout"
 import ExcerptWithLink from "../components/excerptWithLink"
 import Figure from "../components/figure"
 import ImageGallery from "../components/imageGallery"
-import NavList from "../components/navList"
+import MenuNav from "../components/menuNav"
 import PortableText from "../components/portableText"
 import React from "react"
 import SEO from "../components/seo"
 import TitleSection from "../components/titleSection"
 import TocLayout from "../components/layouts/tocLayout"
-// import navListStyles from "../components/navList.module.scss"
 import styles from "./exhibit.module.scss"
 // import { useExhibits } from "../hooks/useExhibits"
 import { useTicketPurchaseLink } from "../hooks/useTicketPurchaseLink"
@@ -167,57 +166,18 @@ const ExhibitTemplate = props => {
       <p>thanks to: THE WING DONORS (link to individual giving page)</p>
     </>
   )
-  /* 
-  const exEdgesAlphabetizeComparator = ({ node: aNode }, { node: bNode }) => {
-    if (!aNode.title || !aNode.title.en || !bNode.title || !bNode.title.en) {
-      return 0
-    } else {
-      return aNode.title.en.localeCompare(bNode.title.en, "en", {
-        ignorePunctuation: true,
-      })
-    }
-  }
-  const exEdgesFilterFunc = status => ({ node: exhibit }) =>
-    getExhibitStatus(
-      exhibit.openingDate,
-      exhibit.closingDate,
-      exhibit.specialCategory
-    )[0] === status
-  const mapExEdgeToLi = ({ node }, index) => (
-    // TODO filter out past exhibits
-    // TODO categorize by current and upcoming
-    // TODO alphabetize? include opening/closing dates?
-    <li key={`other-exhibit-${index}`}>
-      <Link
-        activeClassName={navListStyles.activeLink}
-        partiallyActive={true}
-        to={`/exhibits/${node.slug && node.slug.current}`}
-      >
-        {node.title && node.title.en}
-      </Link>
-    </li>
-  ) */
   const getNavSection = (
     status //[
-  ) => (
-    <li key={`${status}-exhibits`} className={styles.navListItem}>
-      <Link to={`/exhibits/#${status.replace(/\W/g, "-").toLowerCase()}`}>
-        <h2 className={"h4"}>{status}</h2>
-      </Link>
-    </li>
-  ) //,
-  //   exhibitEdges
-  //     .filter(exEdgesFilterFunc(status))
-  //     .sort(exEdgesAlphabetizeComparator)
-  //     .map(mapExEdgeToLi),
-  // ]
+  ) => ({
+    text: status,
+    to: `/exhibits/#${status.replace(/\W/g, "-").toLowerCase()}`,
+  })
 
-  const navList = (
-    <NavList
-      listItems={[
-        <h2 key="all-exhibits" className={"h3"}>
-          <Link to={"/exhibits/"}>All Exhibits</Link>
-        </h2>,
+  const menuNav = (
+    <MenuNav
+      breakpoint={767}
+      title={"Exhibits"}
+      navItems={[
         getNavSection("Now on View"),
         getNavSection("Always on View"),
         getNavSection("Virtual"),
@@ -225,6 +185,55 @@ const ExhibitTemplate = props => {
         getNavSection("Past"),
         getNavSection("Traveling (For Rent)"),
       ]}
+    />
+  )
+
+  const titleSection = (
+    <TitleSection
+      title={title && title.en}
+      subtitle={subtitle && subtitle.en}
+      beforeText={`EXHIBIT${exhibitStatus && ` | ${exhibitStatus}`}`}
+      after={
+        <>
+          {secondaryStatus && (
+            <p className={styles.halfTopMargin}>{secondaryStatus}</p>
+          )}
+          {_rawGallery && _rawGallery.name && _rawGallery.name.en && (
+            <p className={styles.halfTopMargin}>
+              {_rawGallery.slug ? (
+                <Link to={`/galleries/${_rawGallery.slug.current}/`}>
+                  {`${_rawGallery.name.en}${
+                    _rawGallery.floor ? ` (Floor ${_rawGallery.floor})` : ""
+                  }`}
+                </Link>
+              ) : (
+                `${_rawGallery.name.en}${
+                  _rawGallery.floor ? ` (Floor ${_rawGallery.floor})` : ""
+                }`
+              )}
+            </p>
+          )}
+          <div className={styles.titleButtonContainer}>
+            {virtualExhibitLink ? (
+              <ButtonStyledA
+                href={virtualExhibitLink}
+                newtab={true}
+                text={"View Exhibit"}
+              />
+            ) : (
+              <ButtonStyledA
+                href={ticketPurchaseLink}
+                newtab={true}
+                text={"Buy Tickets"}
+              />
+            )}
+            {/* TODO update this with actual plan a visit link */}
+            <ButtonStyledLink to={"/visit/"} text={"Plan a Visit"} />
+            {/* <ButtonStyledLink to={"/exhibits/"} text={"All Exhibits"} /> */}
+            {/* <Button text={"I'm a Button!"} /> */}
+          </div>
+        </>
+      }
     />
   )
 
@@ -238,65 +247,22 @@ const ExhibitTemplate = props => {
         image={banner}
       />
       <article>
-        <TitleSection
-          title={title && title.en}
-          subtitle={subtitle && subtitle.en}
-          beforeText={`EXHIBIT${exhibitStatus && ` | ${exhibitStatus}`}`}
-          after={
-            <>
-              {secondaryStatus && (
-                <p className={styles.halfTopMargin}>{secondaryStatus}</p>
-              )}
-              {_rawGallery && _rawGallery.name && _rawGallery.name.en && (
-                <p className={styles.halfTopMargin}>
-                  {_rawGallery.slug ? (
-                    <Link to={`/galleries/${_rawGallery.slug.current}/`}>
-                      {`${_rawGallery.name.en}${
-                        _rawGallery.floor ? ` (Floor ${_rawGallery.floor})` : ""
-                      }`}
-                    </Link>
-                  ) : (
-                    `${_rawGallery.name.en}${
-                      _rawGallery.floor ? ` (Floor ${_rawGallery.floor})` : ""
-                    }`
-                  )}
-                </p>
-              )}
-              <div className={styles.titleButtonContainer}>
-                {virtualExhibitLink ? (
-                  <ButtonStyledA
-                    href={virtualExhibitLink}
-                    newtab={true}
-                    text={"View Exhibit"}
-                  />
-                ) : (
-                  <ButtonStyledA
-                    href={ticketPurchaseLink}
-                    newtab={true}
-                    text={"Buy Tickets"}
-                  />
-                )}
-                {/* TODO update this with actual plan a visit link */}
-                <ButtonStyledLink to={"/visit/"} text={"Plan a Visit"} />
-                {/* <ButtonStyledLink to={"/exhibits/"} text={"All Exhibits"} /> */}
-                {/* <Button text={"I'm a Button!"} /> */}
-              </div>
-            </>
-          }
-        />
+        {titleSection}
         <Banner figure={banner} />
         <DocsLayout
           main={
-            <TocLayout
-              tocTitle={""}
-              sectionTitlesAndContent={sectionTitlesAndContent}
-              afterToc={null}
-              headersHiddenAtBreakpoint={false}
-              hideTocNav={true}
-            />
+            <>
+              <TocLayout
+                tocTitle={""}
+                sectionTitlesAndContent={sectionTitlesAndContent}
+                afterToc={null}
+                headersHiddenAtBreakpoint={false}
+                hideTocNav={true}
+              />
+            </>
           }
           sidebar={
-            <aside>{navList}</aside>
+            <aside>{menuNav}</aside>
             // TODO refactor this into a reusable sidebarNav component
           }
         />

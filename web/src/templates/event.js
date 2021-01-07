@@ -1,4 +1,3 @@
-import { Link, graphql } from "gatsby"
 import { compareAsc, format, isSameDay, parseISO } from "date-fns"
 import {
   formatOccurrence,
@@ -13,14 +12,14 @@ import ButtonStyledA from "../components/base_elements/buttonStyledA"
 import DocsLayout from "../components/layouts/docsLayout"
 import { GoLocation } from "@react-icons/all-files/go/GoLocation"
 import { IoTicketOutline } from "@react-icons/all-files/io5/IoTicketOutline"
-import NavList from "../components/navList"
+import MenuNav from "../components/menuNav"
 import PortableText from "../components/portableText"
 import React from "react"
 import { RiComputerLine } from "@react-icons/all-files/ri/RiComputerLine"
 import SEO from "../components/seo"
 import TitleSection from "../components/titleSection"
 import TocLayout from "../components/layouts/tocLayout"
-import navListStyles from "../components/navList.module.scss"
+import { graphql } from "gatsby"
 import styles from "./event.module.scss"
 import { useEvents } from "../hooks/useEvents"
 
@@ -277,25 +276,14 @@ const Event = props => {
           }
           sidebar={
             <aside>
-              <NavList
-                listItems={[
-                  <h2 key="all-events" className={"h4"}>
-                    <Link to={"/events/"}>All Events</Link>
-                  </h2>,
-                  eventEdges.map(({ node }, index) => (
-                    // TODO filter out past events
-                    // TODO categorize by current and upcoming
-                    // TODO alphabetize? include opening/closing dates?
-                    <li key={`other-event-${index}`}>
-                      <Link
-                        activeClassName={navListStyles.activeLink}
-                        partiallyActive={true}
-                        to={`/events/${node.slug && node.slug.current}`}
-                      >
-                        {node.title && node.title.en}
-                      </Link>
-                    </li>
-                  )),
+              <MenuNav
+                breakpoint={767}
+                title={"Events"}
+                navItems={[
+                  ...eventEdges.map(({ node }) => ({
+                    to: `/events/${node.slug && node.slug.current}`,
+                    text: node?.title?.en ?? "Untitled Event",
+                  })),
                 ]}
               />
             </aside>

@@ -1,0 +1,9 @@
+@use "../styles/variables/" as v;
+
+.article {
+  padding: 0 v.$baseline / 2;
+
+  section:first-of-type h2 {
+    margin-top: v.$baseline;
+  }
+}

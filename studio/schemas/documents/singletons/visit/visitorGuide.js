@@ -17,6 +17,11 @@ export default {
       type: "localeString",
     },
     {
+      name: "description",
+      title: "Description",
+      type: "localeText",
+    },
+    {
       name: "visitEmail",
       title: "Contact Email",
       type: "string",

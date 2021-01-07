@@ -16,10 +16,15 @@ export default {
       type: "localeString",
     },
     {
+      name: "description",
+      title: "Description",
+      type: "localeText",
+    },
+    {
       // TODO add a list of days of the week field as well as two time fields?
       name: "hours",
       title: "Building Hours",
-      type: "localeText",
+      type: "localePortableText",
       // rows: 3, // this only works with text fields (not localeText)
       description:
         "Please provide the hours the museum is open in a typical week (e.g. '10 AM - 5 PM, Tuesday - Sunday').",

@@ -7,6 +7,12 @@
   --header-room: 0px; // //0px;
   --header-height: #{v.$header-height};
   --header-position: fixed;
+
+  main {
+    > *:last-child {
+      margin-bottom: v.$baseline;
+    }
+  }
 }
 
 .layoutContainer > header,

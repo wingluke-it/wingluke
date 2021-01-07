@@ -16,13 +16,13 @@ export default {
       type: "localeString",
     },
     {
-      name: "intro",
-      title: "Intro",
+      name: "description",
+      title: "Description",
       type: "localeText",
     },
     {
       name: "ticketPurchaseLink",
-      title: "Ticket Purchase Link",
+      title: "General Admission Ticket Purchase Link",
       type: "url",
       validation: (Rule) =>
         Rule.uri({
@@ -31,12 +31,20 @@ export default {
         }),
       description:
         "Please provide the link for where visitors can purchase general admission tickets in advance of their visit to the museum.",
+      fieldset: "ga",
     },
     {
       name: "ticketTypes",
       title: "General Admission Ticket Types",
       type: "array",
       of: [{ type: "ticketType" }],
+      fieldset: "ga",
+    },
+    {
+      name: "gaInfo",
+      title: "General Admission Information",
+      type: "localePortableText",
+      fieldset: "ga",
     },
     {
       name: "faqs",
@@ -52,6 +60,16 @@ export default {
       type: "localePortableText",
       description:
         "If there is more information that guests need to know about tickets that does not fit into any of the above fields, please include it here.",
+    },
+  ],
+  fieldsets: [
+    {
+      name: "ga",
+      title: "General Admission",
+      options: {
+        collapsible: true,
+        collapsed: false,
+      },
     },
   ],
   preview: {

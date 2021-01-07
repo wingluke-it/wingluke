@@ -1,4 +1,4 @@
-import { Arrow, useHover, useLayer } from "react-laag"
+import { Arrow, useLayer } from "react-laag"
 import React, { useState } from "react"
 
 import PropTypes from "prop-types"
@@ -30,7 +30,7 @@ const WingTooltip = ({ children, content }) => {
 
   return (
     <>
-      <span
+      <span // TODO add a role and keyboard listener for a11y, or change to an destyled button
         {...triggerProps}
         /* {...hoverProps} */ onClick={() => toggleIsOpen()}
         className={styles.infoIcon}
@@ -41,6 +41,7 @@ const WingTooltip = ({ children, content }) => {
         renderLayer(
           <div className={styles.tooltip} {...layerProps}>
             <span onClick={() => toggleIsOpen(false)} className={styles.closeX}>
+              {/* TODO add a role and keyboard listener for a11y, or change to an destyled button */}
               X
             </span>
             {content}

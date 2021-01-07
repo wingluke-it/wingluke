@@ -5,7 +5,7 @@
 }
 
 .tooltip {
-  max-width: min(90vw, 30rem);
+  max-width: min(90vw, #{v.$max-p-width});
   font-size: 1rem;
   vertical-align: middle;
   // background-color: #f7f7f7;

@@ -1,0 +1,50 @@
+@use "../../styles/variables/" as v;
+
+.gaContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: v.$width-breakpoint-tablet * 3/4;
+  margin: v.$baseline auto;
+  align-items: center;
+  // @media (min-width: v.$width-breakpoint-tablet) {
+  //   justify-content: space-between;
+  //   flex-direction: row;
+  // }
+
+  .buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+
+    // flex: 0 1 50%;
+  }
+
+  .ticketsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-flow: row;
+    column-gap: v.$baseline * 2;
+    row-gap: v.$baseline / 2;
+    // max-width: v.$max-p-width / 2;
+    // flex: 1 0 50%;
+    min-width: min(#{v.$max-p-width / 2}, 100vw);
+    padding-inline-start: 0px;
+    margin: v.$baseline 0 0;
+    // @media (min-width: v.$width-breakpoint-tablet) {
+    // margin: 0;
+    // }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      > *:first-child {
+        margin-right: v.$baseline;
+      }
+      // margin-top: v.$baseline / 2;
+    }
+  }
+}

@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react"
 import Banner from "../components/banner"
 import ButtonStyledA from "../components/base_elements/buttonStyledA"
 import { FaPhoneAlt } from "@react-icons/all-files/fa/FaPhoneAlt"
-import { FiInfo } from "@react-icons/all-files/fi/FiInfo"
+import { IoMdInformationCircleOutline } from "@react-icons/all-files/io/IoMdInformationCircleOutline"
 import { MdEmail } from "@react-icons/all-files/md/MdEmail"
 import MembershipLevelCard from "../components/membershipLevelCard"
 import SEO from "../components/seo"
@@ -171,7 +171,7 @@ const JoinPage = ({
               <>
                 {" "}
                 <WingTooltip content={description.en}>
-                  <FiInfo />
+                  <IoMdInformationCircleOutline />
                 </WingTooltip>
               </>
             )}

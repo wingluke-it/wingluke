@@ -43,7 +43,7 @@
 
 .occContainer {
   grid-area: occurrences;
-  padding: 0 v.$baseline / 2 v.$baseline;
+  padding: 0 v.$baseline / 2;
 
   .cardContainer {
     padding: 0 v.$baseline / 2;

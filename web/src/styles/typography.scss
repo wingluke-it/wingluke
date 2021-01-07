@@ -1,5 +1,6 @@
 @use "fluid-typography" as ft;
 @use "variables" as v;
+@use "helpers";
 
 html {
   font-family: proxima-nova, sans-serif; /* let the browser pick a similar font in the generic sans-serif family, if no other fonts are available */
@@ -20,31 +21,9 @@ a {
 }
 
 p a,
-span a,
-.wing-link-style {
-  text-decoration: none;
-  border-bottom: 1px solid v.$a-underline-color;
-  background-color: v.$a-background-color;
-  color: v.$transparent-black-darker;
-  transition: 175ms all ease-in-out;
-
-  &:visited {
-  }
-
-  &:hover {
-    background-color: v.$a-hover-background-color;
-    border-bottom-color: black;
-  }
-
-  &:active {
-  }
-
-  &:focus {
-    // TODO important for accessibility
-  }
+span a {
+  @include helpers.wing-link-style;
 }
-
-$p-width: 30rem; // about 55 characters wide
 
 p {
   letter-spacing: 0px;
@@ -56,7 +35,7 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
   // overflow: hidden;
-  max-width: min(100vw, #{$p-width});
+  max-width: min(100vw, #{v.$max-p-width});
 }
 
 span {
@@ -67,7 +46,7 @@ span {
 
 li {
   line-height: v.$baseline;
-  max-width: min(100vw, #{$p-width});
+  max-width: min(100vw, #{v.$max-p-width});
   word-break: break-word;
 }
 
@@ -76,7 +55,7 @@ ol {
   margin: v.$baseline auto 0;
   line-height: v.$baseline;
   // overflow-wrap: break-word;
-  max-width: min(100vw, #{$p-width});
+  max-width: min(100vw, #{v.$max-p-width});
 
   ul,
   ol {

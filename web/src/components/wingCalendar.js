@@ -1,7 +1,7 @@
 import "react-calendar/dist/Calendar.css"
 import "./datePicker.scss"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 import {
   addYears,
   compareAsc,
