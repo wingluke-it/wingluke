@@ -8,7 +8,7 @@
     align-items: center;
     justify-content: space-around;
     max-width: v.$width-breakpoint-tablet / 2;
-    margin: v.$baseline auto 0;
+    margin: v.$baseline / 2 auto 0;
   }
 
   &Intro {
@@ -21,14 +21,23 @@
     margin: v.$baseline auto;
 
     &Options {
-      margin: v.$baseline;
+      margin: v.$baseline / 2;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      // grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      // gap: v.$baseline;
       align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
 
-      > *:first-child {
-        margin: v.$baseline v.$baseline v.$baseline 0;
+      > div {
+        display: flex;
+        margin: 0 v.$baseline / 2;
+
+        @media (max-width: 461px) {
+          &:first-child {
+            margin-bottom: v.$baseline / 2;
+          }
+        }
       }
     }
 
