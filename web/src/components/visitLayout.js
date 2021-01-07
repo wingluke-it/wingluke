@@ -1,6 +1,8 @@
-import DocsLayout from "./layouts/docsLayout"
 import React from "react"
+
+import DocsLayout from "./layouts/docsLayout"
 import VisitNav from "./visitNav"
+
 import styles from "./visitLayout.module.scss"
 
 const VisitLayout = ({ children }) => (
