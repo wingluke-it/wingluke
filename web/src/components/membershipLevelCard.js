@@ -96,6 +96,7 @@ const MembershipLevelCard = ({
 
   const card = (
     <div className={styles.card}>
+      {tagline?.en && <span className={styles.tagline}>{tagline.en}</span>}
       <h3>{name.en ?? "Untitled"}</h3>
       {/* TODO memberCard and child/adult guest symbols */}
       <WingTooltip content={<span>{membersTooltipInfo}</span>}>
@@ -150,6 +151,12 @@ const MembershipLevelCard = ({
           dimensions={1 / 3}
           width={600}
         />
+      )}
+      {inheritsFrom?.name?.en && (
+        <span className={styles.inheritsFrom}>
+          Includes ALL benefits from: <br />
+          <strong>{inheritsFrom.name.en}</strong> level membership.
+        </span>
       )}
       {featuredBenefits.length > 0 && (
         <ul className={styles.featuredBenefits}>

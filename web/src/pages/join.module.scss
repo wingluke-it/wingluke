@@ -24,9 +24,12 @@
       margin: v.$baseline;
       display: flex;
       flex-wrap: wrap;
-      gap: v.$baseline;
       justify-content: center;
       align-items: center;
+
+      > *:first-child {
+        margin: v.$baseline v.$baseline v.$baseline 0;
+      }
     }
 
     .contactOptionIcon {
@@ -48,7 +51,7 @@
   }
 
   $min-padding: v.$baseline / 2;
-  padding: $min-padding;
+  padding: v.$baseline $min-padding;
   $max-padding: 7.5 * 16;
 
   &:last-child::after {
@@ -96,6 +99,7 @@
     $button-width: $button-height;
     @include helpers.remove-default-button-styles();
     position: absolute;
+    z-index: v.$memscrollbutton-z-index;
     top: calc(50% - #{$button-height} / 2);
     font-size: $button-height / 1.5;
     width: $button-width;

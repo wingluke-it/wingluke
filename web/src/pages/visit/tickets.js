@@ -12,7 +12,7 @@ const TicketPrice = ({ ticketType: { name, price, whoQualifies } }) =>
     <li>
       <span>
         <strong>{name?.en}</strong> <br />
-        {whoQualifies?.en ? `(${whoQualifies.en})` : ""}
+        <span>{whoQualifies?.en ? `(${whoQualifies.en})` : " "}</span>
       </span>
       <span>{price}</span>
     </li>

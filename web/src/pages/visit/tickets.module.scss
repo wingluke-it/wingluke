@@ -43,6 +43,7 @@
 
       > *:first-child {
         margin-right: v.$baseline;
+        white-space: pre;
       }
       // margin-top: v.$baseline / 2;
     }

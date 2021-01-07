@@ -16,12 +16,15 @@
   // margin-top: v.$baseline;
   // min-height: min(100%, 50vh);
   // height: fit-content;
-  overflow: auto;
+  overflow: visible;
+  position: relative;
+  z-index: v.$memcard-z-index;
   // max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-height: 90vh;
+  min-height: 500px;
+  max-height: min(90vh, 800px);
   // height: auto;
   background-color: v.$lighter-gray;
   border-radius: 4px;
@@ -30,6 +33,22 @@
   &:hover {
     box-shadow: 6px 6px 10px 0 rgba(0, 0, 6, 0.18),
       0 0 4px 0 rgba(0, 0, 6, 0.18);
+  }
+
+  .tagline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    $tagline-height: v.$baseline * 0.75;
+    $tagline-padding: v.$baseline / 4;
+    position: absolute;
+    font-size: 0.75rem;
+    height: $tagline-height + $tagline-padding * 2;
+    top: -1 * ($tagline-height + $tagline-padding);
+    right: v.$baseline / 2;
+    background-color: v.$dark-blue;
+    color: white;
+    padding: $tagline-padding;
   }
 
   h3 {
@@ -95,6 +114,11 @@
       min-height: 100%;
       object-fit: cover;
     }
+
+    // TODO not sure what the ideal max-height here is
+    @media (max-height: 800px) {
+      display: none;
+    }
   }
 
   .buttonContainer {
@@ -103,6 +127,12 @@
     justify-content: center;
     align-items: center;
     gap: v.$baseline;
+  }
+
+  .inheritsFrom {
+    display: block;
+    text-align: center;
+    margin: v.$baseline v.$baseline / 2 0;
   }
 
   .featuredBenefits {
