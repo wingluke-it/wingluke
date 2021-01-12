@@ -118,5 +118,17 @@ export default {
       ],
       description: refDescription,
     },
+    {
+      name: "creativeSponsors",
+      title: "Creative Sponsors",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "sponsor" }],
+        },
+      ],
+      description: refDescription,
+    },
   ],
 };

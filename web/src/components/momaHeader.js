@@ -18,13 +18,7 @@ const MomaHeader = React.forwardRef(
     )
 
     return (
-      <header
-        className={classNames(styles.header, {
-          [styles.headerOpened]: headerIsOpen,
-          [styles.headerIsHidden]: headerIsHidden,
-        })}
-        ref={ref}
-      >
+      <header className={classNames(styles.header)} ref={ref}>
         <nav className={styles.nav}>
           <div className={styles.topBar}>
             <Link className={styles.homeLink} onClick={closeHeader} to="/">
@@ -45,7 +39,7 @@ const MomaHeader = React.forwardRef(
           {/* {headerIsOpen && ( */}
           <div
             className={classNames(styles.expandingContainer, {
-              [styles.visibilityHidden]: !headerIsOpen,
+              [styles.headerIsOpen]: headerIsOpen,
             })}
           >
             <MomaHeaderLink to="/exhibits" text="Exhibits" />

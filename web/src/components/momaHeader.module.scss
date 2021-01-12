@@ -2,8 +2,8 @@
 @use "../styles/helpers";
 
 .header {
-  position: var(--header-position);
-  top: calc(#{v.$header-height} * -1 + var(--header-room));
+  position: fixed;
+  top: calc(var(--header-room) - #{v.$header-height});
   z-index: v.$header-z-index;
   width: 100vw;
   background: v.$primary-brand-color;
@@ -11,7 +11,7 @@
   // https://css-tricks.com/using-css-transitions-auto-dimensions/
   height: v.$header-height;
   // height: auto;
-  overflow: hidden;
+  // overflow: hidden;
   transition: all 0.2s ease-in-out 0s;
 }
 
@@ -40,6 +40,7 @@
   img {
     width: 100%;
     max-width: 13rem;
+    margin: 0;
     // margin: auto 0;
   }
 }
@@ -79,16 +80,24 @@
 }
 
 .expandingContainer {
-  visibility: visible;
-  &.visibilityHidden {
-    visibility: hidden;
+  visibility: hidden;
+  height: 0;
+  width: 100vw;
+
+  &.headerIsOpen {
+    visibility: visible;
+    height: calc(100vh - var(--header-height));
   }
+
   transition: all 0.2s ease-in-out 0s;
+  position: fixed;
+  top: var(--header-height);
+  overflow: auto;
 
   text-align: center;
   // min-width: 33vw;
   // max-width: 50vw;
-  width: fit-content;
+  // width: fit-content;
   margin: 0 auto;
   // margin-left: 30vw;
 
@@ -118,14 +127,14 @@
   }
 }
 
-.headerHidden {
+/* .headerHidden {
 }
 
 // good for this to go last so that it overrides earlier default (header closed) styling
-.headerOpened {
+ .headerOpened {
   height: 100vh;
-  overflow: auto;
+  // overflow: auto;
 
   .topBarButtons {
   }
-}
+} */

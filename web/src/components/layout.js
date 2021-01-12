@@ -40,18 +40,17 @@ const Layout = ({ children }) => {
     }
   }
   const toggleHeader = () => {
+    const body = document.body
     if (!headerIsOpen) {
       // const scrollY = document.documentElement.style.getPropertyValue(
       //   "--scroll-y"
       // )
-      const body = document.body
       body.style.overflow = "hidden"
       // body.style.position = "fixed"
       // body.style.top = `-${scrollY}`
     } else {
-      const body = document.body
       body.style.overflow = "auto"
-      headerElement.current.scrollTop = 0
+      // headerElement.current.scrollTop = 0
 
       // const scrollY = body.style.top
       // body.style.position = ""

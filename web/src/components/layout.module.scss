@@ -1,12 +1,12 @@
 @use "../styles/variables/" as v;
+
 .layoutContainer {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 
-  --header-room: 0px; // //0px;
-  --header-height: #{v.$header-height};
-  --header-position: fixed;
+  --header-room: 0px; // changes based on how much visitble room the header is taking up
+  --header-height: #{v.$header-height}; // static
 
   main {
     > *:last-child {
@@ -18,11 +18,6 @@
 .layoutContainer > header,
 .layoutContainer > footer {
   flex: 0 0 auto;
-}
-
-.scrolledPastHeaderHeight {
-  --header-position: fixed;
-  --header-top: 0px;
 }
 
 .headerIsOpen {

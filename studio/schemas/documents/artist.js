@@ -23,6 +23,19 @@ export default {
       },
     },
     {
+      name: "occupation",
+      type: "localeString",
+      title: "Title/Occupation",
+      description: 'E.g. "Artist" or "Illustrator" or "Photographer", etc.',
+    },
+    {
+      name: "discipline",
+      type: "localeString",
+      title: "Discipline",
+      description:
+        'E.g. "Japanese Calligraphy" or "Photography" or "Ceramics", etc.',
+    },
+    {
       name: "biography",
       title: "Biography",
       type: "localeText",
