@@ -50,7 +50,7 @@
   }
 }
 
-@media (min-width: v.$width-breakpoint-tablet) {
+@media (min-width: v.$width-breakpoint-tablet + 1) {
   .grid {
     grid-template-columns: 40% 1fr;
     grid-template-areas: "datePicker occurrences";

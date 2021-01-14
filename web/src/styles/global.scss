@@ -31,7 +31,7 @@ body {
 
 main {
   transition: all 0.2s ease-in-out;
-  margin: v.$header-height 0 0;
+  margin: v.$header-top-bar-height + v.$header-bottom-bar-height 0 0;
   padding: 0;
   flex: 1 0 auto;
   width: 100%;

@@ -92,7 +92,7 @@ const Tour = ({
     )
   }
 
-  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 767px)" })
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 768px)" })
 
   return (
     <>

@@ -165,13 +165,13 @@ $sidebar-min-width: 13rem;
   }
 }
 
-@media (min-width: v.$width-breakpoint-tablet) {
+@media (min-width: v.$width-breakpoint-tablet + 1) {
   .gridBreakpointTablet {
     @include toc-shown();
   }
 }
 
-@media (min-width: v.$width-breakpoint-laptop-s) {
+@media (min-width: v.$width-breakpoint-laptop-s + 1) {
   .gridBreakpointLaptop {
     @include toc-shown();
   }

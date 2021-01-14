@@ -3,13 +3,13 @@
 .card {
   transition: all 0.2s ease-in-out 0s;
   flex: 1 0 90%;
-  @media (min-width: v.$width-breakpoint-mobile-l) {
+  @media (min-width: v.$width-breakpoint-mobile-l + 1) {
     flex: 1 0 80%;
   }
-  @media (min-width: v.$width-breakpoint-tablet) {
+  @media (min-width: v.$width-breakpoint-tablet + 1) {
     flex: 1 0 40%;
   }
-  @media (min-width: v.$width-breakpoint-laptop-s) {
+  @media (min-width: v.$width-breakpoint-laptop-s + 1) {
     flex: 1 0 30%;
   }
 

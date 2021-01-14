@@ -44,7 +44,7 @@ const WingCalendar = ({
     }
   }, [datePicked]) // TODO perhaps only perform this scrollTo when the window's scrollY position is below calendarTop's position
   const isTabletOrMobile = useMediaQuery({
-    query: "(max-width: 767px)",
+    query: "(max-width: 768px)",
   })
 
   const upcomingOccurrences = {}

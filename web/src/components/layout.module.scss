@@ -1,16 +1,35 @@
 @use "../styles/variables/" as v;
 
+$fade-duration: 0.5s;
+$fade-delay: 0.1s;
+
 .layoutContainer {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 
-  --header-room: 0px; // changes based on how much visitble room the header is taking up
-  --header-height: #{v.$header-height}; // static
+  --header-room: #{v.$header-bottom-bar-height}; // changes based on how much visitble room the header is taking up
+  --header-max-room: #{v.$header-bottom-bar-height + v.$header-top-bar-height}; // static
 
   main {
+    visibility: visible;
+    opacity: 1;
+    // TODO somehow get this to only happen when it's a new page we're switching to.
+    // just closing the header on the same page shouldn't trigger the transition
+
+    // &.fadeIn {
+    transition: visibility $fade-duration ease-in-out $fade-delay,
+      opacity $fade-duration ease-in-out $fade-delay;
+    // }
+
     > *:last-child {
       margin-bottom: v.$baseline;
+    }
+
+    &.visibilityHidden {
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.2s ease-in-out 0s, opacity 0.2s ease-in-out;
     }
   }
 }
@@ -24,10 +43,5 @@
 }
 
 .headerIsShown {
-  --header-room: #{v.$header-height}; //0px;
-}
-
-.visibilityHidden {
-  visibility: hidden;
-  transition: all 0.2s ease-in-out 0s;
+  --header-room: #{v.$header-top-bar-height + v.$header-bottom-bar-height};
 }

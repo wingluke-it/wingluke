@@ -6,10 +6,10 @@ import { useMediaQuery } from "react-responsive"
 const Banner = ({ figure }) => {
   // TODO this method of responsive banners isn't ideal, because it's grabbing three separate images i think
   const isMobile = useMediaQuery({
-    query: "(max-width: 424px)",
+    query: "(max-width: 425px)",
   })
   const isTablet = useMediaQuery({
-    query: "(max-width: 767px)",
+    query: "(max-width: 768px)",
   })
   let dimensions
   let width

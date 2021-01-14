@@ -1,14 +1,7 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 // GLOBAL STYLES
 import "../styles/global.scss"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 
 import Footer from "./footer"
 import { IconContext } from "@react-icons/all-files"
@@ -17,45 +10,27 @@ import PropTypes from "prop-types"
 import classNames from "classnames"
 import styles from "./layout.module.scss"
 
-// import { useStaticQuery, graphql } from "gatsby"
-
 let previousScrollPos = 0
 let lastDownPos = 0
 let lastUpPos = 0
-// let minScrollDelta = 5
 let ticking = false
 let maxHeaderHeight = 0
-const maxScrollDelta = 100
-// const minScrollDelta = 5 // window.innerHeight / 100 uhh this was unnecessary
 
-const Layout = ({ children }) => {
-  const headerElement = useRef(null)
+const Layout = ({ children, location }) => {
   const [headerIsOpen, setHeaderIsOpen] = useState(false)
   const closeHeader = () => {
     if (headerIsOpen) {
       setHeaderIsOpen(false)
       const body = document.body
       body.style.overflow = "auto"
-      headerElement.current.scrollTop = 0
     }
   }
   const toggleHeader = () => {
     const body = document.body
     if (!headerIsOpen) {
-      // const scrollY = document.documentElement.style.getPropertyValue(
-      //   "--scroll-y"
-      // )
       body.style.overflow = "hidden"
-      // body.style.position = "fixed"
-      // body.style.top = `-${scrollY}`
     } else {
       body.style.overflow = "auto"
-      // headerElement.current.scrollTop = 0
-
-      // const scrollY = body.style.top
-      // body.style.position = ""
-      // body.style.top = ""
-      // window.scrollTo(0, parseInt(scrollY || "0") * -1)
     }
     setHeaderIsOpen(!headerIsOpen)
   }
@@ -64,69 +39,71 @@ const Layout = ({ children }) => {
 
   const layoutContainer = useRef(null)
 
-  const adjustHeader = scrollPos => {
-    if (!layoutContainer.current) {
-      return
-    }
-    let headerHeight = getComputedStyle(
-      layoutContainer.current
-    ).getPropertyValue("--header-height")
-    headerHeight = headerHeight.substring(0, headerHeight.length - 3)
-    headerHeight =
-      parseFloat(headerHeight) *
-      parseFloat(getComputedStyle(document.documentElement).fontSize)
-    if (maxHeaderHeight === 0) maxHeaderHeight = headerHeight * 2
+  const adjustHeader = useCallback(
+    scrollPos => {
+      if (!layoutContainer.current) {
+        return
+      }
 
-    if (scrollPos <= maxHeaderHeight && !headerIsShown) {
-      setHeaderIsShown(true)
-    } else {
-      if (scrollPos < previousScrollPos /* - minScrollDelta */ /*  */) {
-        // scrolling up
-        lastUpPos = scrollPos
-        if (
-          !headerIsShown &&
-          lastUpPos < lastDownPos - maxHeaderHeight &&
-          scrollPos + maxScrollDelta > previousScrollPos // if we're scrolling from more than 100px down, we're likely jumping using a hashtag ToC link, in which case, the header should not be shown
-        ) {
-          setHeaderIsShown(true)
-        } else if (
-          headerIsShown &&
-          scrollPos + maxScrollDelta < previousScrollPos
-        ) {
-          setHeaderIsShown(false)
-        }
-      } else if (scrollPos > previousScrollPos /* + minScrollDelta */ /*  */) {
-        lastDownPos = scrollPos
-        if (
-          (headerIsShown && lastDownPos > lastUpPos + maxHeaderHeight) ||
-          previousScrollPos - scrollPos > maxScrollDelta
-        ) {
-          // scrolling down OR jumping up more than 100px using a hashtag toc link
-          setHeaderIsShown(false)
+      let headerHeight = getComputedStyle(
+        layoutContainer.current
+      ).getPropertyValue("--header-max-room")
+      headerHeight = headerHeight.substring(0, headerHeight.length - 3)
+      headerHeight =
+        parseFloat(headerHeight) *
+        parseFloat(getComputedStyle(document.documentElement).fontSize)
+      if (maxHeaderHeight === 0) maxHeaderHeight = headerHeight
+
+      if (scrollPos <= maxHeaderHeight && !headerIsShown) {
+        setHeaderIsShown(true)
+      } else {
+        if (scrollPos < previousScrollPos) {
+          // scrolling up
+          lastUpPos = scrollPos
+          if (!headerIsShown && lastUpPos < lastDownPos - maxHeaderHeight) {
+            setHeaderIsShown(true)
+          }
+        } else if (scrollPos > previousScrollPos) {
+          // scrolling down
+          lastDownPos = scrollPos
+          if (headerIsShown && lastDownPos > lastUpPos + maxHeaderHeight) {
+            // header is shown and we've scrolled down more than the height of the header from the last up scroll position
+            setHeaderIsShown(false)
+          }
         }
       }
-    }
 
-    previousScrollPos = scrollPos
-  }
+      previousScrollPos = scrollPos
+    },
+    [headerIsShown]
+  )
 
-  const handleScroll = event => {
+  const handleScroll = useCallback(() => {
     if (!ticking && !headerIsOpen) {
-      window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(() => {
         adjustHeader(window.scrollY)
         ticking = false
       })
 
       ticking = true
     }
-  }
+  }, [adjustHeader, headerIsOpen])
+
+  useEffect(() => {
+    lastUpPos = window.scrollY
+    lastDownPos = window.scrollY
+    // TODO small bug is that this doesn't run when a user clicks the ToC link that they're already on, so sometimes the header is not hidden when it should be
+    if (location.hash && window.scrollY > 0) {
+      setHeaderIsShown(false)
+    }
+  }, [location.hash])
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll)
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }
-  })
+  }, [handleScroll])
 
   return (
     <div
@@ -144,7 +121,6 @@ const Layout = ({ children }) => {
           closeHeader={closeHeader}
           headerIsOpen={headerIsOpen}
           toggleHeader={toggleHeader}
-          ref={headerElement}
         />
         <main
           className={classNames({ [styles.visibilityHidden]: headerIsOpen })}
