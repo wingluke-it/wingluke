@@ -120,8 +120,11 @@ const Layout = ({ children, location }) => {
   }, [handleScroll])
 
   // CHANGE STYLES FOR VIDEO BACKGROUND
-  const hasMediaBg = ["/"].includes(location.pathname)
-  console.log(location.pathname, hasMediaBg)
+  const isHomepage = ["/"].includes(location.pathname)
+  const [hasMediaBg, setHasMediaBg] = useState(isHomepage)
+  if (isHomepage !== hasMediaBg) {
+    setHasMediaBg(isHomepage)
+  }
 
   return (
     <div
