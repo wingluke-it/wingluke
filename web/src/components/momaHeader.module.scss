@@ -291,9 +291,9 @@
   .closeButton {
     @include helpers.remove-default-button-styles();
 
-    top: calc(var(--header-room));
+    bottom: calc(100vh - var(--header-room) - #{$close-button-height});
     opacity: 0;
-    transition: top v.$baseline-animation-speed ease-in-out,
+    transition: bottom v.$baseline-animation-speed ease-in-out,
       opacity v.$baseline-animation-speed ease-in-out,
       visibility v.$baseline-animation-speed ease-in-out;
 
@@ -321,7 +321,7 @@
     &.closeButtonShown {
       visibility: visible;
       opacity: 1;
-      top: calc(100vh - #{$close-button-height});
+      bottom: 0;
     }
   }
 }

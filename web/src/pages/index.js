@@ -36,7 +36,7 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
       .fit("crop")
       .auto("format")
       .url()
-  console.log(posterUrl)
+
   const bgVid = useRef(null)
   return (
     <>
