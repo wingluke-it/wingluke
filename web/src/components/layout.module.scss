@@ -7,6 +7,7 @@ $fade-delay: 0s;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: v.$primary-brand-color;
 
   --header-room: #{v.$header-bottom-bar-height}; // changes based on how much visible room the header is taking up
   --header-max-room: #{v.$header-bottom-bar-height + v.$header-top-bar-height}; // static
@@ -14,6 +15,7 @@ $fade-delay: 0s;
   main {
     visibility: visible;
     opacity: 1;
+    background-color: v.$light-gray-background-color;
     // TODO somehow get this to only happen when it's a new page we're switching to.
     // just closing the header on the same page shouldn't trigger the transition
 
@@ -23,13 +25,13 @@ $fade-delay: 0s;
     // }
 
     > *:last-child {
-      margin-bottom: v.$baseline;
+      padding-bottom: v.$baseline;
     }
-    &.hasMediaBg {
+    /*     &.hasMediaBg {
       > *:last-child {
         margin-bottom: 0;
       }
-    }
+    } */
 
     &.visibilityHidden {
       visibility: hidden;

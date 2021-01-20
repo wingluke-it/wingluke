@@ -69,6 +69,7 @@
   min-height: 100vh;
   width: 100vw;
   margin-top: calc(100vh - var(--header-max-room));
+  padding-top: v.$baseline;
   padding: v.$baseline / 2;
   background-color: v.$light-gray-background-color;
   z-index: v.$index-main-z-index + 2;
