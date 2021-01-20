@@ -32,23 +32,23 @@ const MenuNav = ({ breakpoint, navItems, title }) => {
       ) : (
         <span className={classNames("h4", styles.navTitle)}>{title}</span>
       )}
-      {/* {(!isCollapsed || !isCollapsible) && ( */}
-      <nav>
-        <ul>
-          {navItems.map(({ to, text }, index) => (
-            <li key={index}>
-              <Link
-                to={to}
-                partiallyActive={false}
-                activeClassName={styles.activeLink}
-              >
-                {text}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      {/* )} */}
+      {(!isCollapsed || !isCollapsible) && (
+        <nav>
+          <ul>
+            {navItems.map(({ to, text }, index) => (
+              <li key={index}>
+                <Link
+                  to={to}
+                  partiallyActive={false}
+                  activeClassName={styles.activeLink}
+                >
+                  {text}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </div>
   )
 }

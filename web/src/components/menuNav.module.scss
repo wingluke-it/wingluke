@@ -13,7 +13,8 @@ $nav-padding: v.$baseline / 2;
   padding: 0;
   overflow: hidden;
 
-  height: 1.95 * v.$baseline;
+  $button-height: 1.95 * v.$baseline;
+  height: $button-height;
   &.navShown {
     height: max-content;
     // overflow: auto;
@@ -28,6 +29,7 @@ $nav-padding: v.$baseline / 2;
 
     padding: $nav-padding;
     width: 100%;
+    height: $button-height;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -62,7 +64,7 @@ $nav-padding: v.$baseline / 2;
       margin: 0;
       border-top: 1px dashed v.$medium-gray;
       list-style: none;
-      padding-top: $nav-padding;
+      // padding-top: $nav-padding;
       padding-inline-start: v.$baseline;
 
       li {

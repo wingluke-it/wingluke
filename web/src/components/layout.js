@@ -132,7 +132,7 @@ const Layout = ({ children, location }) => {
     >
       <IconContext.Provider
         value={{
-          size: "1.1rem",
+          size: "1.1em",
           style: {
             verticalAlign: "middle",
           },

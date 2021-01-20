@@ -72,4 +72,8 @@
   padding: v.$baseline / 2;
   background-color: v.$light-gray-background-color;
   z-index: v.$index-main-z-index + 2;
+
+  > *:first-child {
+    margin-top: 0;
+  }
 }
