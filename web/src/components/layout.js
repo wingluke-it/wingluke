@@ -120,11 +120,8 @@ const Layout = ({ children, location }) => {
   }, [handleScroll])
 
   // CHANGE STYLES FOR VIDEO BACKGROUND
-  const isHomepage = ["/"].includes(location.pathname)
-  const [hasMediaBg, setHasMediaBg] = useState(isHomepage)
-  if (isHomepage !== hasMediaBg) {
-    setHasMediaBg(isHomepage)
-  }
+  const hasMediaBg = ["/"].includes(location.pathname)
+  console.log(location.pathname)
 
   return (
     <div
@@ -146,12 +143,12 @@ const Layout = ({ children, location }) => {
         <MomaHeader
           headerItemOpened={headerItemOpened}
           toggleHeader={toggleHeader}
-          transparent={hasMediaBg && headerIsShown}
+          transparent={["/"].includes(location.pathname) && headerIsShown}
         />
         <main
           className={classNames({
             // [styles.transitionIn]:
-            [styles.hasMediaBg]: hasMediaBg,
+            [styles.hasMediaBg]: ["/"].includes(location.pathname),
             [styles.visibilityHidden]: false, //Boolean(headerItemOpened),
           })}
         >
