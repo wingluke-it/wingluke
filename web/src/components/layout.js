@@ -120,20 +120,19 @@ const Layout = ({ children, location }) => {
   }, [handleScroll])
 
   // CHANGE STYLES FOR VIDEO BACKGROUND
-  const hasMediaBg = location.pathname
-    ? ["/"].includes(location.pathname)
-    : true // default to true for SSR
+  const hasMediaBg =
+    typeof window !== "undefined" ? ["/"].includes(location.pathname) : true // default to true for SSR
 
   /* const [hasMediaBg, setHasMediaBg] = useState(
-    ["/"].includes(location.pathname)
+    window ? ["/"].includes(location.pathname) : true
   )
   useEffect(() => {
     console.log(location.pathname, hasMediaBg)
     if (["/"].includes(location.pathname) !== hasMediaBg) {
-    setHasMediaBg(["/"].includes(location.pathname))
-    console.log("doing this")
+      setHasMediaBg(["/"].includes(location.pathname))
+      console.log("doing this")
     }
-  }, []) */
+  }, [location.pathname]) */
 
   return (
     <div
