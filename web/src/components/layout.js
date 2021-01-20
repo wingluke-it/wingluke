@@ -124,8 +124,10 @@ const Layout = ({ children, location }) => {
     ["/"].includes(location.pathname)
   )
   useEffect(() => {
-    if (["/"].includes(location.pathname) !== hasMediaBg)
+    console.log(location.pathname, hasMediaBg)
+    if (["/"].includes(location.pathname) !== hasMediaBg) {
       setHasMediaBg(["/"].includes(location.pathname))
+    }
   })
 
   return (
