@@ -121,6 +121,7 @@ const Layout = ({ children, location }) => {
 
   // CHANGE STYLES FOR VIDEO BACKGROUND
   const hasMediaBg = ["/"].includes(location.pathname)
+  console.log(location.pathname, hasMediaBg)
 
   return (
     <div
