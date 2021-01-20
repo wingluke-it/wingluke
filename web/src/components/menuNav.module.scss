@@ -9,7 +9,7 @@ $nav-padding: v.$baseline / 2;
   min-width: min(#{v.$width-breakpoint-mobile-s - 32px}, 90%);
   border: 2px solid v.$medium-gray;
   border-radius: 4px;
-  transition: all 0.2s ease-in-out 0s;
+  transition: all v.$baseline-animation-speed ease-in-out 0s;
   padding: 0;
   overflow: hidden;
 

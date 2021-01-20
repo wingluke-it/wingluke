@@ -30,7 +30,7 @@ body {
 }
 
 main {
-  transition: all 0.2s ease-in-out;
+  transition: all v.$baseline-animation-speed ease-in-out;
   margin: v.$header-top-bar-height + v.$header-bottom-bar-height 0 0;
   padding: 0;
   flex: 1 0 auto;
@@ -68,10 +68,11 @@ hr {
 .fadeOut {
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s linear 300ms, opacity 300ms;
+  transition: visibility 0s linear v.$baseline-animation-speed,
+    opacity v.$baseline-animation-speed;
 }
 .fadeIn {
   visibility: visible;
   opacity: 1;
-  transition: visibility 0s linear 0s, opacity 300ms;
+  transition: visibility 0s linear 0s, opacity v.$baseline-animation-speed;
 }

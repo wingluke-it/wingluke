@@ -4,7 +4,7 @@
   max-width: v.$max-p-width;
   margin: v.$baseline auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: v.$baseline / 2 v.$baseline;
 
   span {

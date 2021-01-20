@@ -2,7 +2,7 @@
 
 .header {
   padding: 0 (v.$baseline / 2);
-  background-color: v.$light-gray-background-color;
+  // background-color: v.$light-gray-background-color;
   overflow: auto; // so that h1's margin-top doesn't go past the top of the container
 
   h1 {

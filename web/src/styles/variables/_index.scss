@@ -8,6 +8,9 @@
 // IMAGES
 // $max-image-height: 50vh;
 
+// ANIMATIONS
+$baseline-animation-speed: 0.2s;
+
 // Z-INDICES
 $sidebar-z-index: 0;
 $memcard-z-index: 0;
@@ -15,7 +18,8 @@ $memscrollbutton-z-index: $memcard-z-index + 1;
 $footer-z-index: $sidebar-z-index + 1;
 $header-z-index: $footer-z-index + 2;
 $header-expanding-container-z-index: $header-z-index - 1;
+$index-main-z-index: $footer-z-index - 1;
 
 // SIZING
-$header-top-bar-height: typography.$baseline * 2.5;
-$header-bottom-bar-height: typography.$baseline * 1.5;
+$header-top-bar-height: typography.$baseline * 3;
+$header-bottom-bar-height: typography.$baseline * 2;

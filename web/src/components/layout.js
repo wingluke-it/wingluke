@@ -10,34 +10,58 @@ import PropTypes from "prop-types"
 import classNames from "classnames"
 import styles from "./layout.module.scss"
 
-let previousScrollPos = 0
-let lastDownPos = 0
-let lastUpPos = 0
+// let previousScrollPos = 0
+// let lastDownPos = 0
+// let lastUpPos = 0
 let ticking = false
-let maxHeaderHeight = 0
+const maxHeaderHeight = 150
 
 const Layout = ({ children, location }) => {
-  const [headerIsOpen, setHeaderIsOpen] = useState(false)
-  const closeHeader = () => {
-    if (headerIsOpen) {
-      setHeaderIsOpen(false)
-      const body = document.body
-      body.style.overflow = "auto"
-    }
-  }
-  const toggleHeader = () => {
+  const [headerIsShown, setHeaderIsShown] = useState(
+    window.scrollY <= maxHeaderHeight
+  )
+  const [headerItemOpened, setHeaderItemOpened] = useState(null)
+
+  const toggleHeader = headerItemClicked => {
     const body = document.body
-    if (!headerIsOpen) {
-      body.style.overflow = "hidden"
-    } else {
+    if (!headerItemClicked || headerItemClicked === headerItemOpened) {
       body.style.overflow = "auto"
+    } else {
+      body.style.overflow = "hidden"
     }
-    setHeaderIsOpen(!headerIsOpen)
+
+    if (window.scrollY > maxHeaderHeight) {
+      setHeaderIsShown(
+        headerItemClicked !== null && headerItemClicked !== headerItemOpened
+      )
+    }
+    setHeaderItemOpened(
+      headerItemClicked === headerItemOpened ? null : headerItemClicked
+    )
   }
 
-  const [headerIsShown, setHeaderIsShown] = useState(true)
+  // when the route changes
+  useEffect(() => {
+    // lastUpPos = window.scrollY
+    // lastDownPos = window.scrollY
+    if (headerItemOpened || headerIsShown) {
+      toggleHeader(null)
+    }
+  }, [location.pathname, location.hash])
 
   const layoutContainer = useRef(null)
+
+  // calculate maxHeaderHeight, just once (deps array is empty)
+  /* useEffect(() => {
+    let headerHeight = getComputedStyle(
+      layoutContainer.current
+    ).getPropertyValue("--header-max-room")
+    headerHeight = headerHeight.substring(0, headerHeight.length - 3)
+    headerHeight =
+      parseFloat(headerHeight) *
+      parseFloat(getComputedStyle(document.documentElement).fontSize)
+    if (maxHeaderHeight === 0) maxHeaderHeight = headerHeight
+  }, []) */
 
   const adjustHeader = useCallback(
     scrollPos => {
@@ -45,24 +69,16 @@ const Layout = ({ children, location }) => {
         return
       }
 
-      let headerHeight = getComputedStyle(
-        layoutContainer.current
-      ).getPropertyValue("--header-max-room")
-      headerHeight = headerHeight.substring(0, headerHeight.length - 3)
-      headerHeight =
-        parseFloat(headerHeight) *
-        parseFloat(getComputedStyle(document.documentElement).fontSize)
-      if (maxHeaderHeight === 0) maxHeaderHeight = headerHeight
-
-      if (scrollPos <= maxHeaderHeight && !headerIsShown) {
+      if (scrollPos <= maxHeaderHeight * (3 / 5) && !headerIsShown) {
         setHeaderIsShown(true)
-      } else {
-        if (scrollPos < previousScrollPos) {
+      } else if (scrollPos > maxHeaderHeight && headerIsShown) {
+        setHeaderIsShown(false)
+        /* if (scrollPos < previousScrollPos) {
           // scrolling up
           lastUpPos = scrollPos
-          if (!headerIsShown && lastUpPos < lastDownPos - maxHeaderHeight) {
-            setHeaderIsShown(true)
-          }
+          //  if (!headerIsShown && lastUpPos < lastDownPos - maxHeaderHeight) {
+          //   setHeaderIsShown(true)
+          // } 
         } else if (scrollPos > previousScrollPos) {
           // scrolling down
           lastDownPos = scrollPos
@@ -70,16 +86,16 @@ const Layout = ({ children, location }) => {
             // header is shown and we've scrolled down more than the height of the header from the last up scroll position
             setHeaderIsShown(false)
           }
-        }
+        } */
       }
 
-      previousScrollPos = scrollPos
+      // previousScrollPos = scrollPos
     },
     [headerIsShown]
   )
 
   const handleScroll = useCallback(() => {
-    if (!ticking && !headerIsOpen) {
+    if (!ticking && !headerItemOpened) {
       window.requestAnimationFrame(() => {
         adjustHeader(window.scrollY)
         ticking = false
@@ -87,16 +103,16 @@ const Layout = ({ children, location }) => {
 
       ticking = true
     }
-  }, [adjustHeader, headerIsOpen])
+  }, [adjustHeader, headerItemOpened])
 
-  useEffect(() => {
+  /* useEffect(() => {
     lastUpPos = window.scrollY
     lastDownPos = window.scrollY
     // TODO small bug is that this doesn't run when a user clicks the ToC link that they're already on, so sometimes the header is not hidden when it should be
     if (location.hash && window.scrollY > 0) {
       setHeaderIsShown(false)
     }
-  }, [location.hash])
+  }, [location.hash]) */
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll)
@@ -105,25 +121,37 @@ const Layout = ({ children, location }) => {
     }
   }, [handleScroll])
 
+  // CHANGE STYLES FOR VIDEO BACKGROUND
+  const hasMediaBg = ["/"].includes(location.pathname)
+
   return (
     <div
       ref={layoutContainer}
       className={classNames(styles.layoutContainer, {
         [styles.headerIsShown]: headerIsShown,
-        [styles.headerIsOpen]: headerIsOpen,
+        [styles.headerIsOpen]: Boolean(headerItemOpened),
       })}
     >
       <IconContext.Provider
-        value={{ size: "1.1rem", style: { verticalAlign: "middle" } }}
+        value={{
+          size: "1.1rem",
+          style: {
+            verticalAlign: "middle",
+          },
+        }}
       >
         {/* TODO <a href="#main-content">Jump to Main Content</a> */}
         <MomaHeader
-          closeHeader={closeHeader}
-          headerIsOpen={headerIsOpen}
+          headerItemOpened={headerItemOpened}
           toggleHeader={toggleHeader}
+          transparent={hasMediaBg && headerIsShown}
         />
         <main
-          className={classNames({ [styles.visibilityHidden]: headerIsOpen })}
+          className={classNames({
+            // [styles.transitionIn]:
+            [styles.hasMediaBg]: hasMediaBg,
+            [styles.visibilityHidden]: false, //Boolean(headerItemOpened),
+          })}
         >
           {/* TODO <a id="main-content"></a> */}
           {children}

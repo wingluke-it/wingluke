@@ -1,7 +1,7 @@
 @use "../styles/variables/" as v;
 
 .card {
-  transition: all 0.2s ease-in-out 0s;
+  transition: all v.$baseline-animation-speed ease-in-out 0s;
   flex: 1 0 90%;
   @media (min-width: v.$width-breakpoint-mobile-l + 1) {
     flex: 1 0 80%;

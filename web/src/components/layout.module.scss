@@ -1,14 +1,14 @@
 @use "../styles/variables/" as v;
 
 $fade-duration: 0.5s;
-$fade-delay: 0.1s;
+$fade-delay: 0s;
 
 .layoutContainer {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 
-  --header-room: #{v.$header-bottom-bar-height}; // changes based on how much visitble room the header is taking up
+  --header-room: #{v.$header-bottom-bar-height}; // changes based on how much visible room the header is taking up
   --header-max-room: #{v.$header-bottom-bar-height + v.$header-top-bar-height}; // static
 
   main {
@@ -25,11 +25,17 @@ $fade-delay: 0.1s;
     > *:last-child {
       margin-bottom: v.$baseline;
     }
+    &.hasMediaBg {
+      > *:last-child {
+        margin-bottom: 0;
+      }
+    }
 
     &.visibilityHidden {
       visibility: hidden;
       opacity: 0;
-      transition: visibility 0.2s ease-in-out 0s, opacity 0.2s ease-in-out;
+      transition: visibility v.$baseline-animation-speed ease-in-out 0s,
+        opacity v.$baseline-animation-speed ease-in-out;
     }
   }
 }

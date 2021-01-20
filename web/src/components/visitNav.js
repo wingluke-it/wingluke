@@ -33,10 +33,11 @@ const VisitNav = () => {
       breakpoint={767}
       title={visitTitle}
       navItems={[
+        /* 
         {
           to: "/visit",
           text: visitTitle,
-        },
+        }, */
         {
           to: "/visit/tickets",
           text: sanityTickets?.title?.en ?? "Ticket Prices",

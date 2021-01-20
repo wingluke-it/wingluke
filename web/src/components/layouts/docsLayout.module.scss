@@ -58,7 +58,7 @@ $width-breakpoint-laptop-l: 1440px; */
     position: sticky;
     top: var(--header-max-room);
     // max-height: 100vh;
-    transition: all 0.2s ease-in-out;
+    transition: all v.$baseline-animation-speed ease-in-out;
     max-height: calc(100vh - var(--header-max-room));
     // height: auto;
     overflow: auto;

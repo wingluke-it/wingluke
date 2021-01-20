@@ -49,6 +49,7 @@ import volunteerProgram from "./documents/singletons/volunteerProgram";
 import wayToGive from "./objects/wayToGive";
 import youthProgram from "./documents/youthProgram";
 import youthProgramSession from "./documents/youthProgramSession";
+import homepage from "./documents/singletons/homepage";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -61,6 +62,7 @@ export default createSchema({
     cacProcess,
     donorProgram,
     eventSpaceUsage,
+    homepage,
     marketplace,
     membershipProgram,
     museumMeta,

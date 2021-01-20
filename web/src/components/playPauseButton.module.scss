@@ -1,0 +1,39 @@
+@use "../styles/helpers";
+@use "../styles/variables/" as v;
+
+.playPauseButton {
+  @include helpers.remove-default-button-styles();
+
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: transparent;
+  border-radius: 8px;
+  padding: 0.25rem 0.75rem;
+  text-align: center;
+  // line-height: 1;
+  min-width: 5.75rem;
+  // outline: black solid 2px;
+
+  transition: color v.$baseline-animation-speed ease-in-out,
+    background-color v.$baseline-animation-speed ease-in-out;
+
+  > *:first-child {
+    margin-right: v.$baseline / 3;
+  }
+
+  > * {
+    background-color: transparent;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: white;
+    color: v.$primary-brand-color;
+  }
+
+  &:active {
+    background-color: v.$light-gray-background-color;
+  }
+}

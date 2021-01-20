@@ -30,7 +30,7 @@
   text-align: center;
   line-height: 1;
 
-  transition: 175ms all ease-in-out;
+  transition: v.$baseline-animation-speed all ease-in-out;
 
   &:hover,
   &:active {
@@ -59,7 +59,7 @@
   border-bottom: 1px solid v.$a-underline-color;
   background-color: v.$a-background-color;
   color: v.$transparent-black-darker;
-  transition: 175ms all ease-in-out;
+  transition: v.$baseline-animation-speed all ease-in-out;
 
   &:visited {
   }

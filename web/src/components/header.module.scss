@@ -62,7 +62,7 @@
     opacity: 0; /* fade out */
     transform: translateY(-100%); /* move out of view */
     /* commenting this out for now because the animation plays whenever a user resizes their browser */
-    /* transition: transform 0.2s, opacity 0.2s; */ /* transition these smoothly */
+    /* transition: transform v.$baseline-animation-speed, opacity v.$baseline-animation-speed; */ /* transition these smoothly */
 
     /* first, make our dropdown cover the screen */
     position: fixed;

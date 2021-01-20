@@ -1,4 +1,9 @@
-import { AiFillClockCircle, AiFillShop, AiOutlineIdcard } from "react-icons/ai";
+import {
+  AiFillClockCircle,
+  AiFillShop,
+  AiOutlineIdcard,
+  AiFillHome,
+} from "react-icons/ai";
 import {
   FaHandHoldingHeart,
   FaHandHoldingUsd,
@@ -14,6 +19,7 @@ import cacProcess from "../schemas/documents/singletons/cacProcess";
 import donorProgram from "../schemas/documents/singletons/donorProgram";
 import eventSpaceUsage from "../schemas/documents/singletons/eventSpaceUsage";
 import hours from "../schemas/documents/singletons/visit/hours";
+import homepage from "../schemas/documents/singletons/homepage";
 import marketplace from "../schemas/documents/singletons/marketplace";
 import membershipProgram from "../schemas/documents/singletons/membershipProgram";
 import museumMeta from "../schemas/documents/singletons/museumMeta";
@@ -26,6 +32,7 @@ export const SINGLETON_TYPES = [
     "cacProcess",
     "donorProgram",
     "eventSpaceUsage",
+    "homepage",
     "hours",
     "marketplace",
     "membershipProgram",
@@ -63,6 +70,10 @@ export default () =>
             .schemaType(eventSpaceUsage.name)
             .documentId(eventSpaceUsage.name)
         ),
+      S.listItem()
+        .title(homepage.title)
+        .icon(AiFillHome)
+        .child(S.editor().schemaType(homepage.name).documentId(homepage.name)),
       S.listItem()
         .title(marketplace.title)
         .icon(AiFillShop)

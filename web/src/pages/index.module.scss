@@ -1,0 +1,75 @@
+@use "../styles/variables/" as v;
+
+@mixin coverer {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.videoHeader {
+  &,
+  .bgVid,
+  .overlay,
+  .titleSection {
+    @include coverer();
+  }
+
+  .bgVid {
+    object-fit: cover;
+  }
+
+  .overlay {
+    // backdrop-filter: blur(2px); // commented this out because it has terrible performance effects
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .titleSection {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      color: white;
+      font-weight: 300;
+
+      span {
+        display: block;
+        font-size: v.$baseline;
+        font-weight: 300;
+        letter-spacing: 5px;
+      }
+    }
+  }
+
+  .vidControls {
+    position: fixed;
+    background: transparent;
+    bottom: 0;
+    height: v.$baseline * 2;
+    width: 100vw;
+    z-index: v.$index-main-z-index + 1;
+    // transition: top v.$baseline-animation-speed ease-in-out; TODO necessary?
+    button {
+      position: fixed;
+      left: v.$baseline / 2;
+      bottom: v.$baseline / 2;
+    }
+  }
+}
+
+.main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  margin-top: calc(100vh - var(--header-max-room));
+  padding: v.$baseline / 2;
+  background-color: v.$light-gray-background-color;
+  z-index: v.$index-main-z-index + 2;
+}

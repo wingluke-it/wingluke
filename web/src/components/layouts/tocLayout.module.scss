@@ -21,7 +21,7 @@
       min-width: 100%;
       position: sticky;
       top: var(--header-room);
-      transition: all 0.2s ease-in-out;
+      transition: all v.$baseline-animation-speed ease-in-out;
       padding: v.$baseline 0;
       margin: 0;
       border-bottom: 1px solid v.$dark-gray;
@@ -80,7 +80,7 @@
   }
 
   li {
-    transition: all 200ms ease-in-out;
+    transition: all v.$baseline-animation-speed ease-in-out;
     padding: v.$baseline / 4;
     border-left: 4px solid v.$light-gray-background-color;
     margin: 0;
@@ -146,7 +146,7 @@ $sidebar-min-width: 13rem;
     align-self: start;
     position: sticky;
     top: var(--header-room);
-    transition: all 0.2s ease-in-out;
+    transition: all v.$baseline-animation-speed ease-in-out;
     // height: calc(100vh - var(--header-room));
     // overflow: auto;
   }

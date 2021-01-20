@@ -19,7 +19,7 @@ module.exports = {
   },
   flags: {
     PRESERVE_WEBPACK_CACHE: true,
-    QUERY_ON_DEMAND: true,
+    // QUERY_ON_DEMAND: true,
     LAZY_IMAGES: true,
   },
   plugins: [

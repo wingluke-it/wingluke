@@ -11,7 +11,7 @@
     min-width: 100%;
     position: sticky;
     top: var(--header-room);
-    transition: all 0.2s ease-in-out;
+    transition: all v.$baseline-animation-speed ease-in-out;
     border-bottom: 1px solid v.$dark-gray;
     padding: v.$baseline 0;
     margin: 0;
@@ -60,7 +60,7 @@
     align-self: start;
     position: sticky;
     top: var(--header-room);
-    transition: all 0.2s ease-in-out;
+    transition: all v.$baseline-animation-speed ease-in-out;
     max-height: calc(100vh - var(--header-room));
     overflow: auto;
   }
