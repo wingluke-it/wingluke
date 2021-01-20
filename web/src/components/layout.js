@@ -121,7 +121,9 @@ const Layout = ({ children, location }) => {
 
   // CHANGE STYLES FOR VIDEO BACKGROUND
   const hasMediaBg = ["/"].includes(location.pathname)
-  console.log(location.pathname)
+  useEffect(() => {
+    hasMediaBg = ["/"].includes(location.pathname)
+  })
 
   return (
     <div
@@ -143,12 +145,12 @@ const Layout = ({ children, location }) => {
         <MomaHeader
           headerItemOpened={headerItemOpened}
           toggleHeader={toggleHeader}
-          transparent={["/"].includes(location.pathname) && headerIsShown}
+          transparent={hasMediaBg && headerIsShown}
         />
         <main
           className={classNames({
             // [styles.transitionIn]:
-            [styles.hasMediaBg]: ["/"].includes(location.pathname),
+            [styles.hasMediaBg]: hasMediaBg,
             [styles.visibilityHidden]: false, //Boolean(headerItemOpened),
           })}
         >
