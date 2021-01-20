@@ -7,6 +7,7 @@ import PlayPauseButton from "../components/playPauseButton"
 import { buildImageObj } from "../lib/helpers"
 import { imageUrlFor } from "../lib/image-url"
 import { useMediaQuery } from "react-responsive"
+import { HiOutlineArrowCircleDown } from "@react-icons/all-files/hi/HiOutlineArrowCircleDown"
 import PortableText from "../components/portableText"
 // import { mapEdgesToNodes } from "../lib/helpers"
 
@@ -69,6 +70,9 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
               <span>Explore</span>
               Wing Luke Museum
             </h1>
+            <a href={"#homepage-main"}>
+              <HiOutlineArrowCircleDown />
+            </a>
           </div>
           {bgVid && (
             <div className={styles.vidControls}>
@@ -77,7 +81,7 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
           )}
         </header>
       )}
-      <div className={styles.main}>
+      <div className={styles.main} id={"homepage-main"}>
         {sanityHomepage?._rawMainContent?.en && (
           <PortableText blocks={sanityHomepage._rawMainContent.en} />
         )}

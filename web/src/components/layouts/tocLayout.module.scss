@@ -2,11 +2,12 @@
 
 .tocSection {
   margin-top: v.$baseline;
+  background-color: transparent;
   // overflow: auto;
 
   &:first-child {
-    margin-top: 0;
-    border-top: 1px solid transparent;
+    // margin-top: 0;
+    // border-top: 1px solid transparent;
   }
 
   // this selects all tocSections besides the first
@@ -16,6 +17,7 @@
 
   h2 {
     margin-top: v.$baseline;
+    background-color: v.$light-gray-background-color;
 
     &.stickyHeader {
       min-width: 100%;
@@ -29,19 +31,14 @@
     }
   }
   // this is for jumping to the right place when an internal link sends the user to a heading with an id
-  //  & h2::before {
-  // $block-height: var(--header-room) + v.$baseline;
-  /*     padding-top: $block-height;
-    margin-top: $block-height * -1;
-    -webkit-background-clip: content-box;
-    background-clip: content-box; */
-  /* display: block;
+  &::before {
+    display: block;
     content: " ";
-    margin: $block-height * -1 0 0;
-    height: $block-height;
+    margin-top: -1 * v.$header-bottom-bar-height;
+    height: v.$header-bottom-bar-height;
     visibility: hidden;
-    pointer-events: none; */
-  // }
+    pointer-events: none;
+  }
 }
 
 .sidebar {

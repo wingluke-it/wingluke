@@ -25,7 +25,7 @@ $fade-delay: 0s;
     // }
 
     > *:last-child {
-      padding-bottom: v.$baseline;
+      margin-bottom: v.$baseline;
     }
     &.hasMediaBg {
       > *:last-child {
