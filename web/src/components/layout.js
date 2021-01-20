@@ -120,7 +120,7 @@ const Layout = ({ children, location }) => {
   }, [handleScroll])
 
   // CHANGE STYLES FOR VIDEO BACKGROUND
-  const hasMediaBg = ["/"].includes(location.pathname)
+  let hasMediaBg = ["/"].includes(location.pathname)
   useEffect(() => {
     hasMediaBg = ["/"].includes(location.pathname)
   })
