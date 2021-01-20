@@ -27,11 +27,11 @@ $fade-delay: 0s;
     > *:last-child {
       padding-bottom: v.$baseline;
     }
-    /*     &.hasMediaBg {
+    &.hasMediaBg {
       > *:last-child {
         margin-bottom: 0;
       }
-    } */
+    }
 
     &.visibilityHidden {
       visibility: hidden;

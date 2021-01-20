@@ -20,45 +20,26 @@ const Layout = ({ children, location }) => {
   const [headerIsShown, setHeaderIsShown] = useState(true)
   const [headerItemOpened, setHeaderItemOpened] = useState(null)
 
-  const toggleHeader = headerItemClicked => {
-    const body = document.body
-    if (!headerItemClicked || headerItemClicked === headerItemOpened) {
-      body.style.overflow = "auto"
-    } else {
-      body.style.overflow = "hidden"
-    }
-
-    if (window.scrollY > maxHeaderHeight) {
-      setHeaderIsShown(
-        headerItemClicked !== null && headerItemClicked !== headerItemOpened
-      )
-    }
-    setHeaderItemOpened(
-      headerItemClicked === headerItemOpened ? null : headerItemClicked
-    )
-  }
-
-  // when the route changes
-  const locRef = useRef({
-    pathname: null,
-    hash: null,
-  })
-  useEffect(() => {
-    if (locRef.current.pathname !== location.pathname) {
-      locRef.current.pathname = location.pathname
-      if (headerItemOpened) {
-        toggleHeader(null)
+  const toggleHeader = useCallback(
+    headerItemClicked => {
+      const body = document.body
+      if (!headerItemClicked || headerItemClicked === headerItemOpened) {
+        body.style.overflow = "auto"
+      } else {
+        body.style.overflow = "hidden"
       }
-    }
-    // I don't think anything actually needs to be done when hash updates?
-  })
-  /* useEffect(() => {
-    // lastUpPos = window.scrollY
-    // lastDownPos = window.scrollY
-    if (headerItemOpened || headerIsShown) {
-      toggleHeader(null)
-    }
-  }, [location.pathname, location.hash]) */
+
+      if (window.scrollY > maxHeaderHeight) {
+        setHeaderIsShown(
+          headerItemClicked !== null && headerItemClicked !== headerItemOpened
+        )
+      }
+      setHeaderItemOpened(
+        headerItemClicked === headerItemOpened ? null : headerItemClicked
+      )
+    },
+    [headerItemOpened]
+  )
 
   const layoutContainer = useRef(null)
 
@@ -132,10 +113,35 @@ const Layout = ({ children, location }) => {
     }
   }, [handleScroll])
 
-  // CHANGE STYLES FOR VIDEO BACKGROUND
-  const hasMediaBg =
-    typeof window !== "undefined" ? ["/"].includes(location.pathname) : true // default to true for SSR
-
+  // when the route changes
+  const locRef = useRef({
+    pathname: null,
+    hash: null,
+  })
+  const [hasMediaBg, setHasMediaBg] = useState(true)
+  useEffect(() => {
+    if (locRef.current.pathname !== location.pathname) {
+      locRef.current.pathname = location.pathname
+      if (headerItemOpened) {
+        toggleHeader(null)
+      }
+    }
+    // I don't think anything actually needs to be done when hash updates?
+  }, [location.pathname, headerItemOpened, toggleHeader])
+  useEffect(() => {
+    console.log(hasMediaBg)
+    if (hasMediaBg !== ["/"].includes(location.pathname)) {
+      console.log("changing hasMediaBg")
+      setHasMediaBg(["/"].includes(location.pathname))
+    }
+  }, [hasMediaBg, location.pathname])
+  /* useEffect(() => {
+    // lastUpPos = window.scrollY
+    // lastDownPos = window.scrollY
+    if (headerItemOpened || headerIsShown) {
+      toggleHeader(null)
+    }
+  }, [location.pathname, location.hash]) */
   /* const [hasMediaBg, setHasMediaBg] = useState(
     window ? ["/"].includes(location.pathname) : true
   )
@@ -172,7 +178,7 @@ const Layout = ({ children, location }) => {
         <main
           className={classNames({
             // [styles.transitionIn]:
-            // [styles.hasMediaBg]: hasMediaBg,
+            [styles.hasMediaBg]: hasMediaBg,
             [styles.visibilityHidden]: false, //Boolean(headerItemOpened),
           })}
         >
