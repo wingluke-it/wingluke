@@ -39,13 +39,26 @@ const Layout = ({ children, location }) => {
   }
 
   // when the route changes
+  const locRef = useRef({
+    pathname: null,
+    hash: null,
+  })
   useEffect(() => {
+    if (locRef.current.pathname !== location.pathname) {
+      locRef.current.pathname = location.pathname
+      if (headerItemOpened) {
+        toggleHeader(null)
+      }
+    }
+    // I don't think anything actually needs to be done when hash updates?
+  })
+  /* useEffect(() => {
     // lastUpPos = window.scrollY
     // lastDownPos = window.scrollY
     if (headerItemOpened || headerIsShown) {
       toggleHeader(null)
     }
-  }, [location.pathname, location.hash])
+  }, [location.pathname, location.hash]) */
 
   const layoutContainer = useRef(null)
 

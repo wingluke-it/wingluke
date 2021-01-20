@@ -12,7 +12,7 @@ import PortableText from "../components/portableText"
 
 const IndexPage = ({ data: { sanityHomepage } }) => {
   // const exhibitNodes = mapEdgesToNodes(props.data.allSanityExhibit)
-  const use360 = useMediaQuery({ maxHeight: 360 })
+  // const use360 = useMediaQuery({ maxHeight: 360 })
   const use480 = useMediaQuery({ minHeight: 361, maxHeight: 480 })
   const use720 = useMediaQuery({ minHeight: 481, maxHeight: 720 })
   const use1080 = useMediaQuery({ minHeight: 721, maxHeight: 1080 })
