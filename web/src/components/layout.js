@@ -17,9 +17,7 @@ let ticking = false
 const maxHeaderHeight = 150
 
 const Layout = ({ children, location }) => {
-  const [headerIsShown, setHeaderIsShown] = useState(
-    window.scrollY <= maxHeaderHeight
-  )
+  const [headerIsShown, setHeaderIsShown] = useState(true)
   const [headerItemOpened, setHeaderItemOpened] = useState(null)
 
   const toggleHeader = headerItemClicked => {
