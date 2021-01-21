@@ -169,6 +169,7 @@ const Layout = ({ children, location }) => {
       className={classNames(styles.layoutContainer, {
         [styles.headerIsShown]: headerIsShown,
         [styles.headerIsOpen]: Boolean(headerItemOpened),
+        [styles.hasMediaBg]: hasMediaBg,
       })}
     >
       <IconContext.Provider

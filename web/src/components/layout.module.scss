@@ -8,6 +8,10 @@ $fade-delay: 0s;
   flex-direction: column;
   min-height: 100vh;
   background-color: v.$primary-brand-color;
+  transition: background-color v.$baseline-animation-speed ease-in-out;
+  &.hasMediaBg {
+    background-color: v.$light-gray-background-color;
+  }
 
   --header-bottom-bar-height: #{v.$header-bottom-bar-height};
   --header-room: #{v.$header-bottom-bar-height}; // changes based on how much visible room the header is taking up
