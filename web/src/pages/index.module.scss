@@ -2,7 +2,7 @@
 @use "../styles/helpers";
 
 @mixin coverer {
-  width: 100vw;
+  width: 100%; // 100vw;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -66,7 +66,7 @@
     background: transparent;
     bottom: 0;
     height: v.$baseline * 2;
-    width: 100vw;
+    width: 100%; // 100vw;
     z-index: v.$index-main-z-index + 1;
     // transition: top v.$baseline-animation-speed ease-in-out; TODO necessary?
     button {
@@ -84,7 +84,7 @@
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - #{v.$header-bottom-bar-height});
-  width: 100vw;
+  width: 100%; // 100vw;
   margin-top: calc(100vh - var(--header-max-room));
   // padding-top: v.$baseline;
   padding: v.$baseline / 2;

@@ -4,7 +4,7 @@
   background: v.$primary-brand-color;
   padding: (v.$baseline / 2) v.$baseline;
   // position: fixed;
-  width: 100vw;
+  width: 100%; // 100vw;
   z-index: v.$header-z-index;
   // height: var(--header-room);
 }

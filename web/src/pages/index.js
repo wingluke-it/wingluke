@@ -45,6 +45,28 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
       .auto("format")
       .url()
 
+  const scrollDown = () => {
+    const mainRefY =
+      mainRef.current.getBoundingClientRect().top -
+      document.body.getBoundingClientRect().top
+    let headerBottomBarHeight = getComputedStyle(
+      mainRef.current
+    ).getPropertyValue("--header-bottom-bar-height")
+    headerBottomBarHeight = headerBottomBarHeight.substring(
+      0,
+      headerBottomBarHeight.length - 3
+    )
+    headerBottomBarHeight =
+      parseFloat(headerBottomBarHeight) *
+      parseFloat(getComputedStyle(document.documentElement).fontSize)
+    // smoothscroll.polyfill()
+    window.scrollTo({
+      top: mainRefY - headerBottomBarHeight,
+      left: 0,
+      behavior: "smooth",
+    })
+  }
+
   const bgVid = useRef(null)
   const mainRef = useRef(null)
   return (
@@ -78,31 +100,7 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
               <span>Explore</span>
               Wing Luke Museum
             </h1>
-            <button
-              onClick={() => {
-                const mainRefY =
-                  mainRef.current.getBoundingClientRect().top -
-                  document.body.getBoundingClientRect().top
-                let headerBottomBarHeight = getComputedStyle(
-                  mainRef.current
-                ).getPropertyValue("--header-bottom-bar-height")
-                headerBottomBarHeight = headerBottomBarHeight.substring(
-                  0,
-                  headerBottomBarHeight.length - 3
-                )
-                headerBottomBarHeight =
-                  parseFloat(headerBottomBarHeight) *
-                  parseFloat(
-                    getComputedStyle(document.documentElement).fontSize
-                  )
-                // smoothscroll.polyfill()
-                window.scrollTo({
-                  top: mainRefY - headerBottomBarHeight,
-                  left: 0,
-                  behavior: "smooth",
-                })
-              }}
-            >
+            <button onClick={scrollDown}>
               <HiOutlineArrowCircleDown />
             </button>
             {/* <AnchorLink to={"/#main-content"}>

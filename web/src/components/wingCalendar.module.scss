@@ -30,7 +30,7 @@
 .datePickerContainer {
   grid-area: datePicker;
   padding: 0 v.$baseline / 2 v.$baseline;
-  max-width: 100vw;
+  max-width: 100%; // 100vw;
 
   // *:first-child {
   //   margin-top: 0;
