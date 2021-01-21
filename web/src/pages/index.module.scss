@@ -1,4 +1,5 @@
 @use "../styles/variables/" as v;
+@use "../styles/helpers";
 
 @mixin coverer {
   width: 100vw;
@@ -41,6 +42,21 @@
         font-size: v.$baseline;
         font-weight: 300;
         letter-spacing: 5px;
+      }
+    }
+
+    button {
+      @include helpers.remove-default-button-styles();
+      margin-top: v.$baseline / 2;
+      min-height: 44px;
+      min-width: 44px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        font-size: v.$baseline;
+        color: white;
       }
     }
   }

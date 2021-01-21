@@ -39,6 +39,7 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
       .url()
 
   const bgVid = useRef(null)
+  const mainRef = useRef(null)
   return (
     <>
       <SEO
@@ -70,9 +71,30 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
               <span>Explore</span>
               Wing Luke Museum
             </h1>
-            <a href={"#homepage-main"}>
+            <button
+              onClick={() => {
+                const mainRefY = mainRef.current.getBoundingClientRect().top
+                let headerBottomBarHeight = getComputedStyle(
+                  mainRef.current
+                ).getPropertyValue("--header-bottom-bar-height")
+                headerBottomBarHeight = headerBottomBarHeight.substring(
+                  0,
+                  headerBottomBarHeight.length - 3
+                )
+                headerBottomBarHeight =
+                  parseFloat(headerBottomBarHeight) *
+                  parseFloat(
+                    getComputedStyle(document.documentElement).fontSize
+                  )
+                window.scrollBy({
+                  top: mainRefY - headerBottomBarHeight,
+                  left: 0,
+                  behavior: "smooth",
+                })
+              }}
+            >
               <HiOutlineArrowCircleDown />
-            </a>
+            </button>
           </div>
           {bgVid && (
             <div className={styles.vidControls}>
@@ -81,7 +103,7 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
           )}
         </header>
       )}
-      <div className={styles.main} id={"homepage-main"}>
+      <div className={styles.main} ref={mainRef}>
         {sanityHomepage?._rawMainContent?.en && (
           <PortableText blocks={sanityHomepage._rawMainContent.en} />
         )}

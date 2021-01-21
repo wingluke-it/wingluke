@@ -9,6 +9,7 @@ $fade-delay: 0s;
   min-height: 100vh;
   background-color: v.$primary-brand-color;
 
+  --header-bottom-bar-height: #{v.$header-bottom-bar-height};
   --header-room: #{v.$header-bottom-bar-height}; // changes based on how much visible room the header is taking up
   --header-max-room: #{v.$header-bottom-bar-height + v.$header-top-bar-height}; // static
 
