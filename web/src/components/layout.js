@@ -17,9 +17,7 @@ let ticking = false
 const maxHeaderHeight = 150
 
 const Layout = ({ children, location }) => {
-  const [headerIsShown, setHeaderIsShown] = useState(
-    typeof window !== "undefined" ? window.scrollY <= maxHeaderHeight : true
-  )
+  const [headerIsShown, setHeaderIsShown] = useState(true)
   const [headerItemOpened, setHeaderItemOpened] = useState(null)
 
   const toggleHeader = useCallback(
@@ -115,14 +113,22 @@ const Layout = ({ children, location }) => {
     }
   }, [handleScroll])
 
+  // when the component mounts, adjust whether the header is shown or not
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    if (!mounted) {
+      console.log("mounted!")
+      adjustHeader(window.scrollY)
+      setMounted(true)
+    }
+  }, [mounted, adjustHeader])
+
   // when the route changes
   const locRef = useRef({
     pathname: null,
     hash: null,
   })
-  const [hasMediaBg, setHasMediaBg] = useState(
-    typeof window !== "undefined" ? ["/"].includes(window.pathname) : true
-  )
+  const [hasMediaBg, setHasMediaBg] = useState(true)
   useEffect(() => {
     if (locRef.current.pathname !== location.pathname) {
       locRef.current.pathname = location.pathname
