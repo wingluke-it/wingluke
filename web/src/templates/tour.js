@@ -27,6 +27,7 @@ const Tour = ({
     tour: {
       title,
       subtitle,
+      slug,
       type,
       scheduleDetails,
       _rawOverview,
@@ -131,6 +132,7 @@ const Tour = ({
                 sectionTitlesAndContent={sectionTitlesAndContent}
                 headersHiddenAtBreakpoint={false}
                 hideTocNav={true}
+                basepath={`tours/${slug?.current}`}
               />
             </>
           }
@@ -152,6 +154,9 @@ export const query = graphql`
       }
       subtitle {
         en
+      }
+      slug {
+        current
       }
       scheduleDetails
       banner {

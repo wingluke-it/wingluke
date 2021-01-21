@@ -341,6 +341,7 @@ const ExhibitsPage = ({ data, location }) => {
         tocTitle={""}
         breakpoint={"tablet"}
         stickyHeaders={true}
+        basepath={"exhibits"}
       />
     </>
   )

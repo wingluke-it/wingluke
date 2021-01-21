@@ -1,5 +1,5 @@
 // import { Link } from "gatsby"
-import React, { useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import SEO from "../components/seo"
 import { graphql } from "gatsby"
 import styles from "./index.module.scss"
@@ -9,9 +9,16 @@ import { imageUrlFor } from "../lib/image-url"
 import { useMediaQuery } from "react-responsive"
 import { HiOutlineArrowCircleDown } from "@react-icons/all-files/hi/HiOutlineArrowCircleDown"
 import PortableText from "../components/portableText"
+import { AnchorLink } from "gatsby-plugin-anchor-links"
+// import smoothscroll from "smoothscroll-polyfill"
+
 // import { mapEdgesToNodes } from "../lib/helpers"
 
 const IndexPage = ({ data: { sanityHomepage } }) => {
+  /* useEffect(() => {
+    smoothscroll.polyfill()
+  }, []) */
+
   // const exhibitNodes = mapEdgesToNodes(props.data.allSanityExhibit)
   // const use360 = useMediaQuery({ maxHeight: 360 })
   const use480 = useMediaQuery({ minHeight: 361, maxHeight: 480 })
@@ -46,7 +53,7 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
         title="Home"
         description="The Official Website of the Wing Luke Museum of the Asian Pacific American Experience"
         // TODO what if banner.asset is null?
-        // image={banner}
+        image={sanityHomepage?.poster} // TODO update this
       />
       {bgVidUrl && (
         <header className={styles.videoHeader}>
@@ -73,7 +80,9 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
             </h1>
             <button
               onClick={() => {
-                const mainRefY = mainRef.current.getBoundingClientRect().top
+                const mainRefY =
+                  mainRef.current.getBoundingClientRect().top -
+                  document.body.getBoundingClientRect().top
                 let headerBottomBarHeight = getComputedStyle(
                   mainRef.current
                 ).getPropertyValue("--header-bottom-bar-height")
@@ -86,7 +95,8 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
                   parseFloat(
                     getComputedStyle(document.documentElement).fontSize
                   )
-                window.scrollBy({
+                // smoothscroll.polyfill()
+                window.scrollTo({
                   top: mainRefY - headerBottomBarHeight,
                   left: 0,
                   behavior: "smooth",
@@ -95,6 +105,9 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
             >
               <HiOutlineArrowCircleDown />
             </button>
+            {/* <AnchorLink to={"/#main-content"}>
+              <HiOutlineArrowCircleDown />
+            </AnchorLink> */}
           </div>
           {bgVid && (
             <div className={styles.vidControls}>
@@ -103,7 +116,7 @@ const IndexPage = ({ data: { sanityHomepage } }) => {
           )}
         </header>
       )}
-      <div className={styles.main} ref={mainRef}>
+      <div className={styles.main} ref={mainRef} id={"main-content"}>
         {sanityHomepage?._rawMainContent?.en && (
           <PortableText blocks={sanityHomepage._rawMainContent.en} />
         )}

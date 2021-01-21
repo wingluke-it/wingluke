@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { Link } from "gatsby"
 import classNames from "classnames"
 import styles from "./tocLayout.module.scss"
+import { AnchorLink } from "gatsby-plugin-anchor-links"
 
 /* sectionTitlesAndContent: { sectionTitle: <jsx element> } */
 /* breakpoint: "laptop" or "tablet" */
@@ -15,13 +16,14 @@ const TocLayout = ({
   hideTocNav = false,
   stickyHeaders = false,
   afterToc,
+  basepath,
 }) => {
   const titles = Object.keys(sectionTitlesAndContent)
   const ids = titles.map(title => title.replace(/\W/g, "-").toLowerCase())
   const tocLinks = ids.map((id, index) => (
-    <Link key={id} to={`#${id}`} replace>
+    <AnchorLink key={id} to={`/${basepath}#${id}`} replace>
       {titles[index]}
-    </Link>
+    </AnchorLink>
   ))
   const sectionRefs = useRef([])
   const sections = titles.map((title, index) => (

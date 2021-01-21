@@ -34,6 +34,7 @@ const Event = props => {
   const {
     title,
     subtitle,
+    slug,
     eventTags,
     scheduleType,
     finiteOccurrences,
@@ -272,6 +273,7 @@ const Event = props => {
               hideTocNav={true}
               headersHiddenAtBreakpoint={false}
               sectionTitlesAndContent={sectionTitlesAndContent}
+              basepath={`events/${slug?.current}`}
             />
           }
           sidebar={
@@ -304,6 +306,9 @@ export const query = graphql`
       }
       subtitle {
         en
+      }
+      slug {
+        current
       }
       eventTags
       scheduleType

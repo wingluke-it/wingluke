@@ -25,6 +25,13 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: "gatsby-plugin-anchor-links",
+      options: {
+        offset: 00,
+      },
+    },
+    // `gatsby-plugin-smoothscroll`, // npm uninstall this...it doesn't seem to work for safari
+    {
       resolve: `gatsby-plugin-sass`,
       options: {
         // node-sass, the default implementation, is considered deprecated. It doesn't allow for use of @use at-rules.

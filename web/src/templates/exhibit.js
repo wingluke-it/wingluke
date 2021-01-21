@@ -22,6 +22,7 @@ const ExhibitTemplate = props => {
   const {
     title,
     subtitle,
+    slug,
     banner,
     _rawOverview,
     imageGallery,
@@ -258,6 +259,7 @@ const ExhibitTemplate = props => {
                 afterToc={null}
                 headersHiddenAtBreakpoint={false}
                 hideTocNav={true}
+                basepath={`exhibits/${slug?.current}`}
               />
             </>
           }
@@ -284,6 +286,9 @@ export const query = graphql`
       }
       subtitle {
         en
+      }
+      slug {
+        current
       }
       openingDate
       closingDate

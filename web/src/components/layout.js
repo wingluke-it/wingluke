@@ -17,7 +17,9 @@ let ticking = false
 const maxHeaderHeight = 150
 
 const Layout = ({ children, location }) => {
-  const [headerIsShown, setHeaderIsShown] = useState(true)
+  const [headerIsShown, setHeaderIsShown] = useState(
+    typeof window !== "undefined" ? window.scrollY > maxHeaderHeight : true
+  )
   const [headerItemOpened, setHeaderItemOpened] = useState(null)
 
   const toggleHeader = useCallback(
@@ -118,7 +120,9 @@ const Layout = ({ children, location }) => {
     pathname: null,
     hash: null,
   })
-  const [hasMediaBg, setHasMediaBg] = useState(true)
+  const [hasMediaBg, setHasMediaBg] = useState(
+    typeof window !== "undefined" ? ["/"].includes(window.pathname) : true
+  )
   useEffect(() => {
     if (locRef.current.pathname !== location.pathname) {
       locRef.current.pathname = location.pathname

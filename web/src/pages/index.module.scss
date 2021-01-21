@@ -83,7 +83,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: calc(100vh - #{v.$header-bottom-bar-height});
   width: 100vw;
   margin-top: calc(100vh - var(--header-max-room));
   // padding-top: v.$baseline;
