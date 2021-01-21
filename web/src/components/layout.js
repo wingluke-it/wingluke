@@ -18,7 +18,7 @@ const maxHeaderHeight = 150
 
 const Layout = ({ children, location }) => {
   const [headerIsShown, setHeaderIsShown] = useState(
-    typeof window !== "undefined" ? window.scrollY > maxHeaderHeight : true
+    typeof window !== "undefined" ? window.scrollY <= maxHeaderHeight : true
   )
   const [headerItemOpened, setHeaderItemOpened] = useState(null)
 

@@ -27,7 +27,8 @@ module.exports = {
     {
       resolve: "gatsby-plugin-anchor-links",
       options: {
-        offset: 00,
+        offset: 0,
+        duration: 1000,
       },
     },
     // `gatsby-plugin-smoothscroll`, // npm uninstall this...it doesn't seem to work for safari
