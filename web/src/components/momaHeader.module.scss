@@ -1,6 +1,7 @@
 @use "../styles/variables/" as v;
 @use "../styles/helpers";
 
+$header-max-width: v.$width-breakpoint-laptop-s;
 .header {
   position: fixed;
   top: calc(var(--header-room) - var(--header-max-room));
@@ -31,6 +32,10 @@
 
   .nav {
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
     .topBar {
       // padding: (v.$baseline / 2) v.$baseline;
@@ -39,6 +44,8 @@
       display: flex;
       align-items: center;
       justify-content: stretch;
+      max-width: $header-max-width;
+      width: 100%;
 
       .homeLink {
         flex: 0 1 auto;
@@ -63,6 +70,18 @@
           max-height: v.$header-top-bar-height / 2;
           margin: 0;
           // margin: auto 0;
+        }
+
+        $logo-breakpoint: 700px;
+        .smallLogo {
+          @media (min-width: $logo-breakpoint + 1) {
+            display: none;
+          }
+        }
+        .wideLogo {
+          @media (max-width: $logo-breakpoint) {
+            display: none;
+          }
         }
 
         &.logoActive {
@@ -119,6 +138,7 @@
   .bottomBar {
     height: v.$header-bottom-bar-height;
     width: 100%;
+    max-width: $header-max-width;
     display: flex;
     justify-content: stretch;
     align-items: center;
@@ -210,17 +230,19 @@
     opacity: 0;
     height: 0;
     width: 100%; // 100vw;
+    max-width: $header-max-width;
     z-index: v.$header-expanding-container-z-index + 1;
     position: fixed;
     top: var(--header-room);
     overflow: auto;
 
     text-align: center;
-    margin: 0 auto;
+    margin: 0;
 
     &.headerIsOpen {
       // visibility: visible;
-      height: calc(100vh - var(--header-room) - #{$close-button-height});
+      // height: 100vh; //var(--header-room);
+      height: calc(100% - var(--header-room) - #{$close-button-height});
     }
 
     &.front {

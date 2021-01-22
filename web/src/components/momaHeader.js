@@ -70,11 +70,16 @@ const MomaHeader = ({ headerItemOpened, toggleHeader, transparent }) => {
             to="/"
             activeClassName={styles.logoActive}
           >
-            {isTablet ? (
-              <img src={SmallLogo} alt={"Wing Luke Museum Logo"} />
-            ) : (
-              <img src={WideLogo} alt={"Wing Luke Museum Logo"} />
-            )}
+            <img
+              src={SmallLogo}
+              className={styles.smallLogo}
+              alt={"Wing Luke Museum Logo"}
+            />
+            <img
+              src={WideLogo}
+              className={styles.wideLogo}
+              alt={"Wing Luke Museum Logo"}
+            />
           </Link>
           {/* TODO add icons for these CTAs for at least mobile */}
           <div className={styles.ctas}>

@@ -20,6 +20,10 @@ $fade-delay: 0s;
   main {
     visibility: visible;
     opacity: 1;
+    width: 100%;
+    // max-width: v.$width-breakpoint-laptop-s;
+    flex: 1 0 auto;
+    margin: v.$header-top-bar-height + v.$header-bottom-bar-height 0 0;
     background-color: v.$light-gray-background-color;
     // TODO somehow get this to only happen when it's a new page we're switching to.
     // just closing the header on the same page shouldn't trigger the transition
@@ -29,6 +33,9 @@ $fade-delay: 0s;
       opacity $fade-duration ease-in-out $fade-delay;
     // }
 
+    & > :first-child {
+      margin-top: 0;
+    }
     > *:last-child {
       margin-bottom: v.$baseline;
     }

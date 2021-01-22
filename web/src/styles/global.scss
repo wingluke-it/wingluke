@@ -26,23 +26,8 @@ html {
 
 body {
   margin: 0;
-  background-color: v.$light-gray-background-color;
-}
-
-main {
-  transition: all v.$baseline-animation-speed ease-in-out;
-  margin: v.$header-top-bar-height + v.$header-bottom-bar-height 0 0;
   padding: 0;
-  flex: 1 0 auto;
-  width: 100%;
-
-  & > :first-child {
-    margin-top: 0;
-  }
-
-  & > :last-child {
-    // margin-bottom: v.$baseline;
-  }
+  background-color: v.$light-gray-background-color;
 }
 
 img {

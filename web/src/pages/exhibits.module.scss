@@ -4,7 +4,6 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
-  // margin: v.$header-bottom-bar-height + v.$baseline 0;
   grid-gap: 1rem;
   list-style: none;
   padding-inline-start: 0px;

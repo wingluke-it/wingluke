@@ -6,6 +6,8 @@ $sidebar-min-width: 14rem;
 }
 
 .grid {
+  max-width: v.$width-breakpoint-laptop-s;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto;
